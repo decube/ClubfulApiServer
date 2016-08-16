@@ -6,9 +6,9 @@ var pool = generic_pool.Pool({
                 var config = {
                         host : 'localhost',
                         port : '3306',
-                        user : 'root',
-                        password : 'Qwas8649!',
-                        database : 'oyanggo'
+                        user : 'clubful',
+                        password : 'clubful',
+                        database : 'clubful'
                 }
                 var client = mysql.createConnection(config);
                 client.connect(function (error){
