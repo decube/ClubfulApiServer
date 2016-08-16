@@ -1,0 +1,133 @@
+var express = require('express');
+var bodyParser = require('body-parser');
+var app = express();
+var router = express.Router();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+var _DBPool = require('../lib/datapool');
+var _Query = require('../query/versionCheck')();
+
+// middleware that is specific to this router
+router.use(function timeLog(req, res, next) {
+  console.log('Time: ', Date.now());
+  next();
+});
+// define the home page route
+router.post('/', function(req, res) {
+
+  var appType = req.body.appType;
+  var appVersion = req.body.appVersion;
+  var sendDate = req.body.sendDate;
+  var language = req.body.language;
+  var deviceId = req.body.deviceId;
+  var token = req.body.token;
+  var categoryVer = req.body.categoryVer;
+  var noticeVer = req.body.noticeVer;
+
+
+  var rtCode=0;
+  var rtMsg = '';
+  var rtToken = '';
+  var rtVer = '';
+  var rtCategoryVer = '';
+  var rtNoticeVer = '';
+  var rtCategoryList = [];
+
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        rtCode=1;
+        return res.end("CONNECTION error: " + err);
+      }
+
+      db.query(_Query.getDevice,[deviceId],function(err, rowDevice, columns) {
+          if (err) {
+            rtCode=1;
+            return res.end("QUERY ERROR: " + err);
+          }else{
+            if(rowDevice[0] == null){
+              //새로운 유저 디바이스 생성
+            }else{
+
+            }
+            rtToken = rowDevice[0].token;
+            console.log(rtToken);
+            db.query(_Query.getNewCategoryVer,[],function(err, rowNewCategory, columns) {
+                if (err) {
+                  rtCode=1;
+                  return res.end("QUERY ERROR: " + err);
+                }else{
+                  rtCategoryVer = rowNewCategory[0].ver;
+                  console.log(rtCategoryVer);
+                  if(categoryVer == rowNewCategory[0].ver){
+
+                  }else{
+                    //다르면 카테고리 리스트 내려줌
+                    db.query(_Query.getCategoryList,[rowNewCategory[0].ver],function(err, rowCategoryList, columns) {
+
+                        if (err) {
+                          rtCode=1;
+                          return res.end("QUERY ERROR: " + err);
+                        }else{
+                          rtCategoryList = rowCategoryList;
+                          db.query(_Query.getNewNoticeVer,[],function(err, rowNewNotice, columns) {
+                              if (err) {
+                                return res.end("QUERY ERROR: " + err);
+                              }else{
+                                rtNoticeVer = rowNewNotice[0].ver;
+                                res.json({ code : rtCode
+                                          ,msg : rtMsg
+                                          ,isMsgView : true
+                                          ,token : rtToken
+                                          ,ver : rtVer
+                                          ,categoryVer : rtCategoryVer
+                                          ,categoryLIst : rtCategoryList
+                                          ,noticeVer : rtNoticeVer});
+
+                              }
+                          });
+                        }
+                    });
+
+                  }
+                }
+
+            });
+
+
+          }
+
+
+
+      });
+      _DBPool.release(db);
+
+  });
+
+});
+// define the about route
+// router.get('/about', function(req, res) {
+//   var appType = req.body.appType; //앱 타입 : ios, and, web
+//   var appVersion = req.body.appVersion; //접속한 앱버전
+//   var sendDate = req.body.sendDate; //접속한 일자
+//   var deviceId = req.body.deviceId; //UUID
+//   console.log(deviceId);
+//   _DBPool.acquire(function(err, db) {
+//       if (err) {
+//         return res.end("CONNECTION error: " + err);
+//       }
+//
+//       db.query("SELECT * FROM device where uuid = ?",[deviceId],function(err, rows, columns) {
+//           _DBPool.release(db);
+//
+//           if (err) {
+//             return res.end("QUERY ERROR: " + err);
+//           }
+//           res.json({ result : true ,message: rows });
+//       });
+//   });
+//
+//
+// });
+
+module.exports = router;
