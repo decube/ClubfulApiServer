@@ -27,8 +27,8 @@ app.route('/book')
     res.send('Update the book');
   });
 
-var birds = require('./src/router/versionCheck.js');
-app.use('/versionCheck', birds);
+var versionCheck = require('./src/router/versionCheck.js');
+app.use('/versionCheck', versionCheck);
 
 app.listen(3000, function(){
     console.log('Connection 3000 port!');
