@@ -1,5 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var crypto = require('crypto');
+
 var app = express();
 var router = express.Router();
 
@@ -14,17 +16,23 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 // define the home page route
-router.post('/', function(req, res) {
+router.get('/', function(req, res) {
 
-  var appType = req.body.appType;
-  var appVersion = req.body.appVersion;
-  var sendDate = req.body.sendDate;
-  var language = req.body.language;
-  var deviceId = req.body.deviceId;
-  var token = req.body.token;
-  var categoryVer = req.body.categoryVer;
-  var noticeVer = req.body.noticeVer;
+  // var appType = req.body.appType;
+  // var appVersion = req.body.appVersion;
+  // var sendDate = req.body.sendDate;
+  // var language = req.body.language;
+  // var deviceId = req.body.deviceId;
+  // var token = req.body.token;
+  // var categoryVer = req.body.categoryVer;
+  // var noticeVer = req.body.noticeVer;
 
+  var deviceId = req.query.deviceId;
+  var appType = req.query.appType;
+  var appVersion = req.query.appVersion;
+  var language = req.query.language;
+  var categoryVer = req.query.categoryVer;
+  var noticeVer = req.query.noticeVer;
 
   var rtCode=0;
   var rtMsg = '';
@@ -47,10 +55,29 @@ router.post('/', function(req, res) {
           }else{
             if(rowDevice[0] == null){
               //새로운 유저 디바이스 생성
+              db.query(_Query.getTokenSeq,[],function(err, rowToken, columns) {
+                  if (err) {
+                    return res.end("QUERY ERROR: " + err);
+                  }else{
+                    var hash = crypto.createHash('sha256').update('token'+rowToken[0]).digest('base64');
+                    db.query(_Query.insertDevice,[hash, appType, appVersion, language, deviceId],function(err, rowToken, columns) {
+                        if (err) {
+                          return res.end("QUERY ERROR: " + err);
+                        }else{
+                          db.query(_Query.getDevice,[deviceId],function(err, rowReDevice, columns) {
+                            if (err) {
+                            }else{
+                              rtToken = rowReDevice[0].token;
+                            }
+                          });
+                        }
+                    });
+                  }
+              });
             }else{
-
+              rtToken = rowDevice[0].token;
             }
-            rtToken = rowDevice[0].token;
+
             console.log(rtToken);
             db.query(_Query.getNewCategoryVer,[],function(err, rowNewCategory, columns) {
                 if (err) {

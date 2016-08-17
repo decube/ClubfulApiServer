@@ -5,6 +5,7 @@ module.exports = function() {
           getNewNoticeVer: 'SELECT notice_ver as ver FROM NOTICE_VER ORDER BY MAKE_DT DESC LIMIT 1',
           getNewDeviceVer: 'SELECT ver FROM DEVICE_VER WHERE DEVICE =? AND LANGUAGE=? ORDER BY MAKE_DT DESC LIMIT 1',
           getCategoryList: 'select seq, category_nm from category where ver = ? order by seq asc',
-
+          insertDevice : 'INSERT INTO DEVICE (token, device_type, version, language, uuid, make_dt, update_dt) values(?,?,?,?,?,now(),now())',
+          getTokenSeq : "SELECT fn_get_seq('token')",
       };
   }
