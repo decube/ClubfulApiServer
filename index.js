@@ -28,7 +28,9 @@ app.route('/book')
   });
 
 var versionCheck = require('./src/router/versionCheck.js');
+var join = require('./src/router/join.js');
 app.use('/versionCheck', versionCheck);
+app.use('/join', join);
 
 app.listen(3000, function(){
     console.log('Connection 3000 port!');
