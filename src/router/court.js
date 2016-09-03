@@ -58,10 +58,50 @@ router.get('/insert', function(req, res) {
             return res.end("QUERY ERROR: " + err);
           }else{
             rtCode = 0;
-            rtMsg = "코트등록에 성공했습니다."
+            rtMsg = "코트등록에 성공했습니다.";
             res.json({ code : rtCode
                       ,msg : rtMsg
                       ,isMsgView : true
+                     });
+          }
+      });
+
+      _DBPool.release(db);
+
+  });
+
+});
+
+router.get('/getList', function(req, res) {
+
+  // var token = req.body.token;
+  // var address = req.body.address;
+  // var category_seq = req.body.category_seq;
+
+  var token = req.query.token;
+  var address = req.query.address;
+  var category_seq = req.query.category_seq;
+
+  var rtCode=1;
+  var rtMsg = '';
+
+  if(category_seq == -1){
+    category_seq='';
+  }
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        return res.end("CONNECTION error: " + err);
+      }
+      db.query(_Query.getCourtList,[address, category_seq],function(err, rowCourtList, columns) {
+          if (err) {
+            return res.end("QUERY ERROR: " + err);
+          }else{
+            rtCode = 0;
+            rtMsg = "";
+            res.json({ code : rtCode
+                      ,msg : rtMsg
+                      ,isMsgView : false
+                      ,list : rowCourtList
                      });
           }
       });

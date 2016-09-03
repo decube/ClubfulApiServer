@@ -79,7 +79,7 @@ router.get('/', function(req, res) {
                     return res.end("QUERY ERROR: " + err);
                   }else{
                     rtCode = 0;
-                    rtMsg = "ClubFul 회원이 되신것을 환영 합니다."
+                    rtMsg = "ClubFul 회원이 되신것을 환영 합니다.";
                     res.json({ code : rtCode
                               ,msg : rtMsg
                               ,isMsgView : true
@@ -88,7 +88,7 @@ router.get('/', function(req, res) {
               });
             }else{
               rtCode = 1;
-              rtMsg = "이미 가입 되어 있는 ID 입니다."
+              rtMsg = "이미 가입 되어 있는 ID 입니다.";
               res.json({ code : rtCode
                         ,msg : rtMsg
                         ,isMsgView : true
