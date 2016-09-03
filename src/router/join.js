@@ -70,8 +70,7 @@ router.get('/', function(req, res) {
             if(rowDevice[0] == null){
               //가입이 가능함.
               db.query(_Query.insertUser,[userId
-                , token, password, gcmId
-                , nickName, sex, birth
+                , password, nickName, sex, birth
                 , userLatitude, userLongitude, userAddress
                 , userAddressShort, noticePush, myInsertPush
                 , distancePush, interestPush, startTime, endTime],function(err, rowToken, columns) {
