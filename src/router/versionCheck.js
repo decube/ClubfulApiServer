@@ -77,8 +77,6 @@ router.get('/', function(req, res) {
             }else{
               rtToken = rowDevice[0].token;
             }
-
-            console.log(rtToken);
             db.query(_Query.getNewCategoryVer,[],function(err, rowNewCategory, columns) {
                 if (err) {
                   rtCode=1;
@@ -110,7 +108,6 @@ router.get('/', function(req, res) {
                                           ,categoryVer : rtCategoryVer
                                           ,categoryLIst : rtCategoryList
                                           ,noticeVer : rtNoticeVer});
-
                               }
                           });
                         }
@@ -118,10 +115,7 @@ router.get('/', function(req, res) {
 
                   }
                 }
-
             });
-
-
           }
 
 
@@ -132,29 +126,6 @@ router.get('/', function(req, res) {
   });
 
 });
-// define the about route
-// router.get('/about', function(req, res) {
-//   var appType = req.body.appType; //앱 타입 : ios, and, web
-//   var appVersion = req.body.appVersion; //접속한 앱버전
-//   var sendDate = req.body.sendDate; //접속한 일자
-//   var deviceId = req.body.deviceId; //UUID
-//   console.log(deviceId);
-//   _DBPool.acquire(function(err, db) {
-//       if (err) {
-//         return res.end("CONNECTION error: " + err);
-//       }
-//
-//       db.query("SELECT * FROM device where uuid = ?",[deviceId],function(err, rows, columns) {
-//           _DBPool.release(db);
-//
-//           if (err) {
-//             return res.end("QUERY ERROR: " + err);
-//           }
-//           res.json({ result : true ,message: rows });
-//       });
-//   });
-//
-//
-// });
+
 
 module.exports = router;

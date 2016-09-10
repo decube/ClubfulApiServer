@@ -11,5 +11,9 @@ module.exports = function() {
                         +" WHERE court.category_seq = category.seq"
                         +" AND court.address like concat('%',?,'%')"
                         +" AND court.category_seq = ?",
+          checkInterest : "select interest_yn from INTEREST where court_seq = ? and device_token = ?",
+          getInterestCnt : "select count(*) as cnt from INTEREST where court_seq = ?",
+          insertInterest : "INSERT INTO INTEREST (seq, interest_yn, court_seq, device_token) VALUES ((SELECT fn_get_seq('interest')), 'Y', ?, ?)",
+          updateInterest : "update INTEREST set interest_yn ='Y' where court_seq = ? and device_token = ?",
       }
   }
