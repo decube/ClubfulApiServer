@@ -5,5 +5,6 @@ module.exports = function() {
           updateDevice : 'update device set gcm_id = ? , user_id =? where token = ?',
           getUserDevice : 'select * from user_info u, device d where u.user_id = d.user_id and u.user_id = ?',
           updateUser : 'update user_info set password=?, nickName=?, sex=?, birthDay=?,userLatitude=?,userLongitude=?, userAddress=?, userAddressShort=? where user_id = ?',
+          logoutCheck : 'select * from user_info u, device d where u.user_id = d.user_id and u.user_id = ? and d.token = ?'
       };
   }

@@ -195,5 +195,45 @@ router.get('/login', function(req, res) {
 
 });
 
+router.get('/logout', function(req, res) {
+
+  // var userId = req.body.userId;
+  // var token = req.body.token;
+
+  var userId = req.query.userId;
+  var token = req.query.token;
+
+  var rtCode=1;
+  var rtMsg = '';
+
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        return res.end("CONNECTION error: " + err);
+      }
+
+      db.query(_Query.logoutCheck,[userId, token],function(err, rowDevice, columns) {
+          if (err) {
+            return res.end("QUERY ERROR: " + err);
+          }else{
+            if(rowDevice[0].user == null){
+              rtMsg = '등록되어 있는 유저가 없습니다.';
+            }else{
+              rtCode= 0;
+              rtMsg = '로그아웃 성공.';
+            }
+          }
+          res.json({ code : rtCode
+                    ,msg : rtMsg
+                    ,isMsgView : true
+                  });
+      });
+
+      _DBPool.release(db);
+
+  });
+
+});
+
+
 
 module.exports = router;
