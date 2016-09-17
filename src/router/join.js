@@ -8,7 +8,7 @@ var router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 var _DBPool = require('../lib/datapool');
-var _Query = require('../query/join')();
+var _Query = require('../query/user')();
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
@@ -54,7 +54,7 @@ router.get('/', function(req, res) {
   var startTime = req.query.startTime;
   var endTime = req.query.endTime;
 
-
+  var hash = crypto.createHash('sha256').update(password).digest('base64');
   var rtCode=1;
   var rtMsg = '';
 
@@ -70,7 +70,7 @@ router.get('/', function(req, res) {
             if(rowDevice[0] == null){
               //가입이 가능함.
               db.query(_Query.insertUser,[userId
-                , password, nickName, sex, birth
+                , hash, nickName, sex, birth
                 , userLatitude, userLongitude, userAddress
                 , userAddressShort, noticePush, myInsertPush
                 , distancePush, interestPush, startTime, endTime],function(err, rowToken, columns) {
