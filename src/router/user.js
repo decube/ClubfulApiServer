@@ -15,13 +15,12 @@ router.use(function timeLog(req, res, next) {
   console.log('Time: ', Date.now());
   next();
 });
-// define the home page route
-router.get('/login', function(req, res) {
+
+router.get('/join', function(req, res) {
 
   // var userId = req.body.userId;
   // var token = req.body.token;
   // var password = req.body.password;
-  // var loginType = req.body.loginType;
   // var gcmId = req.body.gcmId;
   // var nickName = req.body.nickName;
   // var sex = req.body.sex;
@@ -37,11 +36,9 @@ router.get('/login', function(req, res) {
   // var startTime = req.body.startTime;
   // var endTime = req.body.endTime;
 
-
   var userId = req.query.userId;
   var token = req.query.token;
   var password = req.query.password;
-  var loginType = req.query.loginType;
   var gcmId = req.query.gcmId;
   var nickName = req.query.nickName;
   var sex = req.query.sex;
@@ -57,25 +54,10 @@ router.get('/login', function(req, res) {
   var startTime = req.query.startTime;
   var endTime = req.query.endTime;
 
-
+  var hash = crypto.createHash('sha256').update(password).digest('base64');
   var rtCode=1;
   var rtMsg = '';
-  var retUserId = '';
-  var retNickName = '';
-  var retSex = '';
-  var retUserLatitude = '';
-  var retUserLongitude = '';
-  var retUserAddress = '';
-  var retUserAddressShort = '';
-  var retBirth = '';
-  var retStartTime = '';
-  var retEndTime = '';
-  var retNoticePush = '';
-  var retMyCreateCourtPush = '';
-  var retDistancePush = '';
-  var retInterestPush = '';
 
-  var hash = crypto.createHash('sha256').update(password).digest('base64');
   _DBPool.acquire(function(err, db) {
       if (err) {
         return res.end("CONNECTION error: " + err);
@@ -87,114 +69,41 @@ router.get('/login', function(req, res) {
           }else{
             if(rowDevice[0] == null){
               //가입이 가능함.
-              if(loginType == '1'){
-                rtCode = 1;
-                rtMsg = "ID를 확인해 주십시오.";
-              }else{
-                //카톡이나 페이스북 비밀번호가 없음.
-                db.query(_Query.insertUser,[userId
-                  , hash, nickName, sex, birth
-                  , userLatitude, userLongitude, userAddress
-                  , userAddressShort, noticePush, myInsertPush
-                  , distancePush, interestPush, startTime, endTime],function(err, rowToken, columns) {
-                    if (err) {
-                      return res.end("QUERY ERROR: " + err);
-                    }else{
-                      rtCode = 0;
-                      rtMsg = "로그인 성공.";
-                      db.query(_Query.updateDevice,[gcmId, userId, token],function(err, rowToken, columns) {
-                          if (err) {
-                            return res.end("QUERY ERROR: " + err);
-                          }else{
-                            db.query(_Query.getUserDevice,[userId],function(err, rowDevice, columns) {
-                                if (err) {
-                                  return res.end("QUERY ERROR: " + err);
-                                }else{
-                                  rtCode = 0;
-                                  rtMsg = "로그인 성공.";
-                                  retUserId = rowDevice.user_id;
-                                  retNickName = rowDevice.NickName;
-                                  retSex = rowDevice.sex;
-                                  retUserLatitude = rowDevice.userLatitude;
-                                  retUserLongitude = rowDevice.userLongitude;
-                                  retUserAddress = rowDevice.userAddress;
-                                  retUserAddressShort = rowDevice.userAddressShort;
-                                  retBirth = rowDevice.birthDay;
-                                  retStartTime = rowDevice.push_start_time;
-                                  retEndTime = rowDevice.push_end_time;
-                                  retNoticePush = rowDevice.is_notice_push;
-                                  retMyCreateCourtPush = rowDevice.is_insert_push;
-                                  retDistancePush = rowDevice.is_distance_push;
-                                  retInterestPush = rowDevice.is_interest_push;
-                                }
-                            });
-                          }
-                      });
-                    }
-                });
-              }
+              db.query(_Query.insertUser,[userId
+                , hash, nickName, sex, birth
+                , userLatitude, userLongitude, userAddress
+                , userAddressShort, noticePush, myInsertPush
+                , distancePush, interestPush, startTime, endTime],function(err, rowToken, columns) {
+                  if (err) {
+                    return res.end("QUERY ERROR: " + err);
+                  }else{
+                    rtCode = 0;
+                    rtMsg = "ClubFul 회원이 되신것을 환영 합니다.";
+                    res.json({ code : rtCode
+                              ,msg : rtMsg
+                              ,isMsgView : true
+                             });
+                  }
+              });
             }else{
-              if((loginType == '1' && rowDevice[0].password == hash) || loginType=='2' || loginType=='3'){
-                db.query(_Query.updateDevice,[gcmId, userId, token],function(err, rowToken, columns) {
-                    if (err) {
-                      return res.end("QUERY ERROR: " + err);
-                    }else{
-                      db.query(_Query.getUserDevice,[userId],function(err, rowDevice, columns) {
-                          if (err) {
-                            return res.end("QUERY ERROR: " + err);
-                          }else{
-                            rtCode = 0;
-                            rtMsg = "로그인 성공.";
-                            retUserId = rowDevice.user_id;
-                            retNickName = rowDevice.NickName;
-                            retSex = rowDevice.sex;
-                            retUserLatitude = rowDevice.userLatitude;
-                            retUserLongitude = rowDevice.userLongitude;
-                            retUserAddress = rowDevice.userAddress;
-                            retUserAddressShort = rowDevice.userAddressShort;
-                            retBirth = rowDevice.birthDay;
-                            retStartTime = rowDevice.push_start_time;
-                            retEndTime = rowDevice.push_end_time;
-                            retNoticePush = rowDevice.is_notice_push;
-                            retMyCreateCourtPush = rowDevice.is_insert_push;
-                            retDistancePush = rowDevice.is_distance_push;
-                            retInterestPush = rowDevice.is_interest_push;
-                          }
-                      });
-                    }
-                });
-              }else{
-                rtCode = 1;
-                rtMsg = '비밀번호를 확인해 주세요.';
-              }
+              rtCode = 1;
+              rtMsg = "이미 가입 되어 있는 ID 입니다.";
+              res.json({ code : rtCode
+                        ,msg : rtMsg
+                        ,isMsgView : true
+                       });
             }
-          }
-          res.json({ code : rtCode
-                    ,msg : rtMsg
-                    ,isMsgView : true
-                    ,userId : retUserId
-                    ,nickName : retNickName
-                    ,sex : retSex
-                    ,userLatitude : retUserLatitude
-                    ,userLongitude : retUserLongitude
-                    ,userAddress : retUserAddress
-                    ,userAddressShort : retUserAddressShort
-                    ,birth : retBirth
-                    ,startTime : retStartTime
-                    ,endTime : retEndTime
-                    ,noticePush : retNoticePush
-                    ,myCreateCourtPush : retMyCreateCourtPush
-                    ,distancePush : myDistancePush
-                    ,interestPush : myInsertPush
-                   });
-      });
 
+          }
+      });
       _DBPool.release(db);
 
   });
 
 });
 
+
+// define the home page route
 
 router.get('/update', function(req, res) {
 
@@ -226,10 +135,8 @@ router.get('/update', function(req, res) {
   var userAddress = req.query.userAddress;
   var userAddressShort = req.query.userAddressShort;
 
-
   var rtCode=1;
   var rtMsg = '';
-
 
   var passwordHash = crypto.createHash('sha256').update(password).digest('base64');
   var newPasswordHash = crypto.createHash('sha256').update(newPassword).digest('base64');
