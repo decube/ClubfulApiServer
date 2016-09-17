@@ -9,12 +9,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 var versionCheck = require('./src/router/versionCheck.js');
-var join = require('./src/router/join.js');
+var certification = require('./src/router/certification.js');
 var court = require('./src/router/court.js');
 var user = require('./src/router/user.js');
 
 app.use('/versionCheck', versionCheck);
-app.use('/join', join);
+app.use('/certification', certification);
 app.use('/court', court);
 app.use('/user', user);
 
