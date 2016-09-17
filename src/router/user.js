@@ -196,4 +196,83 @@ router.get('/login', function(req, res) {
 });
 
 
+router.get('/update', function(req, res) {
+
+  // var userId = req.body.userId;
+  // var token = req.body.token;
+  // var password = req.body.password;
+  // var newPassword = req.body.newPassword;
+  // var gcmId = req.body.gcmId;
+  // var nickName = req.body.nickName;
+  // var sex = req.body.sex;
+  // var birth = req.body.birth;
+  // var latitude = req.body.latitude;
+  // var longitude = req.body.longitude;
+  // var userAddress = req.body.userAddress;
+  // var userAddressShort = req.body.userAddressShort;
+
+
+
+  var userId = req.query.userId;
+  var token = req.query.token;
+  var password = req.query.password;
+  var newPassword = req.query.newPassword;
+  var gcmId = req.query.gcmId;
+  var nickName = req.query.nickName;
+  var sex = req.query.sex;
+  var birth = req.query.birth;
+  var latitude = req.query.latitude;
+  var longitude = req.query.longitude;
+  var userAddress = req.query.userAddress;
+  var userAddressShort = req.query.userAddressShort;
+
+
+  var rtCode=1;
+  var rtMsg = '';
+
+
+  var passwordHash = crypto.createHash('sha256').update(password).digest('base64');
+  var newPasswordHash = crypto.createHash('sha256').update(newPassword).digest('base64');
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        return res.end("CONNECTION error: " + err);
+      }
+
+      db.query(_Query.checkUser,[userId],function(err, rowUser, columns) {
+          if (err) {
+            rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
+          }else{
+            if(rowUser[0] == null){
+              rtMsg = '가입되어있는 유저 정보가 없습니다.';
+            }else{
+              if(rowUser[0].password == passwordHash){
+                db.query(_Query.updateUser,[newPasswordHash, nickName, sex
+                                      ,birth, latitude, longitude
+                                      ,userAddress, userAddressShort, userId],function(err, updateRow, columns) {
+                  if(err){
+                    rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
+                  }else{
+                    var rtCode=0;
+                    var rtMsg = '정보가 수정 되었습니다.';
+                  }
+
+                });
+              }else{
+                rtMsg = '비밀번호를 잘못 입력하였습니다.';
+              }
+            }
+          }
+          res.json({ code : rtCode
+                    ,msg : rtMsg
+                    ,isMsgView : true
+
+                   });
+      });
+
+      _DBPool.release(db);
+
+  });
+
+});
+
 module.exports = router;
