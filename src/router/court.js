@@ -26,7 +26,7 @@ router.get('/insert', function(req, res) {
   // var latitude = req.body.latitude;
   // var longitude = req.body.longitude;
   // var description = req.body.description;
-  // var picArrayCnt = req.body.picArrayCnt;
+  // var picNameArray = req.body.picNameArray;
   // var status = req.body.status;
   // var category_seq = req.body.category_seq;
 
@@ -38,9 +38,12 @@ router.get('/insert', function(req, res) {
   var latitude = req.query.latitude;
   var longitude = req.query.longitude;
   var description = req.query.description;
-  var picArrayCnt = req.query.picArrayCnt;
+  var picNameArray = req.query.picNameArray;
   var status = 'N';
   var category_seq = req.query.category_seq;
+
+  picNameArray = picNameArray.replace(/'/g, '"');
+  picNameArray = JSON.parse(picNameArray);
 
   var rtCode=1;
   var rtMsg = '';
@@ -52,7 +55,7 @@ router.get('/insert', function(req, res) {
 
       db.query(_Query.insertCourt,[address
         , addressShort, cname, latitude
-        , longitude, description, picArrayCnt
+        , longitude, description
         , status, category_seq],function(err, rowToken, columns) {
           if (err) {
             return res.end("QUERY ERROR: " + err);
