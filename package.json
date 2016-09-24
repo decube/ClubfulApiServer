@@ -4,7 +4,8 @@
   "description": "appserver oyanggo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www",
+    "test": "node_modules/mocha/bin/mocha $(find ./src/test -name '*.spec.js') --recursive -w"
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +14,9 @@
     "express": "^4.14.0",
     "node-mysql": "^0.4.2",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "mocha": "^3.0.2",
+    "should": "^11.1.0"
   }
 }

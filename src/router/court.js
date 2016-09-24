@@ -17,7 +17,6 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 router.get('/insert', function(req, res) {
-
   // var token = req.body.token;
   // var id = req.body.id;
   // var address = req.body.address;
@@ -42,8 +41,9 @@ router.get('/insert', function(req, res) {
   var status = 'N';
   var category_seq = req.query.category_seq;
 
-  picNameArray = picNameArray.replace(/'/g, '"');
-  picNameArray = JSON.parse(picNameArray);
+  // picNameArray = picNameArray.replace(/'/g, '"');
+  // picNameArray = JSON.parse(picNameArray);
+
 
   var rtCode=1;
   var rtMsg = '';
