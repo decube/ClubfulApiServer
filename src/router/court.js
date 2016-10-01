@@ -56,7 +56,7 @@ router.get('/insert', function(req, res) {
       db.query(_Query.insertCourt,[address
         , addressShort, cname, latitude
         , longitude, description
-        , status, category_seq],function(err, rowToken, columns) {
+        , status, category_seq, token],function(err, rowToken, columns) {
           if (err) {
             return res.end("QUERY ERROR: " + err);
           }else{
