@@ -115,7 +115,7 @@ router.get('/version', function(req, res) {
           }
           res.json({ code : rtCode
                     ,msg : rtMsg
-                    ,appVersion = rtAppVersion
+                    ,appVersion : rtAppVersion
                     ,isMsgView : true
                    });
       });

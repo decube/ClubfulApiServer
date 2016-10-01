@@ -41,10 +41,7 @@ router.get('/insert', function(req, res) {
   var status = 'N';
   var category_seq = req.query.category_seq;
 
-  // picNameArray = picNameArray.replace(/'/g, '"');
-  // picNameArray = JSON.parse(picNameArray);
-
-
+  var courtSeq;
   var rtCode=1;
   var rtMsg = '';
 
@@ -52,22 +49,38 @@ router.get('/insert', function(req, res) {
       if (err) {
         return res.end("CONNECTION error: " + err);
       }
-
-      db.query(_Query.insertCourt,[address
-        , addressShort, cname, latitude
-        , longitude, description
-        , status, category_seq, token],function(err, rowToken, columns) {
+      db.query(_Query.getCourtSeq,[],function(err, row, columns) {
           if (err) {
             return res.end("QUERY ERROR: " + err);
           }else{
-            rtCode = 0;
-            rtMsg = "코트등록에 성공했습니다.";
-            res.json({ code : rtCode
-                      ,msg : rtMsg
-                      ,isMsgView : true
-                     });
+              courtSeq = row[0];
+              db.query(_Query.insertCourt,[courtSeq,address
+                , addressShort, cname, latitude
+                , longitude, description
+                , status, category_seq, token],function(err, rowToken, columns) {
+                  if (err) {
+                    return res.end("QUERY ERROR: " + err);
+                  }else{
+                    for(var i = 0; i<picNameArray.length; i++){
+                      db.query(_Query.insertCourtImg,[picNameArray[i],courtSeq],function(err, rowToken, columns) {
+                            if(err){
+                                return res.end("QUERY ERROR: " + err);
+                            }
+                        });
+                    }
+                    rtCode = 0;
+                    rtMsg = "코트등록에 성공했습니다.";
+                    res.json({ code : rtCode
+                              ,msg : rtMsg
+                              ,isMsgView : true
+                             });
+                  }
+              });
           }
       });
+
+
+
 
       _DBPool.release(db);
 
