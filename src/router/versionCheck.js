@@ -26,14 +26,6 @@ router.get('/check', function(req, res) {
   // var categoryVer = req.body.categoryVer;
   // var noticeVer = req.body.noticeVer;
 
-  console.log(appType);
-  console.log(appVersion);
-  console.log(sendDate);
-  console.log(language);
-  console.log(deviceId);
-  console.log(token);
-
-
 
   var deviceId = req.query.deviceId;
   var appType = req.query.appType;
@@ -41,6 +33,13 @@ router.get('/check', function(req, res) {
   var language = req.query.language;
   var categoryVer = req.query.categoryVer;
   var noticeVer = req.query.noticeVer;
+
+  console.log(appType);
+  console.log(appVersion);
+  console.log(sendDate);
+  console.log(language);
+  console.log(deviceId);
+  console.log(token);
 
   var rtCode=0;
   var rtMsg = '';
