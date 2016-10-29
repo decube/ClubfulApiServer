@@ -71,7 +71,7 @@ router.get('/check', function(req, res) {
                     rtCode=1;
                   }else{
                     var hash = crypto.createHash('sha256').update('token'+rowToken[0]).digest('base64');
-                    db.query(_Query.insertDevice,[hash, appType, appVersion, language, deviceId, appType],function(err, rowToken, columns) {
+                    db.query(_Query.insertDevice,[hash, appType, language, deviceId, appType],function(err, rowToken, columns) {
                         if (err) {
                           console.log(err);
                           rtCode=1;
@@ -102,7 +102,7 @@ router.get('/check', function(req, res) {
                                             rtCategoryList = rowCategoryList;
                                             db.query(_Query.getNewNoticeVer,[],function(err, rowNewNotice, columns) {
                                                 if (err) {
-                                                  rtCode=1;
+                                                rtCode=1;
                                                 }else{
                                                   rtNoticeVer = rowNewNotice[0].ver;
                                                   res.json({ code : rtCode
