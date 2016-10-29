@@ -17,24 +17,24 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 router.get('/check', function(req, res) {
-  // var appType = req.body.appType;
-  // var appVersion = req.body.appVersion;
-  // var sendDate = req.body.sendDate;
-  // var language = req.body.language;
-  // var deviceId = req.body.deviceId;
-  // var token = req.body.token;
-  // var categoryVer = req.body.categoryVer;
-  // var noticeVer = req.body.noticeVer;
+  var appType = req.body.appType;
+  var appVersion = req.body.appVersion;
+  var sendDate = req.body.sendDate;
+  var language = req.body.language;
+  var deviceId = req.body.deviceId;
+  var token = req.body.token;
+  var categoryVer = req.body.categoryVer;
+  var noticeVer = req.body.noticeVer;
 
 
-  var appType = req.query.appType;
-  var appVersion = req.query.appVersion;
-  var sendDate = req.query.sendDate;
-  var language = req.query.language;
-  var deviceId = req.query.deviceId;
-  var token = req.query.token;
-  var categoryVer = req.query.categoryVer;
-  var noticeVer = req.query.noticeVer;
+  // var appType = req.query.appType;
+  // var appVersion = req.query.appVersion;
+  // var sendDate = req.query.sendDate;
+  // var language = req.query.language;
+  // var deviceId = req.query.deviceId;
+  // var token = req.query.token;
+  // var categoryVer = req.query.categoryVer;
+  // var noticeVer = req.query.noticeVer;
 
   console.log(appType);
   console.log(appVersion);
@@ -74,7 +74,6 @@ router.get('/check', function(req, res) {
                     db.query(_Query.insertDevice,[hash, appType, language, deviceId, appType],function(err, rowToken, columns) {
                         if (err) {
                           console.log(err);
-                          console.log('ㅇ여기에러?');
                           rtCode=1;
                         }else{
                           db.query(_Query.getDevice,[deviceId],function(err, rowReDevice, columns) {
