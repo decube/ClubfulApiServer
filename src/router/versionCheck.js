@@ -17,7 +17,6 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 router.post('/check', function(req, res) {
-  res.setHeader("Content-Type", "application/json");
   var appType = req.body.appType;
   var appVersion = req.body.appVersion;
   var sendDate = req.body.sendDate;
