@@ -68,24 +68,24 @@ router.get('/check', function(req, res) {
               db.query(_Query.getTokenSeq,[],function(err, rowToken, columns) {
                   if (err) {
                     console.log(err);
-                    return res.end("QUERY ERROR: " + err);
+                    rtCode=1;
                   }else{
                     var hash = crypto.createHash('sha256').update('token'+rowToken[0]).digest('base64');
                     db.query(_Query.insertDevice,[hash, appType, appVersion, language, deviceId],function(err, rowToken, columns) {
                         if (err) {
                           console.log(err);
-                          return res.end("QUERY ERROR: " + err);
+                          rtCode=1;
                         }else{
                           db.query(_Query.getDevice,[deviceId],function(err, rowReDevice, columns) {
                             if (err) {
                               console.log(err);
+                              rtCode=1;
                             }else{
                               rtToken = rowReDevice[0].token;
                               db.query(_Query.getNewCategoryVer,[],function(err, rowNewCategory, columns) {
                                   if (err) {
                                     console.log(err);
                                     rtCode=1;
-                                    return res.end("QUERY ERROR: " + err);
                                   }else{
                                     rtCategoryVer = rowNewCategory[0].ver;
                                     console.log(rtCategoryVer);
@@ -98,12 +98,11 @@ router.get('/check', function(req, res) {
                                           if (err) {
                                             console.log(err);
                                             rtCode=1;
-                                            return res.end("QUERY ERROR: " + err);
                                           }else{
                                             rtCategoryList = rowCategoryList;
                                             db.query(_Query.getNewNoticeVer,[],function(err, rowNewNotice, columns) {
                                                 if (err) {
-                                                  return res.end("QUERY ERROR: " + err);
+                                                  rtCode=1;
                                                 }else{
                                                   rtNoticeVer = rowNewNotice[0].ver;
                                                   res.json({ code : rtCode
