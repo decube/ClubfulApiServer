@@ -74,6 +74,7 @@ router.get('/check', function(req, res) {
                     db.query(_Query.insertDevice,[hash, appType, language, deviceId, appType],function(err, rowToken, columns) {
                         if (err) {
                           console.log(err);
+                          console.log('ㅇ여기에러?');
                           rtCode=1;
                         }else{
                           db.query(_Query.getDevice,[deviceId],function(err, rowReDevice, columns) {
