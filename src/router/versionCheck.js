@@ -77,6 +77,45 @@ router.post('/check', function(req, res) {
                             if (err) {
                             }else{
                               rtToken = rowReDevice[0].token;
+                              db.query(_Query.getNewCategoryVer,[],function(err, rowNewCategory, columns) {
+                                  if (err) {
+                                    rtCode=1;
+                                    return res.end("QUERY ERROR: " + err);
+                                  }else{
+                                    rtCategoryVer = rowNewCategory[0].ver;
+                                    console.log(rtCategoryVer);
+                                    if(categoryVer == rowNewCategory[0].ver){
+
+                                    }else{
+                                      //다르면 카테고리 리스트 내려줌
+                                      db.query(_Query.getCategoryList,[rowNewCategory[0].ver],function(err, rowCategoryList, columns) {
+
+                                          if (err) {
+                                            rtCode=1;
+                                            return res.end("QUERY ERROR: " + err);
+                                          }else{
+                                            rtCategoryList = rowCategoryList;
+                                            db.query(_Query.getNewNoticeVer,[],function(err, rowNewNotice, columns) {
+                                                if (err) {
+                                                  return res.end("QUERY ERROR: " + err);
+                                                }else{
+                                                  rtNoticeVer = rowNewNotice[0].ver;
+                                                  res.json({ code : rtCode
+                                                            ,msg : rtMsg
+                                                            ,isMsgView : true
+                                                            ,token : rtToken
+                                                            ,ver : rtVer
+                                                            ,categoryVer : rtCategoryVer
+                                                            ,categoryLIst : rtCategoryList
+                                                            ,noticeVer : rtNoticeVer});
+                                                }
+                                            });
+                                          }
+                                      });
+
+                                    }
+                                  }
+                              });
                             }
                           });
                         }
@@ -85,46 +124,47 @@ router.post('/check', function(req, res) {
               });
             }else{
               rtToken = rowDevice[0].token;
-            }
-            db.query(_Query.getNewCategoryVer,[],function(err, rowNewCategory, columns) {
-                if (err) {
-                  rtCode=1;
-                  return res.end("QUERY ERROR: " + err);
-                }else{
-                  rtCategoryVer = rowNewCategory[0].ver;
-                  console.log(rtCategoryVer);
-                  if(categoryVer == rowNewCategory[0].ver){
-
+              db.query(_Query.getNewCategoryVer,[],function(err, rowNewCategory, columns) {
+                  if (err) {
+                    rtCode=1;
+                    return res.end("QUERY ERROR: " + err);
                   }else{
-                    //다르면 카테고리 리스트 내려줌
-                    db.query(_Query.getCategoryList,[rowNewCategory[0].ver],function(err, rowCategoryList, columns) {
+                    rtCategoryVer = rowNewCategory[0].ver;
+                    console.log(rtCategoryVer);
+                    if(categoryVer == rowNewCategory[0].ver){
 
-                        if (err) {
-                          rtCode=1;
-                          return res.end("QUERY ERROR: " + err);
-                        }else{
-                          rtCategoryList = rowCategoryList;
-                          db.query(_Query.getNewNoticeVer,[],function(err, rowNewNotice, columns) {
-                              if (err) {
-                                return res.end("QUERY ERROR: " + err);
-                              }else{
-                                rtNoticeVer = rowNewNotice[0].ver;
-                                res.json({ code : rtCode
-                                          ,msg : rtMsg
-                                          ,isMsgView : true
-                                          ,token : rtToken
-                                          ,ver : rtVer
-                                          ,categoryVer : rtCategoryVer
-                                          ,categoryLIst : rtCategoryList
-                                          ,noticeVer : rtNoticeVer});
-                              }
-                          });
-                        }
-                    });
+                    }else{
+                      //다르면 카테고리 리스트 내려줌
+                      db.query(_Query.getCategoryList,[rowNewCategory[0].ver],function(err, rowCategoryList, columns) {
 
+                          if (err) {
+                            rtCode=1;
+                            return res.end("QUERY ERROR: " + err);
+                          }else{
+                            rtCategoryList = rowCategoryList;
+                            db.query(_Query.getNewNoticeVer,[],function(err, rowNewNotice, columns) {
+                                if (err) {
+                                  return res.end("QUERY ERROR: " + err);
+                                }else{
+                                  rtNoticeVer = rowNewNotice[0].ver;
+                                  res.json({ code : rtCode
+                                            ,msg : rtMsg
+                                            ,isMsgView : true
+                                            ,token : rtToken
+                                            ,ver : rtVer
+                                            ,categoryVer : rtCategoryVer
+                                            ,categoryLIst : rtCategoryList
+                                            ,noticeVer : rtNoticeVer});
+                                }
+                            });
+                          }
+                      });
+
+                    }
                   }
-                }
-            });
+              });
+            }
+
           }
 
 
