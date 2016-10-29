@@ -27,10 +27,12 @@ router.get('/check', function(req, res) {
   // var noticeVer = req.body.noticeVer;
 
 
-  var deviceId = req.query.deviceId;
   var appType = req.query.appType;
   var appVersion = req.query.appVersion;
+  var sendDate = req.query.sendDate;
   var language = req.query.language;
+  var deviceId = req.query.deviceId;
+  var token = req.query.token;
   var categoryVer = req.query.categoryVer;
   var noticeVer = req.query.noticeVer;
 
