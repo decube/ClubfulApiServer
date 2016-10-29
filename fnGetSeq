@@ -1,0 +1,22 @@
+CREATE TABLE t_sequence
+(
+	seq_name     VARCHAR(30) NOT NULL,
+	id                   BIGINT NOT NULL,
+	PRIMARY KEY (seq_name)
+);
+
+DELIMITER $$
+
+CREATE FUNCTION fnGetSeq(p_seq_name VARCHAR(30))
+	RETURNS BIGINT READS SQL DATA
+BEGIN
+
+	DECLARE RESULT_ID BIGINT;
+
+	UPDATE t_sequence SET id=LAST_INSERT_ID(id+1) WHERE seq_name = p_seq_name;
+
+	SET RESULT_ID =	(SELECT LAST_INSERT_ID());
+
+	RETURN RESULT_ID;
+END $$
+DELIMITER ;

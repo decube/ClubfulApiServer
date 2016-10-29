@@ -16,7 +16,7 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 // define the home page route
-router.post('/', function(req, res) {
+router.post('/check', function(req, res) {
 
   var appType = req.body.appType;
   var appVersion = req.body.appVersion;

@@ -13,7 +13,7 @@ var court = require('./src/router/court.js');
 var user = require('./src/router/user.js');
 var appjs = require('./src/router/app.js');
 
-app.use('/versionCheck', versionCheck);
+app.use('/version', versionCheck);
 app.use('/certification', certification);
 app.use('/court', court);
 app.use('/user', user);
