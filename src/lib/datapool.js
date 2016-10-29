@@ -24,7 +24,7 @@ var pool = generic_pool.Pool({
         min: 7,
         max: 10,
         idleTimeoutMillis : 300000,
-        log : true
+        log : false
 });
 
 process.on("exit", function() {
