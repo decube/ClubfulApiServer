@@ -60,25 +60,30 @@ router.get('/check', function(req, res) {
       db.query(_Query.getDevice,[deviceId],function(err, rowDevice, columns) {
           if (err) {
             rtCode=1;
+            console.log(err);
             return res.end("QUERY ERROR: " + err);
           }else{
             if(rowDevice[0] == null){
               //새로운 유저 디바이스 생성
               db.query(_Query.getTokenSeq,[],function(err, rowToken, columns) {
                   if (err) {
+                    console.log(err);
                     return res.end("QUERY ERROR: " + err);
                   }else{
                     var hash = crypto.createHash('sha256').update('token'+rowToken[0]).digest('base64');
                     db.query(_Query.insertDevice,[hash, appType, appVersion, language, deviceId],function(err, rowToken, columns) {
                         if (err) {
+                          console.log(err);
                           return res.end("QUERY ERROR: " + err);
                         }else{
                           db.query(_Query.getDevice,[deviceId],function(err, rowReDevice, columns) {
                             if (err) {
+                              console.log(err);
                             }else{
                               rtToken = rowReDevice[0].token;
                               db.query(_Query.getNewCategoryVer,[],function(err, rowNewCategory, columns) {
                                   if (err) {
+                                    console.log(err);
                                     rtCode=1;
                                     return res.end("QUERY ERROR: " + err);
                                   }else{
@@ -91,6 +96,7 @@ router.get('/check', function(req, res) {
                                       db.query(_Query.getCategoryList,[rowNewCategory[0].ver],function(err, rowCategoryList, columns) {
 
                                           if (err) {
+                                            console.log(err);
                                             rtCode=1;
                                             return res.end("QUERY ERROR: " + err);
                                           }else{
