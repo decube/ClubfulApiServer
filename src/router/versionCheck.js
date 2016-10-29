@@ -27,6 +27,15 @@ router.post('/check', function(req, res) {
   var categoryVer = req.body.categoryVer;
   var noticeVer = req.body.noticeVer;
 
+  console.log(appType);
+  console.log(appVersion);
+  console.log(sendDate);
+  console.log(language);
+  console.log(deviceId);
+  console.log(token);
+
+
+
   // var deviceId = req.query.deviceId;
   // var appType = req.query.appType;
   // var appVersion = req.query.appVersion;
