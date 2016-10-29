@@ -16,23 +16,23 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 // define the home page route
-router.get('/', function(req, res) {
+router.post('/', function(req, res) {
 
-  // var appType = req.body.appType;
-  // var appVersion = req.body.appVersion;
-  // var sendDate = req.body.sendDate;
-  // var language = req.body.language;
-  // var deviceId = req.body.deviceId;
-  // var token = req.body.token;
-  // var categoryVer = req.body.categoryVer;
-  // var noticeVer = req.body.noticeVer;
+  var appType = req.body.appType;
+  var appVersion = req.body.appVersion;
+  var sendDate = req.body.sendDate;
+  var language = req.body.language;
+  var deviceId = req.body.deviceId;
+  var token = req.body.token;
+  var categoryVer = req.body.categoryVer;
+  var noticeVer = req.body.noticeVer;
 
-  var deviceId = req.query.deviceId;
-  var appType = req.query.appType;
-  var appVersion = req.query.appVersion;
-  var language = req.query.language;
-  var categoryVer = req.query.categoryVer;
-  var noticeVer = req.query.noticeVer;
+  // var deviceId = req.query.deviceId;
+  // var appType = req.query.appType;
+  // var appVersion = req.query.appVersion;
+  // var language = req.query.language;
+  // var categoryVer = req.query.categoryVer;
+  // var noticeVer = req.query.noticeVer;
 
   var rtCode=0;
   var rtMsg = '';

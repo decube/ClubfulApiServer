@@ -17,25 +17,25 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 
-router.get('/setting', function(req, res) {
+router.post('/setting', function(req, res) {
 
-  // var userId = req.body.userId;
-  // var token = req.body.token;
-  // var startTime = req.body.startTime;
-  // var endTime = req.body.endTime;
-  // var noticePush = req.body.noticePush;
-  // var myCreateCourtPush = req.body.myCreateCourtPush;
-  // var distancePush = req.body.distancePush;
-  // var interestPush = req.body.interestPush;
+  var userId = req.body.userId;
+  var token = req.body.token;
+  var startTime = req.body.startTime;
+  var endTime = req.body.endTime;
+  var noticePush = req.body.noticePush;
+  var myCreateCourtPush = req.body.myCreateCourtPush;
+  var distancePush = req.body.distancePush;
+  var interestPush = req.body.interestPush;
 
-  var userId = req.query.userId;
-  var token = req.query.token;
-  var noticePush = req.query.noticePush;
-  var myCreateCourtPush = req.query.myCreateCourtPush;
-  var interestPush = req.query.interestPush;
-  var distancePush = req.query.distancePush;
-  var startTime = req.query.startTime;
-  var endTime = req.query.endTime;
+  // var userId = req.query.userId;
+  // var token = req.query.token;
+  // var noticePush = req.query.noticePush;
+  // var myCreateCourtPush = req.query.myCreateCourtPush;
+  // var interestPush = req.query.interestPush;
+  // var distancePush = req.query.distancePush;
+  // var startTime = req.query.startTime;
+  // var endTime = req.query.endTime;
 
   var rtCode=1;
   var rtMsg = '';
@@ -85,14 +85,14 @@ router.get('/setting', function(req, res) {
 
 //최신 앱버전
 
-router.get('/version', function(req, res) {
+router.post('/version', function(req, res) {
 
-  // var appType = req.body.appType;
-  // var token = req.body.token;
+  var appType = req.body.appType;
+  var token = req.body.token;
 
 
-  var appType = req.query.appType;
-  var token = req.query.token;
+  // var appType = req.query.appType;
+  // var token = req.query.token;
 
 
   var rtCode=1;

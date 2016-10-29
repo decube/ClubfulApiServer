@@ -16,30 +16,30 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 // define the home page route
-router.get('/insert', function(req, res) {
-  // var token = req.body.token;
-  // var id = req.body.id;
-  // var address = req.body.address;
-  // var addressShort = req.body.addressShort;
-  // var cname = req.body.cname;
-  // var latitude = req.body.latitude;
-  // var longitude = req.body.longitude;
-  // var description = req.body.description;
-  // var picNameArray = req.body.picNameArray;
-  // var status = req.body.status;
-  // var category_seq = req.body.category_seq;
+router.post('/insert', function(req, res) {
+  var token = req.body.token;
+  var id = req.body.id;
+  var address = req.body.address;
+  var addressShort = req.body.addressShort;
+  var cname = req.body.cname;
+  var latitude = req.body.latitude;
+  var longitude = req.body.longitude;
+  var description = req.body.description;
+  var picNameArray = req.body.picNameArray;
+  var status = req.body.status;
+  var category_seq = req.body.category_seq;
 
-  var token = req.query.token;
-  var id = req.query.id;
-  var address = req.query.address;
-  var addressShort = req.query.addressShort;
-  var cname = req.query.cname;
-  var latitude = req.query.latitude;
-  var longitude = req.query.longitude;
-  var description = req.query.description;
-  var picNameArray = req.query.picNameArray;
-  var status = 'N';
-  var category_seq = req.query.category_seq;
+  // var token = req.query.token;
+  // var id = req.query.id;
+  // var address = req.query.address;
+  // var addressShort = req.query.addressShort;
+  // var cname = req.query.cname;
+  // var latitude = req.query.latitude;
+  // var longitude = req.query.longitude;
+  // var description = req.query.description;
+  // var picNameArray = req.query.picNameArray;
+  // var status = 'N';
+  // var category_seq = req.query.category_seq;
 
   var courtSeq;
   var rtCode=1;
@@ -128,15 +128,15 @@ router.get('/getList', function(req, res) {
 
 });
 
-router.get('/interest', function(req, res) {
+router.post('/interest', function(req, res) {
 
-  // var token = req.body.token;
-  // var seq = req.body.seq;
-  // var type = req.body.type;
+  var token = req.body.token;
+  var seq = req.body.seq;
+  var type = req.body.type;
 
-  var token = req.query.token;
-  var seq = req.query.seq;
-  var type = req.query.type;
+  // var token = req.query.token;
+  // var seq = req.query.seq;
+  // var type = req.query.type;
 
   var rtCode=1;
   var rtMsg = '';
