@@ -37,13 +37,6 @@ router.post('/check', function(req, res) {
   // var categoryVer = req.query.categoryVer;
   // var noticeVer = req.query.noticeVer;
 
-  console.log(appType);
-  console.log(appVersion);
-  console.log(sendDate);
-  console.log(language);
-  console.log(deviceId);
-  console.log(token);
-
   var rtCode=0;
   var rtMsg = '';
   var rtToken = '';
