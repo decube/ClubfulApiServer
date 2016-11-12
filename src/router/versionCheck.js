@@ -17,25 +17,25 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 // define the home page route
-router.post('/check', function(req, res) {
-  var appType = req.body.appType;
-  var appVersion = req.body.appVersion;
-  var sendDate = req.body.sendDate;
-  var language = req.body.language;
-  var deviceId = req.body.deviceId;
-  var token = req.body.token;
-  var categoryVer = req.body.categoryVer;
-  var noticeVer = req.body.noticeVer;
+router.get('/check', function(req, res) {
+  // var appType = req.body.appType;
+  // var appVersion = req.body.appVersion;
+  // var sendDate = req.body.sendDate;
+  // var language = req.body.language;
+  // var deviceId = req.body.deviceId;
+  // var token = req.body.token;
+  // var categoryVer = req.body.categoryVer;
+  // var noticeVer = req.body.noticeVer;
 
 
-  // var appType = req.query.appType;
-  // var appVersion = req.query.appVersion;
-  // var sendDate = req.query.sendDate;
-  // var language = req.query.language;
-  // var deviceId = req.query.deviceId;
-  // var token = req.query.token;
-  // var categoryVer = req.query.categoryVer;
-  // var noticeVer = req.query.noticeVer;
+  var appType = req.query.appType;
+  var appVersion = req.query.appVersion;
+  var sendDate = req.query.sendDate;
+  var language = req.query.language;
+  var deviceId = req.query.deviceId;
+  var token = req.query.token;
+  var categoryVer = req.query.categoryVer;
+  var noticeVer = req.query.noticeVer;
 
   var rtCode=0;
   var rtMsg = '';

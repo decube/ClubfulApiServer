@@ -21,7 +21,7 @@ router.post('/login', function(req, res) {
   var userId = req.body.userId;
   var token = req.body.token;
   var password = req.body.password;
-  var loginType = req.body.loginType;
+  var loginType = req.body.loginType; //n : 일반, k : 카카오톡, f: 페이스북
   var gcmId = req.body.gcmId;
   var nickName = req.body.nickName;
   var sex = req.body.sex;
@@ -87,7 +87,7 @@ router.post('/login', function(req, res) {
           }else{
             if(rowDevice[0] == null){
               //가입이 가능함.
-              if(loginType == '1'){
+              if(loginType == 'n'){
                 rtCode = 1;
                 rtMsg = "ID를 확인해 주십시오.";
               }else{
@@ -134,7 +134,7 @@ router.post('/login', function(req, res) {
                 });
               }
             }else{
-              if((loginType == '1' && rowDevice[0].password == hash) || loginType=='2' || loginType=='3'){
+              if((loginType == 'n' && rowDevice[0].password == hash) || loginType=='k' || loginType=='f'){
                 db.query(_Query.updateDevice,[gcmId, userId, token],function(err, rowToken, columns) {
                     if (err) {
                       return res.end("QUERY ERROR: " + err);

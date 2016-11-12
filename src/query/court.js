@@ -16,5 +16,10 @@ module.exports = function() {
           insertInterest : "INSERT INTO user_interest (seq, interestYN, courtSeq, deviceToken) VALUES ((SELECT fnGetSeq('interest')), 'Y', ?, ?)",
           updateInterest : "update user_interest set interestYN ='Y' where courtSeq = ? and deviceToken = ?",
           insertCourt : "INSERT INTO court_img (seq, img, courtSeq) VALUES ((SELECT fnGetSeq('courtImg')), ?, ?)",
+          getCourt : "select seq"
+                            +", address"
+                            +", addressShort"
+                            +", description"
+                            +", cname from court court where seq = ?",
       }
   }

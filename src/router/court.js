@@ -134,6 +134,69 @@ router.post('/interest', function(req, res) {
 
   var token = req.body.token;
   var seq = req.body.seq;
+  
+  // var token = req.query.token;
+  // var seq = req.query.seq;
+
+  var rtCode=1;
+  var rtMsg = '';
+
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        return res.end("CONNECTION error: " + err);
+      }
+      db.query(_Query.checkInterest,[seq, token],function(err, rowInterest, columns) {
+          if (err) {
+            return res.end("QUERY ERROR: " + err);
+          }else{
+            var tempQuery = '';
+            if(rowInterest[0] == null){
+              //insert
+              tempQuery = _Query.insertInterest;
+            }else if(rowInterest[0].interest_yn == 'N'){
+              //update
+              tempQuery = _Query.updateInterest;
+            }else{
+            }
+            db.query(tempQuery,[seq, token],function(err, rowCourtList, columns) {
+                if (err) {
+                  rtMsg = "다시 시도해 주십시오.";
+                  res.json({ code : rtCode
+                            ,msg : rtMsg
+                            ,isMsgView : false
+                            ,cnt : 0
+                           });
+                }else{
+                  db.query(_Query.getInterestCnt,[seq],function(err, rowInterestCnt, columns) {
+                      if (err) {
+                        rtMsg = "데이터 조회중 실패";
+                      }else{
+                        rtCode = 0;
+                        rtMsg = "성공";
+
+                      }
+                      res.json({ code : rtCode
+                                ,msg : rtMsg
+                                ,isMsgView : false
+                                ,cnt : rowInterestCnt[0].cnt
+                               });
+                  });
+                }
+            });
+
+          }
+      });
+
+      _DBPool.release(db);
+
+  });
+
+});
+
+router.post('/detail', function(req, res) {
+
+  var token = req.body.token;
+  var seq = req.body.seq;
   var type = req.body.type;
 
   // var token = req.query.token;
