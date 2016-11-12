@@ -16,7 +16,7 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 // define the home page route
-router.post('/insert', function(req, res) {
+router.post('/create', function(req, res) {
   var token = req.body.token;
   var id = req.body.id;
   var address = req.body.address;
@@ -27,7 +27,7 @@ router.post('/insert', function(req, res) {
   var description = req.body.description;
   var picNameArray = req.body.picNameArray;
   var status = req.body.status;
-  var category_seq = req.body.category_seq;
+  var category = req.body.category;
 
   // var token = req.query.token;
   // var id = req.query.id;
@@ -39,7 +39,7 @@ router.post('/insert', function(req, res) {
   // var description = req.query.description;
   // var picNameArray = req.query.picNameArray;
   // var status = 'N';
-  // var category_seq = req.query.category_seq;
+  // var category = req.query.category;
 
   var courtSeq;
   var rtCode=1;
@@ -51,13 +51,14 @@ router.post('/insert', function(req, res) {
       }
       db.query(_Query.getCourtSeq,[],function(err, row, columns) {
           if (err) {
-            return res.end("QUERY ERROR: " + err);
+            rtCode = 1;
+            rtMsg = "코트등록에 실패하였습니다. 재시도 해주세요.";
           }else{
               courtSeq = row[0];
               db.query(_Query.insertCourt,[courtSeq,address
                 , addressShort, cname, latitude
                 , longitude, description
-                , status, category_seq, token],function(err, rowToken, columns) {
+                , status, category, token],function(err, rowToken, columns) {
                   if (err) {
                     return res.end("QUERY ERROR: " + err);
                   }else{
@@ -70,13 +71,14 @@ router.post('/insert', function(req, res) {
                     }
                     rtCode = 0;
                     rtMsg = "코트등록에 성공했습니다.";
-                    res.json({ code : rtCode
-                              ,msg : rtMsg
-                              ,isMsgView : true
-                             });
+
                   }
               });
           }
+          res.json({ code : rtCode
+                    ,msg : rtMsg
+                    ,isMsgView : true
+                   });
       });
 
 

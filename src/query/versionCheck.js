@@ -7,5 +7,6 @@ module.exports = function() {
           getCategoryList: 'select seq, categoryNM from category where ver = ? order by seq asc',
           insertDevice : 'INSERT INTO device (token, deviceType, language, uuid, makeDT, updateDT, deviceVerSeq) values(?,?,?,?,now(),now(),(select seq from device_ver where device = ? order by seq desc limit 1))',
           getTokenSeq : "SELECT fnGetSeq('token')",
+          getNewestDevice : 'select * from device_ver where device=? ORDER BY seq DESC LIMIT 1'
       };
   }

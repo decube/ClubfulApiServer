@@ -195,7 +195,7 @@ router.post('/app', function(req, res) {
         return res.end("CONNECTION error: " + err);
       }
 
-      db.query(_DeviceQuery.getNewestDevice,[appType],function(err, rowDevice, columns) {
+      db.query(_Query.getNewestDevice,[appType],function(err, rowDevice, columns) {
           if (err) {
             rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
           }else{
