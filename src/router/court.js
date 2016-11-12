@@ -94,23 +94,23 @@ router.get('/getList', function(req, res) {
 
   // var token = req.body.token;
   // var address = req.body.address;
-  // var category_seq = req.body.category_seq;
+  // var category = req.body.category;
 
   var token = req.query.token;
   var address = req.query.address;
-  var category_seq = req.query.category_seq;
+  var category = req.query.category;
 
   var rtCode=1;
   var rtMsg = '';
 
-  if(category_seq == -1){
-    category_seq='';
+  if(category == -1){
+    category='';
   }
   _DBPool.acquire(function(err, db) {
       if (err) {
         return res.end("CONNECTION error: " + err);
       }
-      db.query(_Query.getCourtList,[address, category_seq],function(err, rowCourtList, columns) {
+      db.query(_Query.getCourtList,[address, category],function(err, rowCourtList, columns) {
           if (err) {
             return res.end("QUERY ERROR: " + err);
           }else{
