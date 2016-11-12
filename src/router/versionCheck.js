@@ -12,12 +12,12 @@ var _Query = require('../query/versionCheck')();
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
+  res.setHeader("Content-Type", "application/json");
   console.log('Time: ', Date.now());
   next();
 });
 // define the home page route
 router.post('/check', function(req, res) {
-  res.setHeader("Content-Type", "application/json");
   var appType = req.body.appType;
   var appVersion = req.body.appVersion;
   var sendDate = req.body.sendDate;
@@ -175,5 +175,46 @@ router.post('/check', function(req, res) {
 
 });
 
+//최신 앱버전
+
+router.post('/app', function(req, res) {
+
+  var appType = req.body.appType;
+  var token = req.body.token;
+
+  // var appType = req.query.appType;
+  // var token = req.query.token;
+
+
+  var rtCode=1;
+  var rtMsg = '';
+  var rtAppVersion = '';
+
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        return res.end("CONNECTION error: " + err);
+      }
+
+      db.query(_DeviceQuery.getNewestDevice,[appType],function(err, rowDevice, columns) {
+          if (err) {
+            rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
+          }else{
+            var rtCode=1;
+            var rtMsg = '';
+            rtAppVersion = rowDevice[0].ver;
+
+          }
+          res.json({ code : rtCode
+                    ,msg : rtMsg
+                    ,appVersion : rtAppVersion
+                    ,isMsgView : true
+                   });
+      });
+
+      _DBPool.release(db);
+
+  });
+
+});
 
 module.exports = router;
