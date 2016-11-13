@@ -21,5 +21,6 @@ module.exports = function() {
                             +", addressShort"
                             +", description"
                             +", cname from court court where seq = ?",
+                            
       }
   }
