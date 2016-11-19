@@ -50,7 +50,7 @@ router.get('/geocode', function(req, res) {
     geocoder.reverse({lat:latitude, lon:longitude})
     .then(function(res) {
       rtCode=0;
-      result = res;
+      result = res.toString();
     })
     .catch(function(err) {
       rtMsg = err;
@@ -59,7 +59,7 @@ router.get('/geocode', function(req, res) {
   }else if(paramAddress != null && paramAddress != ''){
     geocoder.geocode({address: paramAddress, countryCode: language, minConfidence: 0.5, limit: 5}, function(err, res) {
       rtCode=0;
-      result = res;
+      result = res.toString();
       console.log(res);
     });
   }else{
