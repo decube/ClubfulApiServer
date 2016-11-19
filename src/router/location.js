@@ -60,16 +60,17 @@ router.get('/geocode', function(req, res) {
     geocoder.geocode({address: paramAddress, countryCode: language, minConfidence: 0.5, limit: 5}, function(err, res) {
       rtCode=0;
       result = res;
+      res.json({ code : rtCode
+                ,msg : rtMsg
+                ,isMsgView : false
+                ,results : res
+               });
     });
   }else{
     rtMsg = '필수정보 부족.';
   }
 
-  res.json({ code : rtCode
-            ,msg : rtMsg
-            ,isMsgView : false
-            ,results : result
-           });
+
 });
 
 module.exports = router;
