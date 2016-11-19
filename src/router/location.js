@@ -14,7 +14,8 @@ var options = {
   provider: 'google',
   httpAdapter: 'https',
   apiKey: 'AIzaSyBsqZlmvOUEKVHnca-3vXoHB-zODK-LroE',
-  formatter: 'String'
+  formatter: 'String',
+  language: 'ko'
 };
 
 var geocoder = NodeGeocoder(options);
@@ -26,50 +27,66 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 
-router.get('/geocode', function(req, res) {
+router.post('/geocode', function(req, res) {
 
-  //
-  // var token = req.body.token;
-  // var paramAddress = req.body.address;
-  // var latitude = req.body.latitude;
-  // var longitude = req.body.longitude;
-  // var language = req.body.language;
 
-  var token = req.query.token;
-  var paramAddress = req.query.address;
-  var latitude = req.query.latitude;
-  var longitude = req.query.longitude;
-  var language = req.query.language;
+  var token = req.body.token;
+  var paramAddress = req.body.address;
+  var latitude = req.body.latitude;
+  var longitude = req.body.longitude;
+  var language = req.body.language;
+
+  // var token = req.query.token;
+  // var paramAddress = req.query.address;
+  // var latitude = req.query.latitude;
+  // var longitude = req.query.longitude;
+  // var language = req.query.language;
 
 
   var rtCode=1;
   var rtMsg = '';
-  var result = '';
+  var rtResult = '';
 
   if((paramAddress == null || paramAddress == '') && (latitude != null && latitude != '' && longitude != null && longitude != '')){
     geocoder.reverse({lat:latitude, lon:longitude})
-    .then(function(res) {
+    .then(function(geoRes) {
       rtCode=0;
-      result = res;
+      rtResult = res;
+      res.json({ code : rtCode
+                ,msg : rtMsg
+                ,isMsgView : false
+                ,results : rtResult
+               });
     })
-    .catch(function(err) {
+    .catch(function(geoErr) {
       rtMsg = err;
-      console.log(err);
+      res.json({ code : rtCode
+                ,msg : rtMsg
+                ,isMsgView : false
+                ,results : rtResult
+               });
     });
   }else if(paramAddress != null && paramAddress != ''){
-    geocoder.geocode({address: paramAddress, countryCode: language, minConfidence: 0.5, limit: 5}, function(err, res) {
+    geocoder.geocode({address: paramAddress, countryCode: language, minConfidence: 0.5, limit: 5}, function(err, geoRes) {
       rtCode=0;
-      result = json.stringify(res);
-      console.log(res);
+      rtResult = geoRes;
+
+      res.json({ code : rtCode
+                ,msg : rtMsg
+                ,isMsgView : false
+                ,results : rtResult
+               });
     });
+
   }else{
     rtMsg = '필수정보 부족.';
+    res.json({ code : rtCode
+              ,msg : rtMsg
+              ,isMsgView : false
+              ,results : rtResult
+             });
   }
-  res.json({ code : rtCode
-            ,msg : rtMsg
-            ,isMsgView : false
-            ,results : result
-           });
+
 
 });
 
