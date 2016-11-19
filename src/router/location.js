@@ -36,7 +36,7 @@ router.get('/geocode', function(req, res) {
   // var language = req.body.language;
 
   var token = req.query.token;
-  var address = req.query.address;
+  var paramAddress = req.query.address;
   var latitude = req.query.latitude;
   var longitude = req.query.longitude;
   var language = req.query.language;
