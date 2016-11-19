@@ -59,8 +59,11 @@ router.get('/geocode', function(req, res) {
   }else if(paramAddress != null && paramAddress != ''){
     geocoder.geocode({address: paramAddress, countryCode: language, minConfidence: 0.5, limit: 5}, function(err, res) {
       rtCode=0;
-      result = JSON.stringify(res);
-      console.log(res);
+      res.json({ code : rtCode
+                ,msg : rtMsg
+                ,isMsgView : false
+                ,results : res
+               });
     });
   }else{
     rtMsg = '필수정보 부족.';
