@@ -44,7 +44,7 @@ router.get('/geocode', function(req, res) {
 
   var rtCode=1;
   var rtMsg = '';
-  var result= [{}];
+  var result;
 
   if((paramAddress == null || paramAddress == '') && (latitude != null && latitude != '' && longitude != null && longitude != '')){
     geocoder.reverse({lat:latitude, lon:longitude})
@@ -59,7 +59,7 @@ router.get('/geocode', function(req, res) {
   }else if(paramAddress != null && paramAddress != ''){
     geocoder.geocode({address: paramAddress, countryCode: language, minConfidence: 0.5, limit: 5}, function(err, res) {
       rtCode=0;
-      result = res;
+      result = JSON.stringify(res);
       console.log(res);
     });
   }else{
