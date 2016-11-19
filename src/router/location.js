@@ -14,7 +14,7 @@ var options = {
   provider: 'google',
   httpAdapter: 'https',
   apiKey: 'AIzaSyBsqZlmvOUEKVHnca-3vXoHB-zODK-LroE',
-  formatter: 'string'
+  formatter: 'String'
 };
 
 var geocoder = NodeGeocoder(options);
