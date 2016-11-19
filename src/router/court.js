@@ -134,7 +134,7 @@ router.post('/interest', function(req, res) {
 
   var token = req.body.token;
   var seq = req.body.seq;
-  
+
   // var token = req.query.token;
   // var seq = req.query.seq;
 
@@ -250,6 +250,44 @@ router.post('/detail', function(req, res) {
             });
 
           }
+      });
+
+      _DBPool.release(db);
+
+  });
+
+});
+
+router.post('/replyInsert', function(req, res) {
+
+  var token = req.body.token;
+  var seq = req.body.seq;
+  var context = req.body.context;
+  var id = req.body.id;
+
+  // var token = req.query.token;
+  // var seq = req.query.seq;
+  // var context = req.query.context;
+  // var id = req.query.id;
+
+  var rtCode=1;
+  var rtMsg = '';
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        var rtMsg = '커낵션 에러';
+        return res.end("CONNECTION error: " + err);
+      }
+      db.query(_Query.insertReply,[context, token, id, seq],function(err, rowReply, columns) {
+          if (err) {
+            var rtMsg = '디비 에러';
+          }else{
+            var rtCode=0;
+            var rtMsg = '성공';
+          }
+          res.json({ code : rtCode
+                    ,msg : rtMsg
+                    ,isMsgView : false
+                   });
       });
 
       _DBPool.release(db);

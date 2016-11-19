@@ -21,6 +21,6 @@ module.exports = function() {
                             +", addressShort"
                             +", description"
                             +", cname from court court where seq = ?",
-                            
+          insertReply : "INSERT INTO reply (seq, context, token, id, courtSeq) VALUES ((SELECT fnGetSeq('reply')), ?, ?, ?, ?)",                  
       }
   }
