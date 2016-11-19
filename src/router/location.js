@@ -26,20 +26,20 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 
-router.post('/geocode', function(req, res) {
+router.get('/geocode', function(req, res) {
 
+  //
+  // var token = req.body.token;
+  // var paramAddress = req.body.address;
+  // var latitude = req.body.latitude;
+  // var longitude = req.body.longitude;
+  // var language = req.body.language;
 
-  var token = req.body.token;
-  var paramAddress = req.body.address;
-  var latitude = req.body.latitude;
-  var longitude = req.body.longitude;
-  var language = req.body.language;
-
-  // var token = req.query.token;
-  // var address = req.query.address;
-  // var latitude = req.query.latitude;
-  // var longitude = req.query.longitude;
-  // var language = req.query.language;
+  var token = req.query.token;
+  var address = req.query.address;
+  var latitude = req.query.latitude;
+  var longitude = req.query.longitude;
+  var language = req.query.language;
 
 
   var rtCode=1;
