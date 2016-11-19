@@ -59,7 +59,7 @@ router.get('/geocode', function(req, res) {
   }else if(paramAddress != null && paramAddress != ''){
     geocoder.geocode({address: paramAddress, countryCode: language, minConfidence: 0.5, limit: 5}, function(err, res) {
       rtCode=0;
-      result = res;
+      result = json.stringify(res);
       console.log(res);
     });
   }else{
@@ -68,7 +68,7 @@ router.get('/geocode', function(req, res) {
   res.json({ code : rtCode
             ,msg : rtMsg
             ,isMsgView : false
-            ,results : res
+            ,results : result
            });
 
 });
