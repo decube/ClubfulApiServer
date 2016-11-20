@@ -76,7 +76,6 @@ router.post('/geocode', function(req, res) {
                 ,results : rtResult
                });
     });
-
   }else{
     rtMsg = '필수정보 부족.';
     res.json({ code : rtCode
