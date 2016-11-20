@@ -42,7 +42,6 @@ router.post('/geocode', function(req, res) {
   // var longitude = req.query.longitude;
   // var language = req.query.language;
 
-
   var rtCode=1;
   var rtMsg = '';
   var rtResult = '';
