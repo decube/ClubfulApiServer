@@ -25,7 +25,7 @@ router.use(function timeLog(req, res, next) {
   console.log('Time: ', Date.now());
   next();
 });
-
+ 
 router.post('/geocode', function(req, res) {
 
 
