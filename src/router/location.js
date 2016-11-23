@@ -18,6 +18,7 @@ var options = {
   language: 'ko'
 };
 
+
 var geocoder = NodeGeocoder(options);
 
 router.use(function timeLog(req, res, next) {
@@ -25,7 +26,7 @@ router.use(function timeLog(req, res, next) {
   console.log('Time: ', Date.now());
   next();
 });
- 
+
 router.post('/geocode', function(req, res) {
 
 
