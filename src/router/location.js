@@ -88,4 +88,76 @@ router.post('/geocode', function(req, res) {
 
 });
 
+router.get('/getList', function(req, res) {
+
+  // var token = req.body.token;
+  // var address = req.body.address;
+  // var category = req.body.category;
+
+  var token = req.query.token;
+  var address = req.query.address;
+  var category = req.query.category;
+
+  var rtCode=1;
+  var rtMsg = '';
+
+  if(category == -1){
+    category='';
+  }
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        return res.end("CONNECTION error: " + err);
+      }
+      db.query(_Query.getCourtList,[address, category],function(err, rowCourtList, columns) {
+          if (err) {
+            return res.end("QUERY ERROR: " + err);
+          }else{
+            rtCode = 0;
+            rtMsg = "";
+            res.json({ code : rtCode
+                      ,msg : rtMsg
+                      ,isMsgView : false
+                      ,list : rowCourtList
+                     });
+          }
+      });
+
+      _DBPool.release(db);
+
+  });
+
+});
+
+router.post('/user', function(req, res) {
+
+  var token = req.body.token;
+  var latitude = req.body.latitude;
+  var longitude = req.body.longitude;
+
+  var rtCode=1;
+  var rtMsg = '유저 위치 등록 실패.';
+
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        return res.end("CONNECTION error: " + err);
+      }
+      db.query(_Query.insertLocation,[token, latitude, longitude],function(err, row, columns) {
+          if (err) {
+            return res.end("QUERY ERROR: " + err);
+          }else{
+            res.json({ code : 0
+                      ,msg : '유저위치 등록 성공',
+                      ,isMsgView : false
+                      ,cnt : 0
+                     });
+
+          }
+      });
+
+      _DBPool.release(db);
+
+  });
+
+});
+
 module.exports = router;
