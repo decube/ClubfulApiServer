@@ -44,6 +44,7 @@ router.post('/create', function(req, res) {
   var courtSeq;
   var rtCode=1;
   var rtMsg = '';
+  var imgURL = 'https://localhost:8080/';
 
   _DBPool.acquire(function(err, db) {
       if (err) {
@@ -63,7 +64,7 @@ router.post('/create', function(req, res) {
                     return res.end("QUERY ERROR: " + err);
                   }else{
                     for(var i = 0; i<picNameArray.length; i++){
-                      db.query(_Query.insertCourtImg,[picNameArray[i],courtSeq],function(err, rowToken, columns) {
+                      db.query(_Query.insertCourtImg,[imgURL+picNameArray[i],courtSeq],function(err, rowToken, columns) {
                             if(err){
                                 return res.end("QUERY ERROR: " + err);
                             }
@@ -90,15 +91,15 @@ router.post('/create', function(req, res) {
 
 });
 
-router.get('/getList', function(req, res) {
+router.post('/getList', function(req, res) {
 
-  // var token = req.body.token;
-  // var address = req.body.address;
-  // var category = req.body.category;
+  var token = req.body.token;
+  var address = req.body.address;
+  var category = req.body.category;
 
-  var token = req.query.token;
-  var address = req.query.address;
-  var category = req.query.category;
+  // var token = req.query.token;
+  // var address = req.query.address;
+  // var category = req.query.category;
 
   var rtCode=1;
   var rtMsg = '';
