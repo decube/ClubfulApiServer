@@ -23,5 +23,15 @@ module.exports = function() {
                             +", description"
                             +", cname from court court where seq = ?",
           insertReply : "INSERT INTO reply (seq, context, token, id, courtSeq) VALUES ((SELECT fnGetSeq('reply')), ?, ?, ?, ?)",
+          getCourt :    "select court.seq"
+                            +", court.address"
+                            +", court.addressShort"
+                            +", category.categoryNM"
+                            +", court.description"
+                            +", (select img from court_img where courtSeq = court.seq order by seq asc limit 1) as img"
+                            +", court.cname from court court, category category"
+                        +" WHERE court.categorySeq = category.seq"
+                        +" AND court.seq = ?",
+          getImgList : "SELECT * from court_img where courtSeq = ?",
       }
   }
