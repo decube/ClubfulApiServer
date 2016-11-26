@@ -146,7 +146,7 @@ router.post('/user', function(req, res) {
             return res.end("QUERY ERROR: " + err);
           }else{
             res.json({ code : 0
-                      ,msg : '유저위치 등록 성공',
+                      ,msg : '유저위치 등록 성공'
                       ,isMsgView : false
                       ,cnt : 0
                      });
