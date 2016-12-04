@@ -31,7 +31,7 @@ router.post('/create', function(req, res) {
 
   console.log('token : ' + token + ' id : ' + id + ' address : ' + address
               +' addressShort : ' + addressShort +' cname : ' + cname  +' latitude : ' + latitude  +' longitude : ' + longitude  +' description : ' + description
-              +' picNameArray : ' + picNameArray +' cname : ' + status +' category : ' + category 
+              +' picNameArray : ' + picNameArray +' cname : ' + status +' category : ' + category
 
             );
   // var token = req.query.token;
@@ -63,7 +63,7 @@ router.post('/create', function(req, res) {
           }else{
               courtSeq = row[0].courtSeq;
               console.log("courtSeq : "+ courtSeq);
-              db.query(_Query.insertCourt,[address
+              db.query(_Query.insertCourt,[courtSeq, address
                 , addressShort, cname, latitude
                 , longitude, description
                 , status, category, token],function(err, rowToken, columns) {
