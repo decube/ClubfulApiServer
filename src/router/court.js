@@ -62,7 +62,7 @@ router.post('/create', function(req, res) {
                 , longitude, description
                 , status, category, token],function(err, rowToken, columns) {
                   if (err) {
-                    console.log(err);
+                    console.log('여긴가'+err);
                     return res.end("QUERY ERROR: " + err);
                   }else{
                     // for(var i = 0; i<picNameArray.length; i++){
