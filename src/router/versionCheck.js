@@ -139,9 +139,6 @@ router.post('/check', function(req, res) {
                   }else{
                     rtCategoryVer = rowNewCategory[0].ver;
                     console.log(rtCategoryVer);
-                    if(categoryVer == rowNewCategory[0].ver){
-
-                    }else{
                       //다르면 카테고리 리스트 내려줌
                       db.query(_Query.getCategoryList,[rowNewCategory[0].ver],function(err, rowCategoryList, columns) {
 
@@ -168,7 +165,6 @@ router.post('/check', function(req, res) {
                           }
                       });
 
-                    }
                   }
               });
             }
@@ -198,7 +194,7 @@ router.post('/app', function(req, res) {
   var rtCode=1;
   var rtMsg = '';
   var rtAppVersion = '';
- 
+
   _DBPool.acquire(function(err, db) {
       if (err) {
         return res.end("CONNECTION error: " + err);
