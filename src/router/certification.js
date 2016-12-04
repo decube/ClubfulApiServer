@@ -184,7 +184,7 @@ router.post('/login', function(req, res) {
                     ,endTime : retEndTime
                     ,noticePush : retNoticePush
                     ,myCreateCourtPush : retMyCreateCourtPush
-                    ,distancePush : myDistancePush
+                    ,distancePush : distancePush
                     ,interestPush : myInsertPush
                    });
       });
