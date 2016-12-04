@@ -89,14 +89,18 @@ router.post('/check', function(req, res) {
                                     rtCode=1;
                                   }else{
                                     rtCategoryVer = rowNewCategory[0].ver;
-                                    console.log(rtCategoryVer);
-                                  
+                                    console.log('VersionCheck : '+ rtCategoryVer);
                                       //다르면 카테고리 리스트 내려줌
                                       db.query(_Query.getCategoryList,[rowNewCategory[0].ver],function(err, rowCategoryList, columns) {
 
                                           if (err) {
                                             console.log(err);
                                             rtCode=1;
+                                            rtMsg = '카테고리 리스트 가져오는 중 오류';
+                                            res.json({ code : rtCode
+                                                      ,msg : rtMsg
+                                                      ,isMsgView : true
+                                                    }
                                           }else{
                                             rtCategoryList = rowCategoryList;
                                             db.query(_Query.getNewNoticeVer,[],function(err, rowNewNotice, columns) {
