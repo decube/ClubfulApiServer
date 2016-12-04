@@ -64,6 +64,7 @@ router.post('/create', function(req, res) {
               courtSeq = row[0].courtSeq;
               console.log("courtSeq : "+ courtSeq);
               //"INSERT INTO court (address, addressShort, cname, latitude, longitude, description, makeDT, updateDT, status, categorySeq, makenToken) VALUES (?, ?, ?, ?, ?, ?, now(), now(), ?, ?, ?)"
+              console.log('log::::::'+_Query.insertCourt);
               db.query(_Query.insertCourt,[address
                 , addressShort, cname, latitude
                 , longitude, description
