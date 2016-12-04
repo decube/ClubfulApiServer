@@ -63,7 +63,7 @@ router.post('/create', function(req, res) {
           }else{
               courtSeq = row[0].courtSeq;
               console.log("courtSeq : "+ courtSeq);
-              db.query(_Query.insertCourt,[courtSeq, address
+              db.query(_Query.insertCourt,[address
                 , addressShort, cname, latitude
                 , longitude, description
                 , status, category, token],function(err, rowToken, columns) {
