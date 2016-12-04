@@ -169,6 +169,13 @@ router.post('/login', function(req, res) {
                             retDistancePush = rowDevice.isDistancePush;
                             retInterestPush = rowDevice.isInterestPush;
                             console.log('결과물 출력');
+
+                            console.log('rtCode : ' + rtCode + ' rtMsg : ' + rtMsg + ' retUserId : ' + retUserId
+                                        +' retNickName : ' + retNickName +' retSex : ' + retSex  +' nickName : ' + nickName  +' retUserLatitude : ' + retUserLatitude  +' retUserLongitude : ' + retUserLongitude
+                                        +' retUserAddress : ' + retUserAddress +' retUserAddressShort : ' + retUserAddressShort  +' retBirth : ' + retBirth  +' retStartTime : ' + retStartTime  +' retEndTime : ' + retEndTime
+                                        +' retNoticePush : ' + retNoticePush +' retMyCreateCourtPush : ' + retMyCreateCourtPush  +' retDistancePush : ' + retDistancePush  +' retInterestPush : ' + retInterestPush
+
+                                       );
                             res.json({ code : rtCode
                                       ,msg : rtMsg
                                       ,isMsgView : true
@@ -201,6 +208,7 @@ router.post('/login', function(req, res) {
             }
           }
           console.log('code' + rtCode + ' msg' + rtMsg);
+          /*
           res.json({ code : rtCode
                     ,msg : rtMsg
                     ,isMsgView : true
@@ -219,6 +227,7 @@ router.post('/login', function(req, res) {
                     ,distancePush : retDistancePush
                     ,interestPush : retInterestPush
                    });
+          */
       });
 
       _DBPool.release(db);
