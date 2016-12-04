@@ -45,6 +45,8 @@ router.post('/check', function(req, res) {
   var rtNoticeVer = '';
   var rtCategoryList = [];
 
+  console.log('여기오나??');
+
   _DBPool.acquire(function(err, db) {
       if (err) {
         rtCode=1;
