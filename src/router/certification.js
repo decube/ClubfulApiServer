@@ -155,7 +155,7 @@ router.post('/login', function(req, res) {
                             rtCode = 0;
                             rtMsg = "로그인 성공.";
                             retUserId = rowDevice.userId;
-                            retNickName = rowDevice.NickName;
+                            retNickName = rowDevice.nickName;
                             retSex = rowDevice.sex;
                             retUserLatitude = rowDevice.userLatitude;
                             retUserLongitude = rowDevice.userLongitude;
@@ -169,27 +169,27 @@ router.post('/login', function(req, res) {
                             retDistancePush = rowDevice.isDistancePush;
                             retInterestPush = rowDevice.isInterestPush;
                             console.log('결과물 출력');
-
+                            res.json({ code : rtCode
+                                      ,msg : rtMsg
+                                      ,isMsgView : true
+                                      ,userId : retUserId
+                                      ,nickName : retNickName
+                                      ,sex : retSex
+                                      ,userLatitude : retUserLatitude
+                                      ,userLongitude : retUserLongitude
+                                      ,userAddress : retUserAddress
+                                      ,userAddressShort : retUserAddressShort
+                                      ,birth : retBirth
+                                      ,startTime : retStartTime
+                                      ,endTime : retEndTime
+                                      ,noticePush : retNoticePush
+                                      ,myCreateCourtPush : retMyCreateCourtPush
+                                      ,distancePush : retDistancePush
+                                      ,interestPush : retInterestPush
+                                     });
 
                           }
-                          res.json({ code : rtCode
-                                    ,msg : rtMsg
-                                    ,isMsgView : true
-                                    ,userId : retUserId
-                                    ,nickName : retNickName
-                                    ,sex : retSex
-                                    ,userLatitude : retUserLatitude
-                                    ,userLongitude : retUserLongitude
-                                    ,userAddress : retUserAddress
-                                    ,userAddressShort : retUserAddressShort
-                                    ,birth : retBirth
-                                    ,startTime : retStartTime
-                                    ,endTime : retEndTime
-                                    ,noticePush : retNoticePush
-                                    ,myCreateCourtPush : retMyCreateCourtPush
-                                    ,distancePush : retDistancePush
-                                    ,interestPush : retInterestPush
-                                   });
+
                       });
                     }
                 });
