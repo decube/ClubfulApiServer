@@ -90,16 +90,7 @@ router.post('/check', function(req, res) {
                                   }else{
                                     rtCategoryVer = rowNewCategory[0].ver;
                                     console.log(rtCategoryVer);
-                                    if(categoryVer == rowNewCategory[0].ver){
-                                      res.json({ code : rtCode
-                                                ,msg : rtMsg
-                                                ,isMsgView : true
-                                                ,token : rtToken
-                                                ,ver : rtVer
-                                                ,categoryVer : rtCategoryVer
-                                                ,categoryList : null
-                                                ,noticeVer : rtNoticeVer});
-                                    }else{
+                                  
                                       //다르면 카테고리 리스트 내려줌
                                       db.query(_Query.getCategoryList,[rowNewCategory[0].ver],function(err, rowCategoryList, columns) {
 
@@ -127,7 +118,6 @@ router.post('/check', function(req, res) {
                                           }
                                       });
 
-                                    }
                                   }
                               });
                             }
