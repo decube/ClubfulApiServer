@@ -153,7 +153,7 @@ router.post('/login', function(req, res) {
                             console.log('비밀번호 체크로직 : 로그인 성공');
                             rtCode = 0;
                             rtMsg = "로그인 성공.";
-                            retUserId = rowDevice.user_id;
+                            retUserId = rowDevice.userId;
                             retNickName = rowDevice.NickName;
                             retSex = rowDevice.sex;
                             retUserLatitude = rowDevice.userLatitude;
@@ -161,12 +161,12 @@ router.post('/login', function(req, res) {
                             retUserAddress = rowDevice.userAddress;
                             retUserAddressShort = rowDevice.userAddressShort;
                             retBirth = rowDevice.birthDay;
-                            retStartTime = rowDevice.push_start_time;
-                            retEndTime = rowDevice.push_end_time;
-                            retNoticePush = rowDevice.is_notice_push;
-                            retMyCreateCourtPush = rowDevice.is_insert_push;
-                            retDistancePush = rowDevice.is_distance_push;
-                            retInterestPush = rowDevice.is_interest_push;
+                            retStartTime = rowDevice.pushStartTime;
+                            retEndTime = rowDevice.pushEndTime;
+                            retNoticePush = rowDevice.isNoticePush;
+                            retMyCreateCourtPush = rowDevice.isInsertPush;
+                            retDistancePush = rowDevice.isDistancePush;
+                            retInterestPush = rowDevice.isInterestPush;
 
                             res.json({ code : rtCode
                                       ,msg : rtMsg
@@ -183,9 +183,10 @@ router.post('/login', function(req, res) {
                                       ,endTime : retEndTime
                                       ,noticePush : retNoticePush
                                       ,myCreateCourtPush : retMyCreateCourtPush
-                                      ,distancePush : distancePush
-                                      ,interestPush : myInsertPush
+                                      ,distancePush : retDistancePush
+                                      ,interestPush : retInterestPush
                                      });
+
                           }
                       });
                     }
@@ -213,8 +214,8 @@ router.post('/login', function(req, res) {
                     ,endTime : retEndTime
                     ,noticePush : retNoticePush
                     ,myCreateCourtPush : retMyCreateCourtPush
-                    ,distancePush : distancePush
-                    ,interestPush : myInsertPush
+                    ,distancePush : retDistancePush
+                    ,interestPush : retInterestPush
                    });
       });
 
