@@ -56,6 +56,7 @@ router.post('/create', function(req, res) {
             rtMsg = "코트등록에 실패하였습니다. 재시도 해주세요.";
           }else{
               courtSeq = row[0];
+              console.log("courtSeq : "+ courtSeq);
               db.query(_Query.insertCourt,[courtSeq,address
                 , addressShort, cname, latitude
                 , longitude, description
