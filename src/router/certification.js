@@ -179,7 +179,7 @@ router.post('/login', function(req, res) {
                             console.log('비밀번호 체크로직 : 로그인 성공' + rowDevice);
                             rtCode = 0;
                             rtMsg = "로그인 성공.";
-                            retUserId = rowDevice[0].userId;
+                            retUserId = userId;
                             retNickName = rowDevice[0].nickName;
                             retSex = rowDevice[0].sex;
                             retUserLatitude = rowDevice[0].userLatitude;
