@@ -151,7 +151,7 @@ router.post('/login', function(req, res) {
                           if (err) {
                             return res.end("QUERY ERROR: " + err);
                           }else{
-                            console.log('비밀번호 체크로직 : 로그인 성공');
+                            console.log('비밀번호 체크로직 : 로그인 성공' + rowDevice);
                             rtCode = 0;
                             rtMsg = "로그인 성공.";
                             retUserId = rowDevice.userId;
