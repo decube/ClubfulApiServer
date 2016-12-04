@@ -46,6 +46,10 @@ router.post('/geocode', function(req, res) {
   var rtMsg = '';
   var rtResult = '';
 
+  console.log('token : ' + token + ' paramAddress : ' + paramAddress + ' latitude : ' + latitude
+              +' longitude : ' + longitude +' language : ' + language
+             );
+
   if((paramAddress == null || paramAddress == '') && (latitude != null && latitude != '' && longitude != null && longitude != '')){
     geocoder.reverse({lat:latitude, lon:longitude})
     .then(function(geoRes) {
