@@ -141,7 +141,7 @@ router.post('/login', function(req, res) {
               }
             }else{
               if((loginType == 'n' && rowDevice[0].password == hash) || loginType=='k' || loginType=='f'){
-                console.log('비밀번호 체크로직 : 체크 성공');
+                console.log('비밀번호 체크로직 : 비밀번호 같음');
                 db.query(_Query.updateDevice,[gcmId, userId, token],function(err, rowToken, columns) {
                     if (err) {
                       return res.end("QUERY ERROR: " + err);
@@ -172,11 +172,13 @@ router.post('/login', function(req, res) {
                     }
                 });
               }else{
+                console.log('비밀번호 체크로직 : 체크 실패');
                 rtCode = 1;
                 rtMsg = '비밀번호를 확인해 주세요.';
               }
             }
           }
+          console.log('code' + code + ' msg' + rtMsg);
           res.json({ code : rtCode
                     ,msg : rtMsg
                     ,isMsgView : true
