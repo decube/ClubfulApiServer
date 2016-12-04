@@ -55,7 +55,7 @@ router.post('/geocode', function(req, res) {
     geocoder.reverse({lat:latitude, lon:longitude})
     .then(function(geoRes) {
       rtCode=0;
-      rtResult = res;
+      rtResult = geoRes;
       res.json({ code : rtCode
                 ,msg : rtMsg
                 ,isMsgView : false
@@ -63,7 +63,7 @@ router.post('/geocode', function(req, res) {
                });
     })
     .catch(function(geoErr) {
-      rtMsg = err;
+      rtMsg = geoErr;
       res.json({ code : rtCode
                 ,msg : rtMsg
                 ,isMsgView : false
