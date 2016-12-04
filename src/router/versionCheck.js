@@ -100,7 +100,7 @@ router.post('/check', function(req, res) {
                                             res.json({ code : rtCode
                                                       ,msg : rtMsg
                                                       ,isMsgView : true
-                                                    }
+                                                    });
                                           }else{
                                             rtCategoryList = rowCategoryList;
                                             db.query(_Query.getNewNoticeVer,[],function(err, rowNewNotice, columns) {
