@@ -87,7 +87,7 @@ router.post('/check', function(req, res) {
                                   if (err) {
                                     console.log(err);
                                     rtCode=1;
-                                  }else{
+                                  }else{ 
                                     rtCategoryVer = rowNewCategory[0].ver;
                                     console.log('VersionCheck : '+ rtCategoryVer);
                                       //다르면 카테고리 리스트 내려줌
