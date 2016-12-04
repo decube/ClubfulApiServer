@@ -61,11 +61,13 @@ router.post('/create', function(req, res) {
                 , longitude, description
                 , status, category, token],function(err, rowToken, columns) {
                   if (err) {
+                    console.log(err);
                     return res.end("QUERY ERROR: " + err);
                   }else{
                     for(var i = 0; i<picNameArray.length; i++){
                       db.query(_Query.insertCourtImg,[imgURL+picNameArray[i],courtSeq],function(err, rowToken, columns) {
                             if(err){
+                                console.log(err);
                                 return res.end("QUERY ERROR: " + err);
                             }
                         });
@@ -80,7 +82,7 @@ router.post('/create', function(req, res) {
                   }
               });
           }
-        
+
       });
 
 
