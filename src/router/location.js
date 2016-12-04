@@ -50,7 +50,7 @@ router.post('/geocode', function(req, res) {
               +' longitude : ' + longitude +' language : ' + language
              );
 
-  if((paramAddress == null || paramAddress == '') && (latitude != null && latitude != '' && longitude != null && longitude != '')){
+  if((paramAddress == null || paramAddress == '' || paramAddress == 'undefined') && (latitude != null && latitude != '' && longitude != null && longitude != '')){
     geocoder.reverse({lat:latitude, lon:longitude})
     .then(function(geoRes) {
       rtCode=0;
