@@ -97,6 +97,12 @@ router.post('/login', function(req, res) {
               if(loginType == 'n'){
                 rtCode = 1;
                 rtMsg = "ID를 확인해 주십시오.";
+
+                res.json({ code : rtCode
+                          ,msg : rtMsg
+                          ,isMsgView : true
+                          ,userId : retUserId
+                         });
               }else{
                 //카톡이나 페이스북 비밀번호가 없음.
                 db.query(_Query.insertUser,[userId
