@@ -109,7 +109,7 @@ router.post('/check', function(req, res) {
                                                             ,token : rtToken
                                                             ,ver : rtVer
                                                             ,categoryVer : rtCategoryVer
-                                                            ,categoryLIst : rtCategoryList
+                                                            ,categoryList : rtCategoryList
                                                             ,noticeVer : rtNoticeVer});
                                                 }
                                             });
