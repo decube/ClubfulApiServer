@@ -72,14 +72,15 @@ router.post('/create', function(req, res) {
                     }
                     rtCode = 0;
                     rtMsg = "코트등록에 성공했습니다.";
+                    res.json({ code : rtCode
+                              ,msg : rtMsg
+                              ,isMsgView : true
+                             });
 
                   }
               });
           }
-          res.json({ code : rtCode
-                    ,msg : rtMsg
-                    ,isMsgView : true
-                   });
+        
       });
 
 
