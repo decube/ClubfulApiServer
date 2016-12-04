@@ -162,8 +162,8 @@ router.post('/login', function(req, res) {
                             retUserAddress = rowDevice.userAddress;
                             retUserAddressShort = rowDevice.userAddressShort;
                             retBirth = rowDevice.birthDay;
-                            retStartTime = rowDevice.pushStartTime;
-                            retEndTime = rowDevice.pushEndTime;
+                            retStartTime = ""+rowDevice.pushStartTime;
+                            retEndTime = ""+rowDevice.pushEndTime;
                             retNoticePush = rowDevice.isNoticePush;
                             retMyCreateCourtPush = rowDevice.isInsertPush;
                             retDistancePush = rowDevice.isDistancePush;
