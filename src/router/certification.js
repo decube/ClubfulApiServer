@@ -167,6 +167,25 @@ router.post('/login', function(req, res) {
                             retMyCreateCourtPush = rowDevice.is_insert_push;
                             retDistancePush = rowDevice.is_distance_push;
                             retInterestPush = rowDevice.is_interest_push;
+
+                            res.json({ code : rtCode
+                                      ,msg : rtMsg
+                                      ,isMsgView : true
+                                      ,userId : retUserId
+                                      ,nickName : retNickName
+                                      ,sex : retSex
+                                      ,userLatitude : retUserLatitude
+                                      ,userLongitude : retUserLongitude
+                                      ,userAddress : retUserAddress
+                                      ,userAddressShort : retUserAddressShort
+                                      ,birth : retBirth
+                                      ,startTime : retStartTime
+                                      ,endTime : retEndTime
+                                      ,noticePush : retNoticePush
+                                      ,myCreateCourtPush : retMyCreateCourtPush
+                                      ,distancePush : distancePush
+                                      ,interestPush : myInsertPush
+                                     });
                           }
                       });
                     }
