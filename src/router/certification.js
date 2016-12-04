@@ -119,20 +119,45 @@ router.post('/login', function(req, res) {
                                 }else{
                                   rtCode = 0;
                                   rtMsg = "로그인 성공.";
-                                  retUserId = rowDevice.user_id;
-                                  retNickName = rowDevice.NickName;
-                                  retSex = rowDevice.sex;
-                                  retUserLatitude = rowDevice.userLatitude;
-                                  retUserLongitude = rowDevice.userLongitude;
-                                  retUserAddress = rowDevice.userAddress;
-                                  retUserAddressShort = rowDevice.userAddressShort;
-                                  retBirth = rowDevice.birthDay;
-                                  retStartTime = rowDevice.push_start_time;
-                                  retEndTime = rowDevice.push_end_time;
-                                  retNoticePush = rowDevice.is_notice_push;
-                                  retMyCreateCourtPush = rowDevice.is_insert_push;
-                                  retDistancePush = rowDevice.is_distance_push;
-                                  retInterestPush = rowDevice.is_interest_push;
+                                  retUserId = rowDevice[0].userId;
+                                  retNickName = rowDevice[0].nickName;
+                                  retSex = rowDevice[0].sex;
+                                  retUserLatitude = rowDevice[0].userLatitude;
+                                  retUserLongitude = rowDevice[0].userLongitude;
+                                  retUserAddress = rowDevice[0].userAddress;
+                                  retUserAddressShort = rowDevice[0].userAddressShort;
+                                  retBirth = rowDevice[0].birthDay;
+                                  retStartTime = ""+rowDevice[0].pushStartTime;
+                                  retEndTime = ""+rowDevice[0].pushEndTime;
+                                  retNoticePush = rowDevice[0].isNoticePush;
+                                  retMyCreateCourtPush = rowDevice[0].isInsertPush;
+                                  retDistancePush = rowDevice[0].isDistancePush;
+                                  retInterestPush = rowDevice[0].isInterestPush;
+                                  console.log('결과물 출력');
+                                  console.log('rtCode : ' + rtCode + ' rtMsg : ' + rtMsg + ' retUserId : ' + retUserId
+                                              +' retNickName : ' + retNickName +' retSex : ' + retSex  +' nickName : ' + nickName  +' retUserLatitude : ' + retUserLatitude  +' retUserLongitude : ' + retUserLongitude
+                                              +' retUserAddress : ' + retUserAddress +' retUserAddressShort : ' + retUserAddressShort  +' retBirth : ' + retBirth  +' retStartTime : ' + retStartTime  +' retEndTime : ' + retEndTime
+                                              +' retNoticePush : ' + retNoticePush +' retMyCreateCourtPush : ' + retMyCreateCourtPush  +' retDistancePush : ' + retDistancePush  +' retInterestPush : ' + retInterestPush
+
+                                             );
+                                  res.json({ code : rtCode
+                                            ,msg : rtMsg
+                                            ,isMsgView : true
+                                            ,userId : retUserId
+                                            ,nickName : retNickName
+                                            ,sex : retSex
+                                            ,userLatitude : retUserLatitude
+                                            ,userLongitude : retUserLongitude
+                                            ,userAddress : retUserAddress
+                                            ,userAddressShort : retUserAddressShort
+                                            ,birth : retBirth
+                                            ,startTime : retStartTime
+                                            ,endTime : retEndTime
+                                            ,noticePush : retNoticePush
+                                            ,myCreateCourtPush : retMyCreateCourtPush
+                                            ,distancePush : retDistancePush
+                                            ,interestPush : retInterestPush
+                                           });
                                 }
                             });
                           }
@@ -154,22 +179,21 @@ router.post('/login', function(req, res) {
                             console.log('비밀번호 체크로직 : 로그인 성공' + rowDevice);
                             rtCode = 0;
                             rtMsg = "로그인 성공.";
-                            retUserId = rowDevice.userId;
-                            retNickName = rowDevice.nickName;
-                            retSex = rowDevice.sex;
-                            retUserLatitude = rowDevice.userLatitude;
-                            retUserLongitude = rowDevice.userLongitude;
-                            retUserAddress = rowDevice.userAddress;
-                            retUserAddressShort = rowDevice.userAddressShort;
-                            retBirth = rowDevice.birthDay;
-                            retStartTime = ""+rowDevice.pushStartTime;
-                            retEndTime = ""+rowDevice.pushEndTime;
-                            retNoticePush = rowDevice.isNoticePush;
-                            retMyCreateCourtPush = rowDevice.isInsertPush;
-                            retDistancePush = rowDevice.isDistancePush;
-                            retInterestPush = rowDevice.isInterestPush;
+                            retUserId = rowDevice[0].userId;
+                            retNickName = rowDevice[0].nickName;
+                            retSex = rowDevice[0].sex;
+                            retUserLatitude = rowDevice[0].userLatitude;
+                            retUserLongitude = rowDevice[0].userLongitude;
+                            retUserAddress = rowDevice[0].userAddress;
+                            retUserAddressShort = rowDevice[0].userAddressShort;
+                            retBirth = rowDevice[0].birthDay;
+                            retStartTime = ""+rowDevice[0].pushStartTime;
+                            retEndTime = ""+rowDevice[0].pushEndTime;
+                            retNoticePush = rowDevice[0].isNoticePush;
+                            retMyCreateCourtPush = rowDevice[0].isInsertPush;
+                            retDistancePush = rowDevice[0].isDistancePush;
+                            retInterestPush = rowDevice[0].isInterestPush;
                             console.log('결과물 출력');
-
                             console.log('rtCode : ' + rtCode + ' rtMsg : ' + rtMsg + ' retUserId : ' + retUserId
                                         +' retNickName : ' + retNickName +' retSex : ' + retSex  +' nickName : ' + nickName  +' retUserLatitude : ' + retUserLatitude  +' retUserLongitude : ' + retUserLongitude
                                         +' retUserAddress : ' + retUserAddress +' retUserAddressShort : ' + retUserAddressShort  +' retBirth : ' + retBirth  +' retStartTime : ' + retStartTime  +' retEndTime : ' + retEndTime
@@ -207,7 +231,6 @@ router.post('/login', function(req, res) {
               }
             }
           }
-          console.log('code' + rtCode + ' msg' + rtMsg);
           /*
           res.json({ code : rtCode
                     ,msg : rtMsg
