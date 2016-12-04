@@ -79,22 +79,22 @@ router.post('/create', function(req, res) {
 
       });
       _DBPool.release(db);
-
-      _DBPool.acquire(function(err, db) {
-          if (err) {
-            return res.end("CONNECTION error: " + err);
-          }
-          for(var i = 0; i<picNameArray.length; i++){
-            db.query(_Query.insertCourtImg,[imgURL+picNameArray[i],courtSeq],function(err, rowToken, columns) {
-                  if(err){
-                      console.log(err);
-                      return res.end("QUERY ERROR: " + err);
-                  }
-              });
-          }
-     _DBPool.release(db);
-
-  });
+  //
+  //     _DBPool.acquire(function(err, db) {
+  //         if (err) {
+  //           return res.end("CONNECTION error: " + err);
+  //         }
+  //         for(var i = 0; i<picNameArray.length; i++){
+  //           db.query(_Query.insertCourtImg,[imgURL+picNameArray[i],courtSeq],function(err, rowToken, columns) {
+  //                 if(err){
+  //                     console.log(err);
+  //                     return res.end("QUERY ERROR: " + err);
+  //                 }
+  //             });
+  //         }
+  //    _DBPool.release(db);
+  //
+  // });
 
 });
 
