@@ -51,6 +51,7 @@ router.post('/geocode', function(req, res) {
              );
 
   if((paramAddress == null || paramAddress == '' || paramAddress == 'undefined') && (latitude != null && latitude != '' && longitude != null && longitude != '')){
+    console.log("현재 위치 설정.");
     geocoder.reverse({lat:latitude, lon:longitude})
     .then(function(geoRes) {
       rtCode=0;
@@ -70,6 +71,7 @@ router.post('/geocode', function(req, res) {
                });
     });
   }else if(paramAddress != null && paramAddress != ''){
+    console.log("주소 검색.");
     geocoder.geocode({address: paramAddress, countryCode: language, minConfidence: 0.5, limit: 5}, function(err, geoRes) {
       rtCode=0;
       rtResult = geoRes;
