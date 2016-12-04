@@ -52,6 +52,7 @@ router.post('/check', function(req, res) {
   _DBPool.acquire(function(err, db) {
       if (err) {
         rtCode=1;
+        console.log('VersionCheck : DBConnection' );
         return res.end("CONNECTION error: " + err);
       }
 
@@ -63,6 +64,7 @@ router.post('/check', function(req, res) {
           }else{
             if(rowDevice[0] == null){
               //새로운 유저 디바이스 생성
+              console.log('VersionCheck : 디바이스 생성' );
               db.query(_Query.getTokenSeq,[],function(err, rowToken, columns) {
                   if (err) {
                     console.log(err);
@@ -80,6 +82,7 @@ router.post('/check', function(req, res) {
                               rtCode=1;
                             }else{
                               rtToken = rowReDevice[0].token;
+                              console.log('VersionCheck : ' + rtToken );
                               db.query(_Query.getNewCategoryVer,[],function(err, rowNewCategory, columns) {
                                   if (err) {
                                     console.log(err);
@@ -102,6 +105,7 @@ router.post('/check', function(req, res) {
                                                 if (err) {
                                                 rtCode=1;
                                                 }else{
+                                                  console.log('VersionCheck : ' + '결과' );
                                                   rtNoticeVer = rowNewNotice[0].ver;
                                                   res.json({ code : rtCode
                                                             ,msg : rtMsg
