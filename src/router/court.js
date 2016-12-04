@@ -29,6 +29,11 @@ router.post('/create', function(req, res) {
   var status = req.body.status;
   var category = req.body.category;
 
+  console.log('token : ' + token + ' id : ' + id + ' address : ' + address
+              +' addressShort : ' + addressShort +' cname : ' + cname  +' latitude : ' + latitude  +' longitude : ' + longitude  +' description : ' + description
+              +' picNameArray : ' + picNameArray +' cname : ' + status +' category : ' + category 
+
+            );
   // var token = req.query.token;
   // var id = req.query.id;
   // var address = req.query.address;
