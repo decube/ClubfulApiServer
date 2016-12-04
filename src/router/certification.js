@@ -178,7 +178,7 @@ router.post('/login', function(req, res) {
               }
             }
           }
-          console.log('code' + code + ' msg' + rtMsg);
+          console.log('code' + rtCode + ' msg' + rtMsg);
           res.json({ code : rtCode
                     ,msg : rtMsg
                     ,isMsgView : true
