@@ -48,7 +48,7 @@ router.post('/check', function(req, res) {
   console.log('appType : ' + appType + 'appVersion : ' + appVersion + 'sendDate : ' + sendDate
               +'language : ' + language +'deviceId : ' + deviceId  +'token : ' + token  +'categoryVer : ' + categoryVer  +'noticeVer : ' + noticeVer );
   console.log('여기오나??' + deviceId);
-
+///좀 바껴라 미친;;;;
   _DBPool.acquire(function(err, db) {
       if (err) {
         rtCode=1;
@@ -87,7 +87,7 @@ router.post('/check', function(req, res) {
                                   if (err) {
                                     console.log(err);
                                     rtCode=1;
-                                  }else{ 
+                                  }else{
                                     rtCategoryVer = rowNewCategory[0].ver;
                                     console.log('VersionCheck : '+ rtCategoryVer);
                                       //다르면 카테고리 리스트 내려줌
