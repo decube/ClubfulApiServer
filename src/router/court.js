@@ -65,32 +65,34 @@ router.post('/create', function(req, res) {
                     console.log(err);
                     return res.end("QUERY ERROR: " + err);
                   }else{
-                    for(var i = 0; i<picNameArray.length; i++){
-                      db.query(_Query.insertCourtImg,[imgURL+picNameArray[i],courtSeq],function(err, rowToken, columns) {
-                            if(err){
-                                console.log(err);
-                                return res.end("QUERY ERROR: " + err);
-                            }
-                        });
-                    }
+
                     rtCode = 0;
                     rtMsg = "코트등록에 성공했습니다.";
-
+                    res.json({ code : rtCode
+                              ,msg : rtMsg
+                              ,isMsgView : true
+                             });
 
                   }
               });
           }
-          res.json({ code : rtCode
-                    ,msg : rtMsg
-                    ,isMsgView : true
-                   });
 
       });
-
-
-
-
       _DBPool.release(db);
+
+      _DBPool.acquire(function(err, db) {
+          if (err) {
+            return res.end("CONNECTION error: " + err);
+          }
+          for(var i = 0; i<picNameArray.length; i++){
+            db.query(_Query.insertCourtImg,[imgURL+picNameArray[i],courtSeq],function(err, rowToken, columns) {
+                  if(err){
+                      console.log(err);
+                      return res.end("QUERY ERROR: " + err);
+                  }
+              });
+          }
+     _DBPool.release(db);
 
   });
 
