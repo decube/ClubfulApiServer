@@ -65,72 +65,30 @@ router.post('/create', function(req, res) {
                     console.log(err);
                     return res.end("QUERY ERROR: " + err);
                   }else{
-                    for(var i = 0; i<picNameArray.length; i++){
-                      db.query(_Query.insertCourtImg,[imgURL+picNameArray[i],courtSeq],function(err, rowToken, columns) {
-                            if(err){
-                                console.log(err);
-                                return res.end("QUERY ERROR: " + err);
-                            }
-                        });
-                    }
+                    // for(var i = 0; i<picNameArray.length; i++){
+                    //   db.query(_Query.insertCourtImg,[imgURL+picNameArray[i],courtSeq],function(err, rowToken, columns) {
+                    //         if(err){
+                    //             console.log(err);
+                    //             return res.end("QUERY ERROR: " + err);
+                    //         }
+                    //     });
+                    // }
                     rtCode = 0;
                     rtMsg = "코트등록에 성공했습니다.";
-
+                    res.json({ code : rtCode
+                              ,msg : rtMsg
+                              ,isMsgView : true
+                             });
 
                   }
               });
           }
-          res.json({ code : rtCode
-                    ,msg : rtMsg
-                    ,isMsgView : true
-                   });
+
 
       });
       _DBPool.release(db);
 
-      _DBPool.acquire(function(err, db) {
-          if (err) {
-            return res.end("CONNECTION error: " + err);
-          }
-          db.query(_Query.getCourtSeq,[],function(err, row, columns) {
-              if (err) {
-                rtCode = 1;
-                rtMsg = "코트등록에 실패하였습니다. 재시도 해주세요.";
-              }else{
-                  courtSeq = row[0].courtSeq;
-                  console.log("courtSeq : "+ courtSeq);
-                  db.query(_Query.insertCourt,[courtSeq,address
-                    , addressShort, cname, latitude
-                    , longitude, description
-                    , status, category, token],function(err, rowToken, columns) {
-                      if (err) {
-                        console.log(err);
-                        return res.end("QUERY ERROR: " + err);
-                      }else{
-                        // for(var i = 0; i<picNameArray.length; i++){
-                        //   db.query(_Query.insertCourtImg,[imgURL+picNameArray[i],courtSeq],function(err, rowToken, columns) {
-                        //         if(err){
-                        //             console.log(err);
-                        //             return res.end("QUERY ERROR: " + err);
-                        //         }
-                        //     });
-                        // }
-                        rtCode = 0;
-                        rtMsg = "코트등록에 성공했습니다.";
 
-
-                      }
-                  });
-              }
-              res.json({ code : rtCode
-                        ,msg : rtMsg
-                        ,isMsgView : true
-                       });
-
-          });
-          _DBPool.release(db);
-
-  });
 
 });
 
