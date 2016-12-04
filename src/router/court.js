@@ -41,6 +41,7 @@ router.post('/create', function(req, res) {
   // var status = 'N';
   // var category = req.query.category;
 
+  var status = 'N';
   var courtSeq=0;
   var rtCode=1;
   var rtMsg = '';
