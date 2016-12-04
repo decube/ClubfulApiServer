@@ -37,6 +37,12 @@ router.post('/login', function(req, res) {
   var startTime = req.body.startTime;
   var endTime = req.body.endTime;
 
+  console.log('userId : ' + userId + ' token : ' + token + ' password : ' + password
+              +' loginType : ' + loginType +' gcmId : ' + gcmId  +' nickName : ' + nickName  +' sex : ' + sex  +' birth : ' + birth
+              +' userLatitude : ' + userLatitude +' userLongitude : ' + userLongitude  +' userAddress : ' + userAddress  +' userAddressShort : ' + userAddressShort  +' noticePush : ' + noticePush
+              +' myInsertPush : ' + myInsertPush +' interestPush : ' + interestPush  +' startTime : ' + startTime  +' endTime : ' + endTime
+
+             );
 
   // var userId = req.query.userId;
   // var token = req.query.token;
