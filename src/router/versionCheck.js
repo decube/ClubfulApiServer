@@ -198,7 +198,7 @@ router.post('/app', function(req, res) {
   var rtCode=1;
   var rtMsg = '';
   var rtAppVersion = '';
-
+ 
   _DBPool.acquire(function(err, db) {
       if (err) {
         return res.end("CONNECTION error: " + err);
