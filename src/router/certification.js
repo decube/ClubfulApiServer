@@ -167,7 +167,7 @@ router.post('/login', function(req, res) {
                             retMyCreateCourtPush = rowDevice.isInsertPush;
                             retDistancePush = rowDevice.isDistancePush;
                             retInterestPush = rowDevice.isInterestPush;
-
+                            console.log('결과물 출력');
                             res.json({ code : rtCode
                                       ,msg : rtMsg
                                       ,isMsgView : true
