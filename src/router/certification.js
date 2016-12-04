@@ -141,6 +141,7 @@ router.post('/login', function(req, res) {
               }
             }else{
               if((loginType == 'n' && rowDevice[0].password == hash) || loginType=='k' || loginType=='f'){
+                console.log('비밀번호 체크로직 : 체크 성공');
                 db.query(_Query.updateDevice,[gcmId, userId, token],function(err, rowToken, columns) {
                     if (err) {
                       return res.end("QUERY ERROR: " + err);
@@ -149,6 +150,7 @@ router.post('/login', function(req, res) {
                           if (err) {
                             return res.end("QUERY ERROR: " + err);
                           }else{
+                            console.log('비밀번호 체크로직 : 로그인 성공');
                             rtCode = 0;
                             rtMsg = "로그인 성공.";
                             retUserId = rowDevice.user_id;
