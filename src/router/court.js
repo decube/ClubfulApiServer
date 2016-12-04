@@ -63,7 +63,8 @@ router.post('/create', function(req, res) {
           }else{
               courtSeq = row[0].courtSeq;
               console.log("courtSeq : "+ courtSeq);
-              db.query("INSERT INTO court (address, addressShort, cname, latitude, longitude, description, makeDT, updateDT, status, categorySeq, makenToken) VALUES (?, ?, ?, ?, ?, ?, now(), now(), ?, ?, ?)",[address
+              //"INSERT INTO court (address, addressShort, cname, latitude, longitude, description, makeDT, updateDT, status, categorySeq, makenToken) VALUES (?, ?, ?, ?, ?, ?, now(), now(), ?, ?, ?)"
+              db.query(_Query.insertCourt,[address
                 , addressShort, cname, latitude
                 , longitude, description
                 , status, category, token],function(err, rowToken, columns) {

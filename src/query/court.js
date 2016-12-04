@@ -1,6 +1,6 @@
 module.exports = function() {
       return {
-          insertCourt : "INSERT INTO court (address, addressShort, cname, latitude, longitude, description, makeDT, updateDT, status, categorySeq, makenToken) VALUES ('aaaaa', 'bbbbb', 'cccccc', 'ddddd', 'eeeee', 'ffff', now(), now(), 'N', 2, 'Hi25MEkv7D/39biYfFpeFCNvXXLLBxjPDc8MaSIDtZM=')",
+          insertCourt : "INSERT INTO court (address, addressShort, cname, latitude, longitude, description, makeDT, updateDT, status, categorySeq, makenToken) VALUES (?, ?, ?, ?, ?, ?, now(), now(), ?, ?, ?)",
           getCourtSeq : "SELECT fnGetSeq('court') as courtSeq",
           getCourtList : "select court.seq"
                             +", court.address"
