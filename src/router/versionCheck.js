@@ -70,7 +70,7 @@ router.post('/check', function(req, res) {
                     console.log(err);
                     rtCode=1;
                   }else{
-                    var hash = crypto.createHash('sha256').update('token'+rowToken[0]).digest('base64');
+                    var hash = crypto.createHash('sha256').update('token'+rowToken[0].tokenSeq).digest('base64');
                     db.query(_Query.insertDevice,[hash, appType, language, deviceId, appType],function(err, rowToken, columns) {
                         if (err) {
                           console.log(err);
