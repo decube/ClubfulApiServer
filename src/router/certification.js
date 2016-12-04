@@ -228,6 +228,25 @@ router.post('/login', function(req, res) {
                 console.log('비밀번호 체크로직 : 체크 실패');
                 rtCode = 1;
                 rtMsg = '비밀번호를 확인해 주세요.';
+
+                res.json({ code : rtCode
+                          ,msg : rtMsg
+                          ,isMsgView : true
+                          ,userId : retUserId
+                          ,nickName : retNickName
+                          ,sex : retSex
+                          ,userLatitude : retUserLatitude
+                          ,userLongitude : retUserLongitude
+                          ,userAddress : retUserAddress
+                          ,userAddressShort : retUserAddressShort
+                          ,birth : retBirth
+                          ,startTime : retStartTime
+                          ,endTime : retEndTime
+                          ,noticePush : retNoticePush
+                          ,myCreateCourtPush : retMyCreateCourtPush
+                          ,distancePush : retDistancePush
+                          ,interestPush : retInterestPush
+                         });
               }
             }
           }
