@@ -279,9 +279,9 @@ router.post('/logout', function(req, res) {
           if (err) {
             return res.end("QUERY ERROR: " + err);
           }else{
-            if(rowDevice[0].user == null){
+            if(rowDevice[0].userId == null){
               rtMsg = '등록되어 있는 유저가 없습니다.';
-            }else{
+            }else if(rowDevice[0].userId == userId){
               rtCode= 0;
               rtMsg = '로그아웃 성공.';
             }
