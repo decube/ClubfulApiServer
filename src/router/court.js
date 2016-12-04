@@ -41,7 +41,7 @@ router.post('/create', function(req, res) {
   // var status = 'N';
   // var category = req.query.category;
 
-  var courtSeq;
+  var courtSeq=0;
   var rtCode=1;
   var rtMsg = '';
   var imgURL = 'https://localhost:8080/';
@@ -74,14 +74,15 @@ router.post('/create', function(req, res) {
                     }
                     rtCode = 0;
                     rtMsg = "코트등록에 성공했습니다.";
-                    res.json({ code : rtCode
-                              ,msg : rtMsg
-                              ,isMsgView : true
-                             });
+
 
                   }
               });
           }
+          res.json({ code : rtCode
+                    ,msg : rtMsg
+                    ,isMsgView : true
+                   });
 
       });
 
