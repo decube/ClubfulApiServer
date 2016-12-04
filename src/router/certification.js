@@ -13,6 +13,7 @@ var _Query = require('../query/user')();
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
   console.log('Time: ', Date.now());
+  res.setHeader("Content-Type", "application/json");
   next();
 });
 // define the home page route
