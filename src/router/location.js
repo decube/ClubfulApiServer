@@ -133,7 +133,7 @@ router.post('/user', function(req, res) {
   var token = req.body.token;
   var latitude = req.body.latitude;
   var longitude = req.body.longitude;
-
+  console.log('token : ' + token + ' latitude : ' + latitude + ' longitude : ' + longitude);
   var rtCode=1;
   var rtMsg = '유저 위치 등록 실패.';
 
@@ -143,6 +143,7 @@ router.post('/user', function(req, res) {
       }
       db.query(_Query.insertLocation,[token, latitude, longitude],function(err, row, columns) {
           if (err) {
+            console.log(err);
             return res.end("QUERY ERROR: " + err);
           }else{
             res.json({ code : 0

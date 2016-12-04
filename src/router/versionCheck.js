@@ -45,9 +45,9 @@ router.post('/check', function(req, res) {
   var rtNoticeVer = '';
   var rtCategoryList = [];
 
-  console.log('appType : ' + appType + 'appVersion : ' + appVersion + 'sendDate : ' + sendDate
-              +'language : ' + language +'deviceId : ' + deviceId  +'token : ' + token  +'categoryVer : ' + categoryVer  +'noticeVer : ' + noticeVer );
-  console.log('여기오나??' + deviceId);
+  console.log('appType : ' + appType + ' appVersion : ' + appVersion + ' sendDate : ' + sendDate
+              +' language : ' + language +' deviceId : ' + deviceId  +' token : ' + token  +' categoryVer : ' + categoryVer  +' noticeVer : ' + noticeVer );
+
 ///좀 바껴라 미친;;;;
   _DBPool.acquire(function(err, db) {
       if (err) {
