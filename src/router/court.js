@@ -76,13 +76,13 @@ router.post('/create', function(req, res) {
 
               }
               console.log("courtSeq : "+ courtSeq);
-              db.query(_Query.insertCourt,[address
+              db.query(_Query.insertCourt,[courtSeq, address
                 , addressShort, cname, latitude
                 , longitude, description
                 , status, category, token],function(err, rowToken, columns) {
                   if (err) {
-                    return res.end("QUERY ERROR: " + err);
                     console.log(err);
+                    return res.end("QUERY ERROR: " + err);
                   }else{
                     db.query(_Query.insertCourtImg,[picNameArray[0],picNameArray[1],picNameArray[2],picNameArray[3],picNameArray[4],picNameArray[5],courtSeq],function(err, rowToken, columns) {
                         if(err){
