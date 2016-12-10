@@ -50,17 +50,10 @@ router.post('/create', function(req, res) {
   var courtSeq=0;
   var rtCode=1;
   var rtMsg = '';
-  var imgURL = 'https://localhost:8080/';
-  var defaultImg = 'clubful/default.jpg'
+  var imgURL = 'https://decubeimageserver-guanho.c9users.io/download/clubful/court';
+  var defaultImg = ' '
 
-  for(var i =0; i<picNameArray.length; i++){
-    if(picNameArray[i] == null || picNameArray[i] == ''){
-      picNameArray[i] = imgURL+defaultImg;
-    }else{
-      picNameArray[i] = imgURL+picNameArray[i];
-    }
 
-  }
 
   _DBPool.acquire(function(err, db) {
       if (err) {
@@ -70,18 +63,26 @@ router.post('/create', function(req, res) {
           if (err) {
             rtCode = 1;
             rtMsg = "코트등록에 실패하였습니다. 재시도 해주세요.";
+
+
           }else{
               courtSeq = row[0].courtSeq;
+              for(var i =0; i<picNameArray.length; i++){
+                if(picNameArray[i] == null || picNameArray[i] == ''){
+                  picNameArray[i] = ' ';
+                }else{
+                  picNameArray[i] = imgURL+'/'+courtSeq+'/'+picNameArray[i];
+                }
+
+              }
               console.log("courtSeq : "+ courtSeq);
-              //"INSERT INTO court (address, addressShort, cname, latitude, longitude, description, makeDT, updateDT, status, categorySeq, makenToken) VALUES (?, ?, ?, ?, ?, ?, now(), now(), ?, ?, ?)"
-              console.log('log::::::'+_Query.insertCourt);
               db.query(_Query.insertCourt,[address
                 , addressShort, cname, latitude
                 , longitude, description
                 , status, category, token],function(err, rowToken, columns) {
                   if (err) {
-
                     return res.end("QUERY ERROR: " + err);
+                    console.log(err);
                   }else{
                     db.query(_Query.insertCourtImg,[picNameArray[0],picNameArray[1],picNameArray[2],picNameArray[3],picNameArray[4],picNameArray[5],courtSeq],function(err, rowToken, columns) {
                         if(err){
