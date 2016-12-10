@@ -53,7 +53,7 @@ router.post('/create', function(req, res) {
   var imgURL = 'https://localhost:8080/';
   var defaultImg = 'clubful/default.jpg'
 
-  for(int i =0; i<picNameArray.length; i++){
+  for(var i =0; i<picNameArray.length; i++){
     if(picNameArray[i] == null || picNameArray[i] == ''){
       picNameArray[i] = imgURL+defaultImg;
     }else{
