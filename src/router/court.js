@@ -70,22 +70,22 @@ router.post('/create', function(req, res) {
                 , longitude, description
                 , status, category, token],function(err, rowToken, columns) {
                   if (err) {
-                    console.log('여긴가'+err);
+
                     return res.end("QUERY ERROR: " + err);
                   }else{
-                    // for(var i = 0; i<picNameArray.length; i++){
-                    //   db.query(_Query.insertCourtImg,[imgURL+picNameArray[i],courtSeq],function(err, rowToken, columns) {
-                    //         if(err){
-                    //             console.log(err);
-                    //             return res.end("QUERY ERROR: " + err);
-                    //         }
-                    //     });
-                    // }
+                    db.query(_Query.insertCourtImg,[imgURL+picNameArray[0],imgURL+picNameArray[1],imgURL+picNameArray[2],imgURL+picNameArray[3],imgURL+picNameArray[4],imgURL+picNameArray[5],courtSeq],function(err, rowToken, columns) {
+                        if(err){
+                            console.log(err);
+                            return res.end("QUERY ERROR: " + err);
+                        }
+                    });
+
                     rtCode = 0;
                     rtMsg = "코트등록에 성공했습니다.";
                     res.json({ code : rtCode
                               ,msg : rtMsg
                               ,isMsgView : true
+                              ,seq : courtSeq
                              });
 
                   }
