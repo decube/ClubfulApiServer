@@ -82,34 +82,30 @@ router.post('/create', function(req, res) {
                   if (err) {
 
                     return res.end("QUERY ERROR: " + err);
-                  }e
+                  }else{
+                    db.query(_Query.insertCourtImg,[picNameArray[0],picNameArray[1],picNameArray[2],picNameArray[3],picNameArray[4],picNameArray[5],courtSeq],function(err, rowToken, columns) {
+                        if(err){
+                            console.log(err);
+                            return res.end("QUERY ERROR: " + err);
+                        }else{
+                          rtCode = 0;
+                          rtMsg = "코트등록에 성공했습니다.";
+                          console.log("courtSeq : "+ courtSeq);
+                          res.json({ code : rtCode
+                                    ,msg : rtMsg
+                                    ,isMsgView : true
+                                    ,seq : courtSeq
+                                   });
+                        }
+                    });
+
+                  }
               });
           }
 
 
       });
-    });
-      
-
-      _DBPool.acquire(function(err, db) {
-          if (err) {
-            return res.end("CONNECTION error: " + err);
-          }
-          db.query(_Query.insertCourtImg,[picNameArray[0],picNameArray[1],picNameArray[2],picNameArray[3],picNameArray[4],picNameArray[5],courtSeq],function(err, rowToken, columns) {
-              if(err){
-                  console.log(err);
-                  return res.end("QUERY ERROR: " + err);
-              }else{
-                rtCode = 0;
-                rtMsg = "코트등록에 성공했습니다.";
-                res.json({ code : rtCode
-                          ,msg : rtMsg
-                          ,isMsgView : true
-                          ,seq : courtSeq
-                         });
-              }
-          });
-          _DBPool.release(db);
+      _DBPool.release(db);
 
     });
 
