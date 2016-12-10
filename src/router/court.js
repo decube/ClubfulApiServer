@@ -88,6 +88,7 @@ router.post('/create', function(req, res) {
 
 
       });
+      });
       _DBPool.release(db);
 
       _DBPool.acquire(function(err, db) {
