@@ -51,6 +51,16 @@ router.post('/create', function(req, res) {
   var rtCode=1;
   var rtMsg = '';
   var imgURL = 'https://localhost:8080/';
+  var defaultImg = 'clubful/default.jpg'
+
+  for(int i =0; i<picNameArray.length; i++){
+    if(picNameArray[i] == null || picNameArray[i] == ''){
+      picNameArray[i] = imgURL+defaultImg;
+    }else{
+      picNameArray[i] = imgURL+picNameArray[i];
+    }
+
+  }
 
   _DBPool.acquire(function(err, db) {
       if (err) {
@@ -73,7 +83,7 @@ router.post('/create', function(req, res) {
 
                     return res.end("QUERY ERROR: " + err);
                   }else{
-                    db.query(_Query.insertCourtImg,[imgURL+picNameArray[0],imgURL+picNameArray[1],imgURL+picNameArray[2],imgURL+picNameArray[3],imgURL+picNameArray[4],imgURL+picNameArray[5],courtSeq],function(err, rowToken, columns) {
+                    db.query(_Query.insertCourtImg,[picNameArray[0],picNameArray[1],picNameArray[2],picNameArray[3],picNameArray[4],picNameArray[5],courtSeq],function(err, rowToken, columns) {
                         if(err){
                             console.log(err);
                             return res.end("QUERY ERROR: " + err);
