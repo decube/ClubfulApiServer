@@ -170,14 +170,10 @@ router.post('/update', function(req, res) {
           res.json({ code : rtCode
                     ,msg : rtMsg
                     ,isMsgView : true
-
                    });
       });
-
       _DBPool.release(db);
-
   });
-
 });
 
 
@@ -217,11 +213,8 @@ router.post('/mypage', function(req, res) {
                             ,myCourtInsert : rtMyCourtInsert
                            });
                 }
-
             });
-
           }
-
       });
 
       _DBPool.release(db);
