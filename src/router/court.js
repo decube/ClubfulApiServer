@@ -115,7 +115,7 @@ router.post('/create', function(req, res) {
 router.post('/getList', function(req, res) {
 
   var token = req.body.token;
-  var address = req.body.address;
+  var search = req.body.search;
   var category = req.body.category;
 
   console.log(token + ', ' + address + ', ' + category);
@@ -137,7 +137,7 @@ router.post('/getList', function(req, res) {
       if (err) {
         return res.end("CONNECTION error: " + err);
       }
-      db.query(getCourtQuery,[address, category],function(err, rowCourtList, columns) {
+      db.query(getCourtQuery,[search, category],function(err, rowCourtList, columns) {
 
           if (err) {
 
