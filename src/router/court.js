@@ -128,7 +128,7 @@ router.post('/getList', function(req, res) {
   var rtMsg = '';
   var getCourtQuery = '';
 
-  if(category == -1){
+  if(category == '-1'){
     getCourtQuery = _Query.getCourtList2;
   }else{
     getCourtQuery = _Query.getCourtList;
