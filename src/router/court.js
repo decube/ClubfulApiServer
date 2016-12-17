@@ -249,11 +249,11 @@ router.post('/detail', function(req, res) {
                       ,isMsgView : false
                      });
           }else{
+            console.log(rowCourt);
             res.json({ code : 0
                       ,msg : ""
                       ,isMsgView : false
                       ,result : rowCourt
-                      
                      });
           }
       });
