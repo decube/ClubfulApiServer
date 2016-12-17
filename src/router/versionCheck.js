@@ -205,7 +205,7 @@ router.post('/app', function(req, res) {
           if (err) {
             rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
           }else{
-            var rtCode=1;
+            var rtCode=0;
             var rtMsg = '';
             rtAppVersion = rowDevice[0].ver;
 

@@ -120,8 +120,6 @@ router.post('/update', function(req, res) {
   var userAddress = req.body.userAddress;
   var userAddressShort = req.body.userAddressShort;
 
-
-
   // var userId = req.query.userId;
   // var token = req.query.token;
   // var password = req.query.password;
@@ -181,5 +179,56 @@ router.post('/update', function(req, res) {
   });
 
 });
+
+
+router.post('/mypage', function(req, res) {
+
+  var userId = req.body.userId;
+  var token = req.body.token;
+
+  // var userId = req.query.userId;
+  // var token = req.query.token;
+
+  var rtCode=1;
+  var rtMsg = '';
+  var rtMyInterestList = [];
+  var rtMyCourtInsert = [];
+
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        return res.end("CONNECTION error: " + err);
+      }
+
+      db.query(_Query.getUserInterestList,[token],function(err, rowInterestList, columns) {
+          if (err) {
+            rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
+          }else{
+            rtMyInterestList = rowInterestList;
+            db.query(_Query.getUserInsertList,[token],function(err, rowInsertList, columns) {
+                if (err) {
+                  rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
+                }else{
+                  var rtCode=0;
+                  rtMyCourtInsert = rowInsertList;
+                  res.json({ code : rtCode
+                            ,msg : rtMsg
+                            ,isMsgView : true
+                            ,interestList : rtMyInterestList
+                            ,myCourtInsert : rtMyCourtInsert
+                           });
+                }
+
+            });
+
+          }
+
+      });
+
+      _DBPool.release(db);
+
+  });
+
+});
+
 
 module.exports = router;
