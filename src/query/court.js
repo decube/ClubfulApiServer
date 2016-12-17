@@ -7,9 +7,10 @@ module.exports = function() {
                             +", court.addressShort"
                             +", category.categoryNM"
                             +", court.description"
-                            +", (select img from court_img where courtSeq = court.seq order by seq asc limit 1) as img"
-                            +", court.cname from court court, category category"
+                            +", img.img1 AS img"
+                            +", court.cname from court court, category category, court_img img"
                         +" WHERE court.categorySeq = category.seq"
+                        +" AND court.seq = img.courtSeq"
                         +" AND court.address like concat('%',?,'%')"
                         +" AND court.categorySeq = ?",
           checkInterest : "select interestYN from user_interest where courtSeq = ? and deviceToken = ?",
