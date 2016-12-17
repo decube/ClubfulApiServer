@@ -118,25 +118,28 @@ router.post('/getList', function(req, res) {
   var address = req.body.address;
   var category = req.body.category;
 
+  console.log(token + ', ' + address + ', ' + category);
+
   // var token = req.query.token;
   // var address = req.query.address;
   // var category = req.query.category;
 
   var rtCode=1;
   var rtMsg = '';
+  var getCourtQuery = '';
 
   if(category == -1){
-    category='';
+    getCourtQuery = _Query.getCourtList2;
+  }else{
+    getCourtQuery = _Query.getCourtList;
   }
   _DBPool.acquire(function(err, db) {
       if (err) {
         return res.end("CONNECTION error: " + err);
       }
-      db.query(_Query.getCourtList,[address, category],function(err, rowCourtList, columns) {
+      db.query(getCourtQuery,[address, category],function(err, rowCourtList, columns) {
 
           if (err) {
-            console.log(_Query.getCourtList);
-            console.log(err);
 
             return res.end("QUERY ERROR: " + err);
 
