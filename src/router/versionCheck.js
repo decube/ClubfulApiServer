@@ -41,7 +41,7 @@ router.post('/check', function(req, res) {
   var rtCode=0;
   var rtMsg = '';
   var rtToken = '';
-  var rtVer = '';
+  var rtVer = '1.0.0';
   var rtCategoryVer = '';
   var rtNoticeVer = '';
   var rtCategoryList = [];
@@ -114,7 +114,7 @@ router.post('/check', function(req, res) {
                                                             ,msg : rtMsg
                                                             ,isMsgView : true
                                                             ,token : rtToken
-                                                            ,ver : '0.0.1'
+                                                            ,ver : rtVer
                                                             ,categoryVer : rtCategoryVer
                                                             ,categoryList : rtCategoryList
                                                             ,noticeVer : rtNoticeVer});
