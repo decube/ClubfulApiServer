@@ -114,7 +114,7 @@ router.post('/check', function(req, res) {
                                                             ,msg : rtMsg
                                                             ,isMsgView : true
                                                             ,token : rtToken
-                                                            ,ver : rtVer
+                                                            ,ver : '0.0.1'
                                                             ,categoryVer : rtCategoryVer
                                                             ,categoryList : rtCategoryList
                                                             ,noticeVer : rtNoticeVer});
