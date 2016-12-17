@@ -22,7 +22,8 @@ module.exports = function() {
                             +", court.cname from court court, category category, court_img img"
                         +" WHERE court.categorySeq = category.seq"
                         +" AND court.seq = img.courtSeq"
-                        +" AND ( court.address like concat('%',?,'%') OR court.cname like concat('%',?,'%')  )",
+                        +" AND ( court.address like concat('%',?,'%') OR court.cname like concat('%',?,'%')  )"
+                        +" AND court.categorySeq != ?",
           checkInterest : "select interestYN from user_interest where courtSeq = ? and deviceToken = ?",
           getInterestCnt : "select count(*) as cnt from user_interest where courtSeq = ?",
           insertInterest : "INSERT INTO user_interest (seq, interestYN, courtSeq, deviceToken) VALUES ((SELECT fnGetSeq('interest')), 'Y', ?, ?)",
