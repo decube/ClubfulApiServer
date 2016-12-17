@@ -253,7 +253,7 @@ router.post('/detail', function(req, res) {
             res.json({ code : 0
                       ,msg : ""
                       ,isMsgView : false
-                      ,result : rowCourt
+                      ,result : rowCourt[0]
                      });
           }
       });
