@@ -133,8 +133,13 @@ router.post('/getList', function(req, res) {
         return res.end("CONNECTION error: " + err);
       }
       db.query(_Query.getCourtList,[address, category],function(err, rowCourtList, columns) {
+
           if (err) {
+            console.log(_Query.getCourtList);
+            console.log(err);
+
             return res.end("QUERY ERROR: " + err);
+
           }else{
             rtCode = 0;
             rtMsg = "";

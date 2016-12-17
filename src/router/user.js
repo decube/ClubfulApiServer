@@ -224,4 +224,62 @@ router.post('/mypage', function(req, res) {
 });
 
 
+
+
+router.post('/set', function(req, res) {
+
+  var userId = req.body.userId;
+  var token = req.body.token;
+  var startTime = req.body.startTime;
+  var endTime = req.body.endTime;
+  var noticePush = req.body.noticePush;
+  var myCreateCourtPush = req.body.myCreateCourtPush;
+  var distancePush = req.body.distancePush;
+  var interestPush = req.body.interestPush;
+
+
+  var rtCode=1;
+  var rtMsg = '';
+
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        return res.end("CONNECTION error: " + err);
+      }
+
+      db.query(_Query.checkUser,[userId],function(err, rowUser, columns) {
+          if (err) {
+            rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
+          }else{
+            if(rowUser[0] == null){
+              rtMsg = '가입되어있는 유저 정보가 없습니다.';
+            }else{
+              if(rowUser[0].password == passwordHash){
+                db.query(_Query.updateUser,[newPasswordHash, nickName, sex
+                                      ,birth, latitude, longitude
+                                      ,userAddress, userAddressShort, userId],function(err, updateRow, columns) {
+                  if(err){
+                    rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
+                  }else{
+                    var rtCode=0;
+                    var rtMsg = '정보가 수정 되었습니다.';
+                  }
+
+                });
+              }else{
+                rtMsg = '비밀번호를 잘못 입력하였습니다.';
+              }
+            }
+          }
+          res.json({ code : rtCode
+                    ,msg : rtMsg
+                    ,isMsgView : true
+                   });
+      });
+      _DBPool.release(db);
+  });
+
+});
+
+
+
 module.exports = router;
