@@ -249,21 +249,12 @@ router.post('/detail', function(req, res) {
                       ,isMsgView : false
                      });
           }else{
-            db.query(_Query.getImgList,[seq],function(err, rowImg, columns) {
-                if (err) {
-                  res.json({ code : 1
-                            ,msg : "디비 에러"
-                            ,isMsgView : false
-                           });
-                }else{
-                  res.json({ code : 0
-                            ,msg : ""
-                            ,isMsgView : false
-                            ,result : rowCourt
-                            ,imageList : rowImg
-                           });
-                }
-            });
+            res.json({ code : 0
+                      ,msg : ""
+                      ,isMsgView : false
+                      ,result : rowCourt
+                      
+                     });
           }
       });
 
