@@ -144,6 +144,7 @@ router.post('/getList', function(req, res) {
             return res.end("QUERY ERROR: " + err);
 
           }else{
+            console.log(rowCourtList);
             rtCode = 0;
             rtMsg = "";
             res.json({ code : rtCode
