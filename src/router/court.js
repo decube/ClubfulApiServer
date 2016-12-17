@@ -118,7 +118,7 @@ router.post('/getList', function(req, res) {
   var search = req.body.search;
   var category = req.body.category;
 
-  console.log(token + ', ' + address + ', ' + category);
+  console.log(token + ', ' + search + ', ' + category);
 
   // var token = req.query.token;
   // var address = req.query.address;
