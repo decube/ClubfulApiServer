@@ -177,13 +177,13 @@ router.post('/update', function(req, res) {
 });
 
 
-router.post('/mypage', function(req, res) {
+router.get('/mypage', function(req, res) {
 
-  var userId = req.body.userId;
-  var token = req.body.token;
+  // var userId = req.body.userId;
+  // var token = req.body.token;
 
-  // var userId = req.query.userId;
-  // var token = req.query.token;
+  var userId = req.query.userId;
+  var token = req.query.token;
 
   var rtCode=1;
   var rtMsg = '';
