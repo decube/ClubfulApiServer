@@ -225,13 +225,13 @@ router.post('/interest', function(req, res) {
 
 });
 
-router.post('/detail', function(req, res) {
+router.get('/detail', function(req, res) {
 
-  var token = req.body.token;
-  var seq = req.body.seq;
+  // var token = req.body.token;
+  // var seq = req.body.seq;
 
-  // var token = req.query.token;
-  // var seq = req.query.seq;
+  var token = req.query.token;
+  var seq = req.query.seq;
   var rtCode=1;
   var rtMsg = '';
 
