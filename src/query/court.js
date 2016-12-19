@@ -38,7 +38,7 @@ module.exports = function() {
                             +", addressShort"
                             +", description"
                             +", cname "
-                            +"(select count(*) from user_interest where courtSeq= ? ) as interest from court court where seq = ?",
+                            +", (select count(*) from user_interest where courtSeq= ? ) as interest from court court where seq = ?",
           insertReply : "INSERT INTO reply (seq, context, token, id, courtSeq) VALUES ((SELECT fnGetSeq('reply')), ?, ?, ?, ?)",
           getCourt :    "select court.seq"
                             +", court.address"
