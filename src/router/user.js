@@ -200,13 +200,14 @@ router.post('/mypage', function(req, res) {
             rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
           }else{
             rtMyInterestList = rowInterestList;
-            console.log('rtMyInterestList '+rtMyInterestList);
+
             db.query(_Query.getUserInsertList,[token],function(err, rowInsertList, columns) {
                 if (err) {
                   rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
                 }else{
                   var rtCode=0;
                   rtMyCourtInsert = rowInsertList;
+                  console.log('rtMyInterestList '+rtMyInterestList);
                   console.log('rowInsertList '+rowInsertList);
                   res.json({ code : rtCode
                             ,msg : rtMsg
