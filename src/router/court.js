@@ -242,7 +242,7 @@ router.post('/detail', function(req, res) {
                   ,isMsgView : false
                  });
       }
-      db.query(_Query.getCourt,[seq],function(err, rowCourt, columns) {
+      db.query(_Query.getCourt,[seq, seq],function(err, rowCourt, columns) {
           if (err) {
             res.json({ code : 1
                       ,msg : "디비 에러"
