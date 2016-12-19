@@ -53,7 +53,7 @@ module.exports = function() {
                             +", img.img4 AS image4"
                             +", img.img5 AS image5"
                             +", img.img6 AS image6"
-                            +", court.cname from court court, category category , court_img img"
+                            +", court.cname,  (select count(*) from user_interest where courtSeq= ? ) as interest from court court, category category , court_img img"
                         +" WHERE court.categorySeq = category.seq"
                         +" AND court.seq = img.courtSeq"
                         +" AND court.seq = ?",
