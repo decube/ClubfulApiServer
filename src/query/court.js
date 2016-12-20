@@ -30,8 +30,8 @@ module.exports = function() {
                         +" AND court.categorySeq != ?",
           checkInterest : "select interestYN from user_interest where courtSeq = ? and deviceToken = ?",
           getInterestCnt : "select count(*) as cnt from user_interest where courtSeq = ?",
-          insertInterest : "INSERT INTO user_interest (seq, interestYN, courtSeq, deviceToken) VALUES ((SELECT fnGetSeq('interest')), 'Y', ?, ?)",
-          updateInterest : "update user_interest set interestYN ='Y' where courtSeq = ? and deviceToken = ?",
+          insertInterest : "INSERT INTO user_interest (seq, interestYN, courtSeq, deviceToken) VALUES ((SELECT fnGetSeq('interest')), ?, ?, ?)",
+          updateInterest : "update user_interest set interestYN =? where courtSeq = ? and deviceToken = ?",
           insertCourtImg : "INSERT INTO court_img (seq, img1,img2,img3,img4,img5,img6,courtSeq) VALUES ((SELECT fnGetSeq('courtImg')),?,?,?,?,?,?,?)",
           getCourt : "select seq"
                             +", address"

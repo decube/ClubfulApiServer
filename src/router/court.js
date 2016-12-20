@@ -182,15 +182,20 @@ router.post('/interest', function(req, res) {
             return res.end("QUERY ERROR: " + err);
           }else{
             var tempQuery = '';
+            var tempYN = '';
             if(rowInterest[0] == null){
               //insert
               tempQuery = _Query.insertInterest;
+              tempYN = 'Y';
             }else if(rowInterest[0].interest_yn == 'N'){
               //update
               tempQuery = _Query.updateInterest;
+              tempYN = 'Y';
             }else{
+              tempQuery = _Query.updateInterest;
+              tempYN = 'N';
             }
-            db.query(tempQuery,[seq, token],function(err, rowCourtList, columns) {
+            db.query(tempQuery,[tempYN, seq, token],function(err, rowCourtList, columns) {
                 if (err) {
                   rtMsg = "다시 시도해 주십시오.";
                   res.json({ code : rtCode
