@@ -191,10 +191,11 @@ router.post('/interest', function(req, res) {
               //update
               tempQuery = _Query.updateInterest;
               tempYN = 'Y';
-            }else{
+            }else if(rowInterest[0].interest_yn == 'Y'){
               tempQuery = _Query.updateInterest;
               tempYN = 'N';
             }
+            console.log(tempQuery + " : "+seq + " : "+ token);
             db.query(tempQuery,[tempYN, seq, token],function(err, rowCourtList, columns) {
                 if (err) {
                   rtMsg = "다시 시도해 주십시오.";
