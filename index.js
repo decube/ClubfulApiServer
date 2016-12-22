@@ -23,7 +23,8 @@ app.use('/court', court);
 app.use('/user', user);
 app.use('/app', appjs);
 app.use('/location', location);
-app.use('/wv', wv);
+app.use('/wv', express.static(__dirname + '/client/'));
+///app.use('/wv', wv);
 
 app.listen(8080, function(){
     console.log('Connection 8080 port!');
