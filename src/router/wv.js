@@ -15,8 +15,8 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 
-router.get('/guide', function(req, res) {
-  fs.readFile(__dirname+'/../../client/guide.html', function(error, data){
+function resultRes(name, res){
+  fs.readFile(__dirname+'/../../client/'+name+'.html', function(error, data){
     if(error){
       console.log(error);
     }else{
@@ -24,7 +24,19 @@ router.get('/guide', function(req, res) {
       res.end(data);
     }
   });
-});
+}
 
+router.get('/guide', function(req, res) {
+  resultRes('guide', res)
+});
+router.get('/info', function(req, res) {
+  resultRes('info', res)
+});
+router.get('/inquiry', function(req, res) {
+  resultRes('inquiry', res)
+});
+router.get('/notice', function(req, res) {
+  resultRes('notice', res)
+});
 
 module.exports = router;
