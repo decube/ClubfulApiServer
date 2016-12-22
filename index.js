@@ -14,7 +14,6 @@ var court = require('./src/router/court.js');
 var user = require('./src/router/user.js');
 var appjs = require('./src/router/app.js');
 var location = require('./src/router/location.js');
-var wv = require('./src/router/wv.js');
 
 app.use('/main', main);
 app.use('/version', versionCheck);
