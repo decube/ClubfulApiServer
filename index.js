@@ -23,7 +23,7 @@ app.use('/court', court);
 app.use('/user', user);
 app.use('/app', appjs);
 app.use('/location', location);
-app.use('/wv', express.static(__dirname + '/clubful/client/'));
+app.use('/wv', express.static(__dirname + '/client/'));
 ///app.use('/wv', wv);
 console.log(__dirname + '/client/');
 
