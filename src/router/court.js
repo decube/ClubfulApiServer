@@ -187,11 +187,11 @@ router.post('/interest', function(req, res) {
               //insert
               tempQuery = _Query.insertInterest;
               tempYN = 'Y';
-            }else if(rowInterest[0].interest_yn == 'N'){
+            }else if(rowInterest[0].interestYN == 'N'){
               //update
               tempQuery = _Query.updateInterest;
               tempYN = 'Y';
-            }else if(rowInterest[0].interest_yn == 'Y'){
+            }else if(rowInterest[0].interestYN == 'Y'){
               tempQuery = _Query.updateInterest;
               tempYN = 'N';
             }
