@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="initial-scale=1, width=device-width"/>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<style media="screen">
+  .list{width: 90%; overflow-y: scroll; margin: 0px 5% 0px;}
+  .list .element{background-color: #EEEEEE; border-bottom: 1px solid black;}
+  .list .element:first-child{border-top-left-radius: 6px; border-top-right-radius: 6px;}
+  .list .element:last-child{border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; border: 0px;}
+  .list .element .title{height: 40px; line-height: 40px; vertical-align: middle;}
+  .list .element .title div{display: inline-block; height: 40px;}
+  .list .element .title .titleValue{padding-left: 1%; float: left;}
+  .list .element .title .dateValue{padding-right: 1%; float: right;}
+  .list .element .context{display: none; padding: 1%;}
+</style>
+</head>
+<body>
+  <div class="list">
+
+
+    
+    <div class="element">
+      <div class="title">
+        <div class="titleValue">공지사항입니다.</div>
+        <div class="dateValue">2016-09-18</div>
+      </div>
+      <div class="context">
+        반갑습니다.
+      </div>
+    </div>
+
+
+
+  </div>
+  <script type="text/javascript">
+    $('.element').each(function(){
+      $(this).click(function(){
+        $(this).find('.context').slideToggle();
+      });
+    });
+  </script>
+</body>
+</html>

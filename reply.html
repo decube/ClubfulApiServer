@@ -1,0 +1,180 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="initial-scale=1, width=device-width"/>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<style>
+.load li{ position:fixed; top:10%; width:25px; height:25px; content:""; margin:10px 10px; border-radius:100%; transform:translate3d(0px,-5px,10px); box-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.6);}
+#temp1 .load li{top: 3%;}
+#temp2 .load li{top: 75%;}
+#temp1, #temp2{display: none;}
+
+.load li:nth-child(1){
+  background-color:#CCCCCC;
+  left:35%;
+  animation: loading1 0.50s ease-in-out infinite alternate;
+  animation-delay:0.0s;
+}
+.load li:nth-child(2){
+  background-color:#6B6B6B;
+  left:50%;
+  animation: loading2 0.50s ease-in-out infinite alternate;
+  animation-delay:0.2s;
+}
+.load li:nth-child(3){
+  background-color:#393939;
+  left:65%;
+  animation: loading3 0.50s ease-in-out infinite alternate;
+  animation-delay:0.4s;
+}
+@keyframes loading1 {
+	to {transform:translate3d(0,5px,10px);box-shadow: 10px 5px 25px #778BE3, 0 10px 15px #778BE3;}
+}
+@keyframes loading2{
+  to {transform:translate3d(0,5px,10px);box-shadow: 10px 5px 25px #445088, 0 10px 15px #445088;}
+}
+@keyframes loading3 {
+	to {transform:translate3d(0,5px,10px);box-shadow: 10px 5px 25px #1B233F, 0 10px 15px #1B233F;}
+}
+#table{width: 100%; border: none;}
+#table tr td{font-size: 0.7em;}
+#table tr td:first-child{font-size: 0.8em;}
+</style>
+</head>
+<body>
+  <div id="temp1">
+    <div class="load">
+      <ul style="list-style-type:none">
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </div>
+  <table id="table">
+    <tr>
+      <td width="60%">와 여기 좋은데요</td>
+      <td width="20%">가가가</td>
+      <td width="20%">18:00:55</td>
+    </tr>
+    <tr>
+      <td>좋다</td>
+      <td>가가가</td>
+      <td>17:55:23</td>
+    </tr>
+    <tr>
+      <td>가깝고 좋은듯</td>
+      <td>타타타</td>
+      <td>17:50:23</td>
+    </tr>
+  </table>
+  <div id="temp2">
+    <div class="load">
+      <ul style="list-style-type:none">
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+
+<script>
+
+var isCall = false;
+
+var appendNum = 1;
+var random1 = ["여기 좋네요~~", "굿 추천!", "나랑같이 여기서 한겜 하실분?", "지금당장 ㄱㄱ", "라잇 놔우~", "빨리와요"];
+var callTime = [400,800,1400,1800];
+
+function initReply(){
+  var date = new Date();
+  var hour = date.getHours();
+  var min = date.getMinutes();
+  var sec = date.getSeconds();
+  var preSize = [1,3,5,7,9,11,13];
+  var iR = Math.floor(Math.random() * preSize.length);
+  for(var i = 0; i < preSize[iR]; i++){
+    var random = Math.floor(Math.random() * random1.length);
+    $("#table").prepend(
+      "<tr><td>"+random1[random]+"_"+appendNum+"</td><td>닉네임"+appendNum+"</td><td>"+hour+":"+min+":"+sec+"</td></tr>"
+    );
+  }
+}
+initReply();
+
+
+function replyInsertAction(){
+  if(isCall == false){
+    isCall = true;
+    var date = new Date();
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+    if (String(hour).length == 1){
+      hour = "0"+hour;
+    }
+    if (String(min).length == 1){
+      min = "0"+min;
+    }
+    if (String(sec).length == 1){
+      sec = "0"+sec;
+    }
+    isCall = true;
+    $('#temp1').show();
+    setTimeout(function(){
+      var preSize = [1,1,2,3];
+      var iR = Math.floor(Math.random() * preSize.length);
+      for(var i = 0; i < preSize[iR]; i++){
+        var random = Math.floor(Math.random() * random1.length);
+        $("#table").prepend(
+          "<tr><td>"+random1[random]+"_"+appendNum+"</td><td>닉네임"+appendNum+"</td><td>"+hour+":"+min+":"+sec+"</td></tr>"
+        );
+      }
+      isCall = false;
+      appendNum+=1;
+      $('#temp1').hide();
+      isCall = false;
+    }, callTime[Math.floor(Math.random() * callTime.length)]);
+  }
+}
+
+
+
+var replySize = [6,8,10];
+var replyRd = Math.floor(Math.random() * replySize.length);
+var replyAppSize = replySize[replyRd];
+var replyI = 0;
+$(document).ready(function(){
+  $(document).scroll(function() {
+    if(isCall == false && replyI < replyAppSize){
+      isCall = true;
+      var scrollDiff = $(window).height() - $(window).scrollTop();
+      var isScroll = false;
+      if (scrollDiff <  400) {
+        $('#temp2').show();
+        isScroll = true;
+      }
+      setTimeout(function(){
+        if (isScroll) {
+          replyI+=1;
+          for(var i=0; i<10; i++){
+            var random = Math.floor(Math.random() * random1.length);
+            $("#table").append(
+              "<tr><td>"+random1[random]+"</td><td>닉네임"+replyI+"_"+i+"</td><td>2016-07-19</td></tr>"
+            );
+          }
+          isCall = false;
+          $('#temp2').hide();
+        }else{
+          isCall = false;
+        }
+      }, callTime[Math.floor(Math.random() * callTime.length)]);
+    }
+  });
+});
+</script>
+</body>
+</html>
