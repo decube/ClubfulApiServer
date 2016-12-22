@@ -24,8 +24,6 @@ app.use('/user', user);
 app.use('/app', appjs);
 app.use('/location', location);
 app.use('/wv', express.static(__dirname + '/client/'));
-///app.use('/wv', wv);
-console.log(__dirname + '/client/');
 
 app.listen(8080, function(){
     console.log('Connection 8080 port!');
