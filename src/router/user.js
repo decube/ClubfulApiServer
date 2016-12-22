@@ -132,9 +132,13 @@ router.post('/update', function(req, res) {
   // var longitude = req.query.longitude;
   // var userAddress = req.query.userAddress;
   // var userAddressShort = req.query.userAddressShort;
-
+  var loginType = 'nomal';
   var rtCode=1;
   var rtMsg = '';
+
+  if(password == null || password == ''){
+    loginType = 'other';
+  }
 
   var passwordHash = crypto.createHash('sha256').update(password).digest('base64');
   var newPasswordHash = crypto.createHash('sha256').update(newPassword).digest('base64');
@@ -150,8 +154,27 @@ router.post('/update', function(req, res) {
             if(rowUser[0] == null){
               rtMsg = '가입되어있는 유저 정보가 없습니다.';
             }else{
-              if(rowUser[0].password == passwordHash){
-                db.query(_Query.updateUser,[newPasswordHash, nickName, sex
+              if(loginType == 'nomal'){
+                if(rowUser[0].password == passwordHash){
+                  db.query(_Query.updateUser,[newPasswordHash, nickName, sex
+                                        ,birth, latitude, longitude
+                                        ,userAddress, userAddressShort, userId],function(err, updateRow, columns) {
+                    if(err){
+                      rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
+                    }else{
+                      var rtCode=0;
+                      var rtMsg = '정보가 수정 되었습니다.';
+                    }
+                    res.json({ code : rtCode
+                              ,msg : rtMsg
+                              ,isMsgView : true
+                             });
+                  });
+                }else{
+                  rtMsg = '비밀번호를 잘못 입력하였습니다.';
+                }
+              }else{
+                db.query(_Query.updateOtherUser,[nickName, sex
                                       ,birth, latitude, longitude
                                       ,userAddress, userAddressShort, userId],function(err, updateRow, columns) {
                   if(err){
@@ -159,12 +182,15 @@ router.post('/update', function(req, res) {
                   }else{
                     var rtCode=0;
                     var rtMsg = '정보가 수정 되었습니다.';
-                  }
 
+                  }
+                  res.json({ code : rtCode
+                            ,msg : rtMsg
+                            ,isMsgView : true
+                           });
                 });
-              }else{
-                rtMsg = '비밀번호를 잘못 입력하였습니다.';
               }
+
             }
           }
           res.json({ code : rtCode
@@ -256,21 +282,20 @@ router.post('/set', function(req, res) {
             if(rowUser[0] == null){
               rtMsg = '가입되어있는 유저 정보가 없습니다.';
             }else{
-              if(rowUser[0].password == passwordHash){
-                db.query(_Query.updateUser,[newPasswordHash, nickName, sex
-                                      ,birth, latitude, longitude
-                                      ,userAddress, userAddressShort, userId],function(err, updateRow, columns) {
+                db.query(_Query.upateAppSet,[startTime, endTime, noticePush
+                                      ,myCreateCourtPush, distancePush, interestPush
+                                      ,userId],function(err, updateRow, columns) {
                   if(err){
                     rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
                   }else{
                     var rtCode=0;
                     var rtMsg = '정보가 수정 되었습니다.';
                   }
-
+                  res.json({ code : rtCode
+                            ,msg : rtMsg
+                            ,isMsgView : true
+                           });
                 });
-              }else{
-                rtMsg = '비밀번호를 잘못 입력하였습니다.';
-              }
             }
           }
           res.json({ code : rtCode
