@@ -16,7 +16,7 @@ router.use(function timeLog(req, res, next) {
 });
 
 router.get('/guide', function(req, res) {
-  fs.readFile(__dirname+'/client/guide.html', function(error, data){
+  fs.readFile('/client/guide.html', function(error, data){
     if(error){
       console.log(error);
     }else{
