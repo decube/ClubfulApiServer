@@ -201,7 +201,7 @@ router.post('/update', function(req, res) {
                     ,msg : rtMsg
                     ,isMsgView : true
                    });
-      });
+      }
       _DBPool.release(db);
   });
 });
