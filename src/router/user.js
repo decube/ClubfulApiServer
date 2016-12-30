@@ -113,12 +113,6 @@ router.post('/update', function(req, res) {
   var newPassword = req.body.newPassword;
   var gcmId = req.body.gcmId;
   var nickName = req.body.nickName;
-  var sex = req.body.sex;
-  var birth = req.body.birth;
-  var latitude = req.body.latitude;
-  var longitude = req.body.longitude;
-  var userAddress = req.body.userAddress;
-  var userAddressShort = req.body.userAddressShort;
 
   // var userId = req.query.userId;
   // var token = req.query.token;
@@ -126,12 +120,7 @@ router.post('/update', function(req, res) {
   // var newPassword = req.query.newPassword;
   // var gcmId = req.query.gcmId;
   // var nickName = req.query.nickName;
-  // var sex = req.query.sex;
-  // var birth = req.query.birth;
-  // var latitude = req.query.latitude;
-  // var longitude = req.query.longitude;
-  // var userAddress = req.query.userAddress;
-  // var userAddressShort = req.query.userAddressShort;
+
   var loginType = 'nomal';
   var rtCode=1;
   var rtMsg = '';
@@ -140,6 +129,7 @@ router.post('/update', function(req, res) {
     loginType = 'other';
   }
 
+  console.log(loginType);
   var passwordHash = crypto.createHash('sha256').update(password).digest('base64');
   var newPasswordHash = crypto.createHash('sha256').update(newPassword).digest('base64');
   _DBPool.acquire(function(err, db) {
@@ -156,9 +146,7 @@ router.post('/update', function(req, res) {
             }else{
               if(loginType == 'nomal'){
                 if(rowUser[0].password == passwordHash){
-                  db.query(_Query.updateUser,[newPasswordHash, nickName, sex
-                                        ,birth, latitude, longitude
-                                        ,userAddress, userAddressShort, userId],function(err, updateRow, columns) {
+                  db.query(_Query.updateUser,[newPasswordHash, nickName, userId],function(err, updateRow, columns) {
                     if(err){
                       rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
                     }else{
@@ -174,9 +162,7 @@ router.post('/update', function(req, res) {
                   rtMsg = '비밀번호를 잘못 입력하였습니다.';
                 }
               }else{
-                db.query(_Query.updateOtherUser,[nickName, sex
-                                      ,birth, latitude, longitude
-                                      ,userAddress, userAddressShort, userId],function(err, updateRow, columns) {
+                db.query(_Query.updateOtherUser,[nickName, userId],function(err, updateRow, columns) {
                   if(err){
                     rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
                   }else{
