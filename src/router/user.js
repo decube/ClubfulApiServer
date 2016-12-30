@@ -105,33 +105,33 @@ router.post('/join', function(req, res) {
 
 // define the home page route
 
-router.get('/update', function(req, res) {
+router.post('/update', function(req, res) {
 
-  // var userId = req.body.userId;
-  // var token = req.body.token;
-  // var password = req.body.password;
-  // var newPassword = req.body.newPassword;
-  // var gcmId = req.body.gcmId;
-  // var nickName = req.body.nickName;
-  // var sex = req.body.sex;
-  // var birth = req.body.birth;
-  // var latitude = req.body.latitude;
-  // var longitude = req.body.longitude;
-  // var userAddress = req.body.userAddress;
-  // var userAddressShort = req.body.userAddressShort;
+  var userId = req.body.userId;
+  var token = req.body.token;
+  var password = req.body.password;
+  var newPassword = req.body.newPassword;
+  var gcmId = req.body.gcmId;
+  var nickName = req.body.nickName;
+  var sex = req.body.sex;
+  var birth = req.body.birth;
+  var latitude = req.body.latitude;
+  var longitude = req.body.longitude;
+  var userAddress = req.body.userAddress;
+  var userAddressShort = req.body.userAddressShort;
 
-  var userId = req.query.userId;
-  var token = req.query.token;
-  var password = req.query.password;
-  var newPassword = req.query.newPassword;
-  var gcmId = req.query.gcmId;
-  var nickName = req.query.nickName;
-  var sex = req.query.sex;
-  var birth = req.query.birth;
-  var latitude = req.query.latitude;
-  var longitude = req.query.longitude;
-  var userAddress = req.query.userAddress;
-  var userAddressShort = req.query.userAddressShort;
+  // var userId = req.query.userId;
+  // var token = req.query.token;
+  // var password = req.query.password;
+  // var newPassword = req.query.newPassword;
+  // var gcmId = req.query.gcmId;
+  // var nickName = req.query.nickName;
+  // var sex = req.query.sex;
+  // var birth = req.query.birth;
+  // var latitude = req.query.latitude;
+  // var longitude = req.query.longitude;
+  // var userAddress = req.query.userAddress;
+  // var userAddressShort = req.query.userAddressShort;
   var loginType = 'nomal';
   var rtCode=1;
   var rtMsg = '';
@@ -255,25 +255,25 @@ router.post('/mypage', function(req, res) {
 
 
 
-router.get('/set', function(req, res) {
+router.post('/set', function(req, res) {
 
-  // var userId = req.body.userId;
-  // var token = req.body.token;
-  // var startTime = req.body.startTime;
-  // var endTime = req.body.endTime;
-  // var noticePush = req.body.noticePush;
-  // var myCreateCourtPush = req.body.myCreateCourtPush;
-  // var distancePush = req.body.distancePush;
-  // var interestPush = req.body.interestPush;
+  var userId = req.body.userId;
+  var token = req.body.token;
+  var startTime = req.body.startTime;
+  var endTime = req.body.endTime;
+  var noticePush = req.body.noticePush;
+  var myCreateCourtPush = req.body.myCreateCourtPush;
+  var distancePush = req.body.distancePush;
+  var interestPush = req.body.interestPush;
 
-  var userId = req.query.userId;
-  var token = req.query.token;
-  var startTime = req.query.startTime;
-  var endTime = req.query.endTime;
-  var noticePush = req.query.noticePush;
-  var myCreateCourtPush = req.query.myCreateCourtPush;
-  var distancePush = req.query.distancePush;
-  var interestPush = req.query.interestPush;
+  // var userId = req.query.userId;
+  // var token = req.query.token;
+  // var startTime = req.query.startTime;
+  // var endTime = req.query.endTime;
+  // var noticePush = req.query.noticePush;
+  // var myCreateCourtPush = req.query.myCreateCourtPush;
+  // var distancePush = req.query.distancePush;
+  // var interestPush = req.query.interestPush;
 
 
   var rtCode=1;
