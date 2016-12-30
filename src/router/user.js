@@ -255,16 +255,25 @@ router.post('/mypage', function(req, res) {
 
 
 
-router.post('/set', function(req, res) {
+router.get('/set', function(req, res) {
 
-  var userId = req.body.userId;
-  var token = req.body.token;
-  var startTime = req.body.startTime;
-  var endTime = req.body.endTime;
-  var noticePush = req.body.noticePush;
-  var myCreateCourtPush = req.body.myCreateCourtPush;
-  var distancePush = req.body.distancePush;
-  var interestPush = req.body.interestPush;
+  // var userId = req.body.userId;
+  // var token = req.body.token;
+  // var startTime = req.body.startTime;
+  // var endTime = req.body.endTime;
+  // var noticePush = req.body.noticePush;
+  // var myCreateCourtPush = req.body.myCreateCourtPush;
+  // var distancePush = req.body.distancePush;
+  // var interestPush = req.body.interestPush;
+
+  var userId = req.query.userId;
+  var token = req.query.token;
+  var startTime = req.query.startTime;
+  var endTime = req.query.endTime;
+  var noticePush = req.query.noticePush;
+  var myCreateCourtPush = req.query.myCreateCourtPush;
+  var distancePush = req.query.distancePush;
+  var interestPush = req.boquerydy.interestPush;
 
 
   var rtCode=1;
