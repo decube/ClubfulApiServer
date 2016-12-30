@@ -296,6 +296,10 @@ router.get('/set', function(req, res) {
                                       ,userId],function(err, updateRow, columns) {
                   if(err){
                     rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
+                    res.json({ code : rtCode
+                              ,msg : rtMsg
+                              ,isMsgView : true
+                             });
                   }else{
                     var rtCode=0;
                     var rtMsg = '정보가 수정 되었습니다.';
@@ -307,10 +311,7 @@ router.get('/set', function(req, res) {
                 });
             }
           }
-          res.json({ code : rtCode
-                    ,msg : rtMsg
-                    ,isMsgView : true
-                   });
+
       });
       _DBPool.release(db);
   });
