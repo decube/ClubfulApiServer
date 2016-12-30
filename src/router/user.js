@@ -273,7 +273,7 @@ router.get('/set', function(req, res) {
   var noticePush = req.query.noticePush;
   var myCreateCourtPush = req.query.myCreateCourtPush;
   var distancePush = req.query.distancePush;
-  var interestPush = req.boquerydy.interestPush;
+  var interestPush = req.query.interestPush;
 
 
   var rtCode=1;
