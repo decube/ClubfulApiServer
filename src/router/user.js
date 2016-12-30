@@ -150,8 +150,18 @@ router.post('/update', function(req, res) {
                     if(err){
                       rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
                     }else{
-                      var rtCode=0;
-                      var rtMsg = '정보가 수정 되었습니다.';
+                      db.query(_Query.updateDevice,[gcmId, userId, token],function(err, updateDeviceRow, columns) {
+                        if(err){
+                          rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
+                        }else{
+                          var rtCode=0;
+                          var rtMsg = '정보가 수정 되었습니다.';
+                        }
+                        res.json({ code : rtCode
+                                  ,msg : rtMsg
+                                  ,isMsgView : true
+                                 });
+                      });
                     }
                     res.json({ code : rtCode
                               ,msg : rtMsg
@@ -166,16 +176,24 @@ router.post('/update', function(req, res) {
                   if(err){
                     rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
                   }else{
-                    var rtCode=0;
-                    var rtMsg = '정보가 수정 되었습니다.';
-
+                    db.query(_Query.updateDevice,[gcmId, userId, token],function(err, updateDeviceRow, columns) {
+                      if(err){
+                        rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
+                      }else{
+                        var rtCode=0;
+                        var rtMsg = '정보가 수정 되었습니다.';
+                      }
+                      res.json({ code : rtCode
+                                ,msg : rtMsg
+                                ,isMsgView : true
+                               });
+                    });
                   }
                   res.json({ code : rtCode
                             ,msg : rtMsg
                             ,isMsgView : true
                            });
                 });
-              }
 
             }
           }
