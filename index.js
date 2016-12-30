@@ -14,6 +14,7 @@ var court = require('./src/router/court.js');
 var user = require('./src/router/user.js');
 var appjs = require('./src/router/app.js');
 var location = require('./src/router/location.js');
+var category = require('./src/router/category.js');
 
 app.use('/main', main);
 app.use('/version', versionCheck);
@@ -22,6 +23,7 @@ app.use('/court', court);
 app.use('/user', user);
 app.use('/app', appjs);
 app.use('/location', location);
+app.use('/category', category);
 app.use('/wv', express.static(__dirname + '/client/'));
 
 app.listen(8080, function(){
