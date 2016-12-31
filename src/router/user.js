@@ -280,6 +280,10 @@ router.post('/set', function(req, res) {
   // var distancePush = req.query.distancePush;
   // var interestPush = req.query.interestPush;
 
+  console.log('userId : ' + userId + ' token : ' + token + ' startTime : ' + startTime
+              +' endTime : ' + endTime +' noticePush : ' + noticePush  +' myCreateCourtPush : ' + myCreateCourtPush +' distancePush : ' + distancePush
+              +' interestPush : ' + interestPush
+             );
 
   var rtCode=1;
   var rtMsg = '';
@@ -291,10 +295,12 @@ router.post('/set', function(req, res) {
 
       db.query(_Query.checkUser,[userId],function(err, rowUser, columns) {
           if (err) {
+            console.log(err);
             rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
           }else{
             if(rowUser[0] == null){
               rtMsg = '가입되어있는 유저 정보가 없습니다.';
+              console.log('가입되어있는 유저 정보가 없습니다.');
             }else{
                 db.query(_Query.upateAppSet,[startTime, endTime, noticePush
                                       ,myCreateCourtPush, distancePush, interestPush
@@ -308,11 +314,12 @@ router.post('/set', function(req, res) {
                   }else{
                     var rtCode=0;
                     var rtMsg = '정보가 수정 되었습니다.';
+                    res.json({ code : rtCode
+                              ,msg : rtMsg
+                              ,isMsgView : true
+                             });
                   }
-                  res.json({ code : rtCode
-                            ,msg : rtMsg
-                            ,isMsgView : true
-                           });
+
                 });
                 res.json({ code : rtCode
                           ,msg : rtMsg
