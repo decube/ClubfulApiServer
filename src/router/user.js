@@ -314,6 +314,10 @@ router.post('/set', function(req, res) {
                             ,isMsgView : true
                            });
                 });
+                res.json({ code : rtCode
+                          ,msg : rtMsg
+                          ,isMsgView : true
+                         });
             }
           }
 
