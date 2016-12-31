@@ -12,6 +12,7 @@ var _Query = require('../query/user')();
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
+  res.setHeader("Content-Type", "application/json");
   console.log('Time: ', Date.now());
   next();
 });
