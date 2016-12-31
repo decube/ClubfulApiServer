@@ -335,6 +335,82 @@ router.post('/set', function(req, res) {
 
 });
 
+router.post('/info', function(req, res) {
+  var userId = req.body.userId;
+  var token = req.body.token;
+  var sex = req.body.sex;
+  var birth = req.body.birth;
+  var userLatitude = req.body.userLatitude;
+  var userLongitude = req.body.userLongitude;
+  var userAddress = req.body.userAddress;
+  var userAddressShort = req.body.userAddressShort;
+
+  // var userId = req.query.userId;
+  // var token = req.query.token;
+  // var startTime = req.query.startTime;
+  // var endTime = req.query.endTime;
+  // var noticePush = req.query.noticePush;
+  // var myCreateCourtPush = req.query.myCreateCourtPush;
+  // var distancePush = req.query.distancePush;
+  // var interestPush = req.query.interestPush;
+
+  console.log('userId : ' + userId + ' token : ' + token + ' sex : ' + sex
+              +' birth : ' + birth +' userLatitude : ' + userLatitude  +' userLongitude : ' + userLongitude +' userAddress : ' + userAddress
+              +' userAddressShort : ' + userAddressShort
+             );
+
+  var rtCode=1;
+  var rtMsg = '';
+
+  _DBPool.acquire(function(err, db) {
+      if (err) {
+        return res.end("CONNECTION error: " + err);
+      }
+
+      db.query(_Query.checkUser,[userId],function(err, rowUser, columns) {
+          if (err) {
+            console.log(err);
+            rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
+            res.json({ code : rtCode
+                      ,msg : rtMsg
+                      ,isMsgView : true
+                     });
+          }else{
+            if(rowUser[0] == null){
+              rtMsg = '가입되어있는 유저 정보가 없습니다.';
+              console.log('가입되어있는 유저 정보가 없습니다.');
+              res.json({ code : rtCode
+                        ,msg : rtMsg
+                        ,isMsgView : true
+                       });
+            }else{
+              
+                db.query(_Query.updateUserInfo,[sex, birth, userLatitude
+                                      ,userLongitude, userAddress, userAddressShort
+                                      ,userId],function(err, updateRow, columns) {
+                  if(err){
+                    console.log('정보 업데이트중 오류. 다시 시도해 주십시오.');
+                    rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
+                  }else{
+                    console.log('정보가 수정 되었습니다.');
+                    rtCode=0;
+                    rtMsg = '정보가 수정 되었습니다.';
+                  }
+                  res.json({ code : rtCode
+                            ,msg : rtMsg
+                            ,isMsgView : true
+                           });
+
+                });
+            }
+          }
+      });
+
+      console.log('hihi');
+      _DBPool.release(db);
+  });
+
+});
 
 
 module.exports = router;
