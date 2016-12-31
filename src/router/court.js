@@ -312,12 +312,15 @@ router.post('/list', function(req, res) {
 
   var token = req.body.token;
   var page = req.body.page;
-  var count = req.body.count;
+  var size = req.body.size;
   var categorySeq = req.body.categorySeq;
+  var latitude = req.body.latitude;
+  var longitude = req.body.longitude;
+  var flag = req.body.flag;
 
   // var token = req.query.token;
   // var page = req.query.page;
-  // var count = req.query.count;
+  // var size = req.query.size;
   // var categorySeq = req.query.categorySeq;
 
   var rtCode=1;
@@ -329,38 +332,52 @@ router.post('/list', function(req, res) {
   if(page == null || page == '' ){
     page = 1;
   }
-  if(count == null || count == '' ){
-    count = 3;
+  if(size == null || size == '' ){
+    size = 3;
+  }
+  //t:시간순, i: 좋아요순, d: 거리순
+  var tempQuery = _Query.getMainCourtTList;
+  if(flag =='t'){
+    tempQuery = _Query.getMainCourtTList;
+  }else if(flag == 'i'){
+    tempQuery = _Query.getMainCourtIList;
+  }else if(flag == 'd'){
+    tempQuery = _Query.getMainCourtDList;
   }
 
   _DBPool.acquire(function(err, db) {
       if (err) {
         return res.end("CONNECTION error: " + err);
       }
-      db.query(_Query.getMainCourtList,[categorySeq, page, count],function(err, rowCourtList, columns) {
-          if (err) {
-            res.json({ code : 1
-                      ,msg : "다시 시도해 주세요."
-                      ,isMsgView : false
-                     });
-          }else{
-            rtCode = 0;
-            rtMsg = "";
-            var tPage = 0;
-            if(rowCourtList.length%count == 0){
-              tPage = rowCourtList.length/count
+      if(flag =='d'){
+        
+      }else{
+        db.query(tempQuery,[categorySeq, page, size],function(err, rowCourtList, columns) {
+            if (err) {
+              res.json({ code : 1
+                        ,msg : "다시 시도해 주세요."
+                        ,isMsgView : false
+                       });
             }else{
-              tPage = (rowCourtList.length/count)+1;
+              rtCode = 0;
+              rtMsg = "";
+              var tPage = 0;
+              if(rowCourtList.length%size == 0){
+                tPage = rowCourtList.length/size
+              }else{
+                tPage = (rowCourtList.length/size)+1;
+              }
+              res.json({ code : rtCode
+                        ,msg : rtMsg
+                        ,isMsgView : false
+                        ,totalCnt : rowCourtList.length
+                        ,totalPage : tPage
+                        ,list : rowCourtList
+                       });
             }
-            res.json({ code : rtCode
-                      ,msg : rtMsg
-                      ,isMsgView : false
-                      ,totalCnt : rowCourtList.length
-                      ,totalPage : tPage
-                      ,list : rowCourtList
-                     });
-          }
-      });
+        });
+      }
+
 
       _DBPool.release(db);
 
