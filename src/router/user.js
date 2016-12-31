@@ -309,25 +309,25 @@ router.post('/set', function(req, res) {
                   if(err){
                     console.log('정보 업데이트중 오류. 다시 시도해 주십시오.');
                     rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
-                    res.json({ code : rtCode
-                              ,msg : rtMsg
-                              ,isMsgView : true
-                             });
                   }else{
                     console.log('정보가 수정 되었습니다.');
-                    var rtCode=0;
-                    var rtMsg = '정보가 수정 되었습니다.';
-                    res.json({ code : rtCode
-                              ,msg : rtMsg
-                              ,isMsgView : true
-                             });
+                    rtCode=0;
+                    rtMsg = '정보가 수정 되었습니다.';
                   }
+                  res.json({ code : rtCode
+                            ,msg : rtMsg
+                            ,isMsgView : true
+                           });
 
                 });
             }
           }
-
+          res.json({ code : rtCode
+                    ,msg : rtMsg
+                    ,isMsgView : true
+                   });
       });
+      console.log('hihi');
       _DBPool.release(db);
   });
 
