@@ -298,10 +298,18 @@ router.post('/set', function(req, res) {
           if (err) {
             console.log(err);
             rtMsg = '정보 조회 중 오류 다시 시도해 주십시오.';
+            res.json({ code : rtCode
+                      ,msg : rtMsg
+                      ,isMsgView : true
+                     });
           }else{
             if(rowUser[0] == null){
               rtMsg = '가입되어있는 유저 정보가 없습니다.';
               console.log('가입되어있는 유저 정보가 없습니다.');
+              res.json({ code : rtCode
+                        ,msg : rtMsg
+                        ,isMsgView : true
+                       });
             }else{
                 db.query(_Query.upateAppSet,[startTime, endTime, noticePush
                                       ,myCreateCourtPush, distancePush, interestPush
