@@ -307,12 +307,14 @@ router.post('/set', function(req, res) {
                                       ,myCreateCourtPush, distancePush, interestPush
                                       ,userId],function(err, updateRow, columns) {
                   if(err){
+                    console.log('정보 업데이트중 오류. 다시 시도해 주십시오.');
                     rtMsg = '정보 업데이트중 오류. 다시 시도해 주십시오.';
                     res.json({ code : rtCode
                               ,msg : rtMsg
                               ,isMsgView : true
                              });
                   }else{
+                    console.log('정보가 수정 되었습니다.');
                     var rtCode=0;
                     var rtMsg = '정보가 수정 되었습니다.';
                     res.json({ code : rtCode
