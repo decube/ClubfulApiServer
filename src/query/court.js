@@ -105,6 +105,11 @@ module.exports = function() {
                             +" from court court, category category"
                         +" WHERE court.categorySeq = category.seq"
                         +" order by court.seq desc"
-                        +" limit  ?, ? "
+                        +" limit  ?, ? ",
+          getMainCourtTCount : "select COUNT(*) from court court, category category"
+                        +" WHERE court.categorySeq = category.seq"
+                        +" AND court.categorySeq = ?",
+          getMainCourtTCCount : "select COUNT(*) from court court, category category"
+                        +" WHERE court.categorySeq = category.seq"
       }
   }

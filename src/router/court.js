@@ -338,11 +338,16 @@ router.post('/list', function(req, res) {
   //t:시간순, i: 좋아요순, d: 거리순
   var tempQuery = _Query.getMainCourtTList;
   var tempParameter = [categorySeq, (page - 1) * size, Number(size)];
+  var tempCntQuery = _Query.getMainCourtTCCount;
+  var tempCntParameter = [categorySeq];
   if(flag =='t' && categorySeq == -1){
     tempQuery = _Query.getMainCourtTCList;
     tempParameter = [(page - 1) * size, Number(size)];
+    tempCntQuery = _Query.getMainCourtTCCount;
+    tempCntParameter = [];
   }else if(flag =='t'){
     tempQuery = _Query.getMainCourtTList;
+    tempCntQuery = _Query.getMainCourtTCCount;
   }else if(flag == 'i'){
     tempQuery = _Query.getMainCourtIList;
   }else if(flag == 'd'){
@@ -356,30 +361,32 @@ router.post('/list', function(req, res) {
       if(flag =='d'){
 
       }else{
-        db.query(tempQuery,tempParameter,function(err, rowCourtList, columns) {
-            if (err) {
-              console.log(err);
-              res.json({ code : 1
-                        ,msg : "다시 시도해 주세요."
-                        ,isMsgView : false
-                       });
-            }else{
-              rtCode = 0;
-              rtMsg = "";
-              var tPage = 0;
-              if(rowCourtList.length%size == 0){
-                tPage = rowCourtList.length/size
-              }else{
-                tPage = (rowCourtList.length/size)+1;
-              }
-              res.json({ code : rtCode
-                        ,msg : rtMsg
-                        ,isMsgView : false
-                        ,totalCnt : rowCourtList.length
-                        ,totalPage : tPage
-                        ,list : rowCourtList
-                       });
-            }
+        db.query(tempCntQuery, tempCntParameter, function(err, rowCourtCnt, columns){
+          if (err) {
+            console.log(err);
+            res.json({ code : 1
+                      ,msg : "다시 시도해 주세요."
+                      ,isMsgView : false
+                     });
+          }else{
+            db.query(tempQuery,tempParameter,function(err, rowCourtList, columns) {
+                if (err) {
+                  console.log(err);
+                  res.json({ code : 1
+                            ,msg : "다시 시도해 주세요."
+                            ,isMsgView : false
+                           });
+                }else{
+                  rtCode = 0;
+                  rtMsg = "";
+                  res.json({ code : rtCode
+                            ,msg : rtMsg
+                            ,isMsgView : false
+                            ,totalCnt : rowCourtCnt
+                            ,list : rowCourtList
+                           });
+                }
+            });
         });
       }
 
