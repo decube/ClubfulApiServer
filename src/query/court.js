@@ -106,10 +106,10 @@ module.exports = function() {
                         +" WHERE court.categorySeq = category.seq"
                         +" order by court.seq desc"
                         +" limit  ?, ? ",
-          getMainCourtTCount : "select COUNT(*) from court court, category category"
+          getMainCourtTCount : "select COUNT(*) as cnt from court court, category category"
                         +" WHERE court.categorySeq = category.seq"
                         +" AND court.categorySeq = ?",
-          getMainCourtTCCount : "select COUNT(*) from court court, category category"
+          getMainCourtTCCount : "select COUNT(*) as cnt from court court, category category"
                         +" WHERE court.categorySeq = category.seq"
       }
   }
