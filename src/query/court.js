@@ -73,8 +73,8 @@ module.exports = function() {
                             +" from court court, category category"
                         +" WHERE court.categorySeq = category.seq"
                         +" AND court.categorySeq = ?"
-                        +"order by court.seq desc "
-                        +"limit  (? - 1) * ?, ? ",
+                        +" order by court.seq desc"
+                        +" limit  (? - 1) * ?, ? ",
           getMainCourtTList : "select court.seq"
                             +", court.categorySeq"
                             +", category.categoryNM"
@@ -89,8 +89,8 @@ module.exports = function() {
                             +" from court court, category category"
                         +" WHERE court.categorySeq = category.seq"
                         +" AND court.categorySeq = ?"
-                        +"order by court.seq desc "
-                        +"limit  ?, ? ",
+                        +" order by court.seq desc"
+                        +" limit  ?, ? ",
           getMainCourtTCList : "select court.seq"
                             +", court.categorySeq"
                             +", category.categoryNM"
@@ -104,7 +104,7 @@ module.exports = function() {
                             +", (select count(*) from user_interest where courtSeq = court.seq ) as interest"
                             +" from court court, category category"
                         +" WHERE court.categorySeq = category.seq"
-                        +"order by court.seq desc "
-                        +"limit  ?, ? "
+                        +" order by court.seq desc"
+                        +" limit  ?, ? "
       }
   }
