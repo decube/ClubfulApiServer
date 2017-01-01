@@ -355,44 +355,26 @@ router.post('/list', function(req, res) {
   }
 
   _DBPool.acquire(function(err, db) {
-      if (err) {
-        return res.end("CONNECTION error: " + err);
-      }
-      if(flag =='d'){
-
-      }else{
-
-      }
-
-      db.query(tempCntQuery, tempCntParameter, function(err, rowCourtCnt, columns){
+      if (err) return res.end("CONNECTION error: " + err);
+      db.query(tempCntQuery, tempCntParameter, function(err, rowCourtCnt, columns) {
+        console.log("err1:"+err);
         if (err) {
-          console.log(err);
-          res.json({ code : 1
-                    ,msg : "다시 시도해 주세요."
-                    ,isMsgView : false
-                   });
+          res.json({ code : 1,msg : "다시 시도해 주세요.",isMsgView : false});
         }else{
+          var totalCnt = rowCourtCnt;
+          console.log("totalCnt:"+totalCnt);
           db.query(tempQuery,tempParameter,function(err, rowCourtList, columns) {
-              if (err) {
-                console.log(err);
-                res.json({ code : 1
-                          ,msg : "다시 시도해 주세요."
-                          ,isMsgView : false
-                         });
-              }else{
-                rtCode = 0;
-                rtMsg = "";
-                res.json({ code : rtCode
-                          ,msg : rtMsg
-                          ,isMsgView : false
-                          ,totalCnt : rowCourtCnt
-                          ,list : rowCourtList
-                         });
-              }
+            console.log("err2:"+err);
+            if (err) {
+              res.json({ code : 1,msg : "다시 시도해 주세요.",isMsgView : false});
+            }else{
+              rtCode = 0;
+              rtMsg = "";
+              res.json({ code : rtCode,msg : rtMsg,isMsgView : false,totalCnt : totalCnt,list : rowCourtList});
+            }
           });
         }
       });
-
       _DBPool.release(db);
   });
 });
