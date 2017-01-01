@@ -90,7 +90,7 @@ module.exports = function() {
                         +" WHERE court.categorySeq = category.seq"
                         +" AND court.categorySeq = ?"
                         +"order by court.seq desc "
-                        +"limit  (? - 1) * ?, ? ",
+                        +"limit  ?, ? ",
           getMainCourtTCList : "select court.seq"
                             +", court.categorySeq"
                             +", category.categoryNM"
@@ -105,6 +105,6 @@ module.exports = function() {
                             +" from court court, category category"
                         +" WHERE court.categorySeq = category.seq"
                         +"order by court.seq desc "
-                        +"limit  (? - 1) * ?, ? "
+                        +"limit  ?, ? "
       }
   }
