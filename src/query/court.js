@@ -76,7 +76,7 @@ module.exports = function() {
                         +"order by court.seq desc "
                         +"limit  (? - 1) * ?, ? ",
           getMainCourtTList : "select court.seq"
-                            +", category.categorySeq"
+                            +", court.categorySeq"
                             +", category.categoryNM"
                             +", court.address"
                             +", court.addressShort"
