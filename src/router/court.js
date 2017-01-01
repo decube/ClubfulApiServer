@@ -361,40 +361,40 @@ router.post('/list', function(req, res) {
       if(flag =='d'){
 
       }else{
-        db.query(tempCntQuery, tempCntParameter, function(err, rowCourtCnt, columns){
-          if (err) {
-            console.log(err);
-            res.json({ code : 1
-                      ,msg : "다시 시도해 주세요."
-                      ,isMsgView : false
-                     });
-          }else{
-            db.query(tempQuery,tempParameter,function(err, rowCourtList, columns) {
-                if (err) {
-                  console.log(err);
-                  res.json({ code : 1
-                            ,msg : "다시 시도해 주세요."
-                            ,isMsgView : false
-                           });
-                }else{
-                  rtCode = 0;
-                  rtMsg = "";
-                  res.json({ code : rtCode
-                            ,msg : rtMsg
-                            ,isMsgView : false
-                            ,totalCnt : rowCourtCnt
-                            ,list : rowCourtList
-                           });
-                }
-            });
-        });
+
       }
 
+      db.query(tempCntQuery, tempCntParameter, function(err, rowCourtCnt, columns){
+        if (err) {
+          console.log(err);
+          res.json({ code : 1
+                    ,msg : "다시 시도해 주세요."
+                    ,isMsgView : false
+                   });
+        }else{
+          db.query(tempQuery,tempParameter,function(err, rowCourtList, columns) {
+              if (err) {
+                console.log(err);
+                res.json({ code : 1
+                          ,msg : "다시 시도해 주세요."
+                          ,isMsgView : false
+                         });
+              }else{
+                rtCode = 0;
+                rtMsg = "";
+                res.json({ code : rtCode
+                          ,msg : rtMsg
+                          ,isMsgView : false
+                          ,totalCnt : rowCourtCnt
+                          ,list : rowCourtList
+                         });
+              }
+          });
+        }
+      });
 
       _DBPool.release(db);
-
   });
-
 });
 
 module.exports = router;
