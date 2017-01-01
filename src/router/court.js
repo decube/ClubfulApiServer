@@ -356,6 +356,7 @@ router.post('/list', function(req, res) {
       }else{
         db.query(tempQuery,[categorySeq, page, size],function(err, rowCourtList, columns) {
             if (err) {
+              console.log(err);
               res.json({ code : 1
                         ,msg : "다시 시도해 주세요."
                         ,isMsgView : false
