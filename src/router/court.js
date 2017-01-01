@@ -361,7 +361,9 @@ router.post('/list', function(req, res) {
         if (err) {
           res.json({ code : 1,msg : "다시 시도해 주세요.",isMsgView : false});
         }else{
-          var totalCnt = rowCourtCnt["cnt"];
+          console.log(rowCourtCnt);
+          console.log(rowCourtCnt[0]);
+          var totalCnt = rowCourtCnt[0]["cnt"];
           console.log("totalCnt:"+totalCnt);
           db.query(tempQuery,tempParameter,function(err, rowCourtList, columns) {
             console.log("err2:"+err);
