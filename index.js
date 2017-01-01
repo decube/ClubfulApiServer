@@ -7,7 +7,6 @@ var router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var main = require('./src/router/main.js');
 var versionCheck = require('./src/router/versionCheck.js');
 var certification = require('./src/router/certification.js');
 var court = require('./src/router/court.js');
@@ -16,7 +15,6 @@ var appjs = require('./src/router/app.js');
 var location = require('./src/router/location.js');
 var category = require('./src/router/category.js');
 
-app.use('/main', main);
 app.use('/version', versionCheck);
 app.use('/certification', certification);
 app.use('/court', court);

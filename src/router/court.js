@@ -112,7 +112,7 @@ router.post('/create', function(req, res) {
 
 });
 
-router.post('/getList', function(req, res) {
+router.post('/searchList', function(req, res) {
 
   var token = req.body.token;
   var search = req.body.search;
