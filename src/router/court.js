@@ -337,7 +337,7 @@ router.post('/list', function(req, res) {
   }
   //t:시간순, i: 좋아요순, d: 거리순
   var tempQuery = _Query.getMainCourtTList;
-  if(flag =='t' && category == -1){
+  if(flag =='t' && categorySeq == -1){
     tempQuery = _Query.getMainCourtTCList;
   }else if(flag =='t'){
     tempQuery = _Query.getMainCourtTList;
