@@ -337,7 +337,9 @@ router.post('/list', function(req, res) {
   }
   //t:시간순, i: 좋아요순, d: 거리순
   var tempQuery = _Query.getMainCourtTList;
-  if(flag =='t'){
+  if(flag =='t' && category == -1){
+    tempQuery = _Query.getMainCourtTCList;
+  }else if(flag =='t'){
     tempQuery = _Query.getMainCourtTList;
   }else if(flag == 'i'){
     tempQuery = _Query.getMainCourtIList;
@@ -350,7 +352,7 @@ router.post('/list', function(req, res) {
         return res.end("CONNECTION error: " + err);
       }
       if(flag =='d'){
-        
+
       }else{
         db.query(tempQuery,[categorySeq, page, size],function(err, rowCourtList, columns) {
             if (err) {
