@@ -17,6 +17,7 @@ router.use(function timeLog(req, res, next) {
 });
 // define the home page route
 
+
 router.post('/insert', function(req, res) {
 
   var token = req.body.token;
@@ -25,15 +26,14 @@ router.post('/insert', function(req, res) {
   var userId = req.body.userId;
   var replySeq = req.body.replySeq;
 
-  // var token = req.query.token;
-  // var seq = req.query.seq;
-  // var context = req.query.context;
-  // var userId = req.query.userId;
-  // var replySeq = req.query.replySeq;
-
+  if(replySeq == null || replySeq ==''){
+    replySeq = 0;
+  }
+  console.log(' 1111??');
   var rtCode=1;
   var checkInsert = false;
   var rtMsg = '';
+  console.log(' 2222??'+_Query.insertReply);
   _DBPool.acquire(function(err, db) {
       if (err) {
         rtMsg = '커낵션 에러';
@@ -41,37 +41,44 @@ router.post('/insert', function(req, res) {
       }
       db.query(_Query.insertReply,[context, userId, seq],function(err, rowInsertReply, columns) {
           if (err) {
+            console.log(err);
             rtMsg = '디비 에러';
           }else{
             checkInsert=true;
+            _DBPool.release(db);
+            if(checkInsert){
+              console.log('여기오나');
+              _DBPool.acquire(function(err, db) {
+                if (err) {
+                  rtMsg = '커낵션 에러';
+                  return res.end("CONNECTION error: " + err);
+                }
+                db.query(_Query.selectReply,[seq, replySeq],function(err, rowReply, columns) {
+                    if (err) {
+                      console.log(err);
+                      rtMsg = '디비 에러';
+                    }else{
+                      rtCode = 0;
+                      rtMsg = '성공';
+                      res.json({ code : rtCode
+                              ,msg : rtMsg
+                              ,isMsgView : false
+                              ,list : rowReply
+                             });
+                    }
+                });
+                _DBPool.release(db); 
+              });
+            }
           }
           
       });
 
-      _DBPool.release(db);
 
       
   });
-  if(checkInsert){
-    _DBPool.acquire(function(err, db) {
-      if (err) {
-        rtMsg = '커낵션 에러';
-        return res.end("CONNECTION error: " + err);
-      }
-      db.query(_Query.selectReply,[seq, seq],function(err, rowReply, columns) {
-          if (err) {
-            rtMsg = '디비 에러';
-          }else{
-            res.json({ code : rtCode
-                    ,msg : rtMsg
-                    ,isMsgView : false
-                    ,list : rowReply
-                   });
-          }
-      });
-      _DBPool.release(db); 
-  });
-  }
+  console.log(checkInsert);
+  
   
   
   
