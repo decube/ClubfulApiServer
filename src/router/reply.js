@@ -89,8 +89,8 @@ router.post('/select', function(req, res) {
   var page = req.body.page;
   var size = req.body.size;
   var seq = req.body.seq;
-
-
+  
+  var start = 0;
   var rtCode=1;
   var rtMsg = '';
 
@@ -100,6 +100,8 @@ router.post('/select', function(req, res) {
   if(page == null || page == '' ){
     page = 1;
   }
+  start = (page - 1) * size;
+  
  _DBPool.acquire(function(err, db) {
     if (err) {
       rtMsg = '커낵션 에러';
