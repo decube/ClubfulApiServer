@@ -107,7 +107,7 @@ router.post('/select', function(req, res) {
       rtMsg = '커낵션 에러';
       return res.end("CONNECTION error: " + err);
     }
-    db.query(_Query.selectPagingReply,[seq, page, size, size],function(err, rowReply, columns) {
+    db.query(_Query.selectPagingReply,[seq, start, size],function(err, rowReply, columns) {
         if (err) {
           console.log(err);
           rtMsg = '디비 에러';
