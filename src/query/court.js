@@ -110,6 +110,26 @@ module.exports = function() {
                         +" WHERE court.categorySeq = category.seq"
                         +" AND court.categorySeq = ?",
           getMainCourtTCCount : "select COUNT(*) as cnt from court court, category category"
-                        +" WHERE court.categorySeq = category.seq"
+                        +" WHERE court.categorySeq = category.seq",
+        
+          getMainCourtDList : "SELECT  court.seq "
+                		+" , ( 3959 * acos( cos( radians(?) ) * cos( radians( court.latitude ) ) * cos( radians( court.longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( court.latitude ) ) ) ) AS distance"
+                		+" , category.categoryNM"
+                		+" , court.address"
+                		+" , court.addressShort"
+                		+" , court.cname"
+                		+" , court.latitude"
+                		+" , court.longitude"
+                		+" , court.description"
+                		+" , (select img1 from court_img where courtSeq = court.seq order by seq asc limit 1) as image1 "
+                		+" , (select count(*) from user_interest where courtSeq = court.seq ) as interest "
+                		+" from court court, category category"
+                	+" WHERE court.categorySeq = category.seq"
+                	+" HAVING distance < 25 ORDER BY distance LIMIT ? , ?",
+          getMainCourtDCount : "select count(*) as cnt from (SELECT  court.seq "
+                		+" , ( 3959 * acos( cos( radians(?) ) * cos( radians( court.latitude ) ) * cos( radians( court.longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( court.latitude ) ) ) ) AS distance"
+                		+" from court court, category category"
+                	+" WHERE court.categorySeq = category.seq"
+                	+" HAVING distance < 25 )"
       }
   }

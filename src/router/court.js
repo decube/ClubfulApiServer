@@ -352,6 +352,9 @@ router.post('/list', function(req, res) {
     tempQuery = _Query.getMainCourtIList;
   }else if(flag == 'd'){
     tempQuery = _Query.getMainCourtDList;
+    tempCntQuery = _Query.getMainCourtDCount;
+    tempParameter = [latitude , longitude, latitude, (page - 1) * size, Number(size)];
+    tempCntParameter = [latitude , longitude, latitude];
   }
 
   _DBPool.acquire(function(err, db) {
